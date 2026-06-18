@@ -1,0 +1,29 @@
+name: Actualizar Mundial 2026
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Actualizar datos
+        run: node update.js
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git diff --staged --quiet || git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push
