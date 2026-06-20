@@ -97,7 +97,12 @@ function card(m, open=false) {
   const grp=m.group?.replace("GROUP_","Grupo ")||"";
   const sLabel=done?"✅ Final":live?"🔴 EN VIVO":"⏰ Próximo";
   const sColor=done?"#4ade80":live?"#f87171":"#60a5fa";
-  const goals=(m.goals||[]).map(g=>`<span class="badge">${f(g.team?.name)} ${g.scorer?.name||""} ${g.minute||""}'</span>`).join("");
+  const goals=(m.goals||[]).map(g=>{
+    const tipo=g.type==="OWN_GOAL"?" (OG)":g.type==="PENALTY"?" (p)":"";
+    return `<span class="badge">${f(g.team?.name)} ${g.scorer?.name||""} ${g.minute||""}'${tipo}</span>`;
+  }).join("");
+  const amarillas=(m.bookings||[]).filter(b=>b.card==="YELLOW_CARD");
+  const rojas=(m.bookings||[]).filter(b=>b.card==="RED_CARD"||b.card==="YELLOW_RED_CARD");
   const anal=getAnalisis(home?.name, away?.name);
   const cid="c"+m.id;
 
@@ -116,7 +121,9 @@ function card(m, open=false) {
   </div>
   <div id="${cid}" style="display:${open?"block":"none"};margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">
     ${goals?`<div style="font-size:10px;color:#94a3b8;margin-bottom:4px;">⚽ Goles</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${goals}</div>`:""}
-    <div style="font-size:10px;color:#64748b;margin-bottom:${anal?"8px":"0"};">📅 ${clDateShort(m.utcDate)} · 🕐 ${clHour(m.utcDate)} Chile${m.venue?` · 🏟 ${m.venue}`:""}</div>
+    <div style="font-size:10px;color:#64748b;margin-bottom:6px;">📅 ${clDateShort(m.utcDate)} · 🕐 ${clHour(m.utcDate)} Chile${m.venue?` · 🏟 ${m.venue}`:""}</div>
+    ${(amarillas.length||rojas.length)?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:${anal?"8px":"0"};">${amarillas.map(b=>`<span style="font-size:10px;background:#1a1500;color:#fbbf24;border:1px solid #3a3000;border-radius:4px;padding:1px 6px;">🟨 ${b.player?.name||""} ${b.minute||""}'</span>`).join("")}${rojas.map(b=>`<span style="font-size:10px;background:#1a0808;color:#f87171;border:1px solid #3a1010;border-radius:4px;padding:1px 6px;">🟥 ${b.player?.name||""} ${b.minute||""}'</span>`).join("")}</div>`:""}
+    <div style="font-size:10px;color:#64748b;margin-bottom:${anal?"8px":"0"};">
     ${anal?`<div style="display:flex;flex-direction:column;gap:6px;">
       <div style="border-left:3px solid #4ade80;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:3px;">🏆 ¿Quién debería ganar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.ganador}</div></div>
       <div style="border-left:3px solid #fbbf24;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:3px;">⚽ ¿Quién debería anotar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.goleadores}</div></div>
@@ -199,9 +206,9 @@ async function main() {
     `<div id="t${s.group?.replace("GROUP_","")}" style="display:${i===0?"block":"none"};">${tableHTML(s)}</div>`
   ).join("");
 
-  // PRÓXIMOS
+  // PRÓXIMOS — excluir los de hoy (ya están en pestaña Hoy)
   const byDate={};
-  upcoming.slice(0,20).forEach(m=>{
+  upcoming.filter(m=>!isToday(m.utcDate)).slice(0,20).forEach(m=>{
     const d=clDateShort(m.utcDate);
     if(!byDate[d]) byDate[d]=[];
     byDate[d].push(m);
