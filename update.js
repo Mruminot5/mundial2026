@@ -51,7 +51,7 @@ const n = t => NAMES[t] || t;
 const f = t => FLAGS[t] || "🏳";
 
 function clHour(utc) {
-  return new Date(utc).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",timeZone:"America/Santiago"});
+  return new Date(utc).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
 }
 function clDateShort(utc) {
   return new Date(utc).toLocaleDateString("es-CL",{day:"numeric",month:"short",timeZone:"America/Santiago"});
@@ -65,6 +65,30 @@ function isToday(utc) {
 }
 function scoreClass(h,a) { return h>a?"w":h<a?"l":"d"; }
 
+
+// ── ANÁLISIS MANUAL POR PARTIDO ──
+const ANALISIS = {
+  "Netherlands_Sweden":{ganador:"Partido muy abierto. Países Bajos cedió 2-2 vs Japón al 89'. Suecia goleó 5-1 a Túnez. Puede ir para cualquier lado.",goleadores:"Viktor Gyökeres (Suecia) — goleador del torneo. Gakpo y Depay (Países Bajos) también muy peligrosos.",figura:"Viktor Gyökeres (Suecia) — en la mejor forma de su carrera. Puede decidir el partido él solo.",apuesta:"Ambos anotan · Más de 2.5 goles · Gyökeres anota. Cuota est: 1.9x"},
+  "Germany_Côte d'Ivoire":{ganador:"Alemania clarísima favorita. Viene de 7-1. C. Marfil ganó su J1 al 90' pero no tiene nivel para los alemanes. Goleada probable.",goleadores:"Havertz (doblete J1) y Musiala son los más letales. Amad Diallo (C. Marfil) es el único peligro.",figura:"Jamal Musiala (Alemania) — el más habilidoso del torneo, 22 años.",apuesta:"Alemania gana · Musiala anota o asiste · Más de 3.5 goles. Cuota est: 2.0x"},
+  "Ecuador_Curaçao":{ganador:"Ecuador necesita ganar sí o sí tras perder 0-1 vs C. Marfil al 90'. Curazao fue goleado 1-7 por Alemania.",goleadores:"Enner Valencia (Ecuador) — histórico capitán. Moisés Caicedo puede aportar desde el mediocampo.",figura:"Moisés Caicedo (Ecuador) — uno de los mejores mediocampistas del mundo (Chelsea).",apuesta:"Ecuador gana · Más de 2.5 goles · Valencia anota. Cuota est: 1.8x"},
+  "Tunisia_Japan":{ganador:"Japón demostró nivel empatando con Países Bajos al 89'. Túnez fue goleado 1-5 por Suecia. Japón favorito claro.",goleadores:"Daichi Kamada (Japón) — marcó el 2-2 al 89' vs Países Bajos. Ritsu Doan también peligroso.",figura:"Takumi Minamino (Japón) — mediocampista que aparece en el área. Motor japonés junto a Kamada.",apuesta:"Japón gana · Más de 1.5 goles · Kamada anota. Cuota est: 2.2x"},
+  "Spain_Saudi Arabia":{ganador:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay. Los españoles tienen más calidad pero la presión es enorme.",goleadores:"Pedri y Morata son los más peligrosos. Arabia busca contraataque con Al-Dawsari.",figura:"Pedri (España) — el mediocampista más creativo cuando está inspirado. España lo necesita.",apuesta:"España gana · Pedri con asistencia. Cuota est: 1.9x"},
+  "Belgium_IR Iran":{ganador:"Bélgica igualó 1-1 con Egipto. Irán cedió 2-2 con Nueva Zelanda. Partido equilibrado entre dos equipos irregulares.",goleadores:"Romelu Lukaku (Bélgica) si está en forma es letal. Mehdi Taremi (Irán) referente ofensivo.",figura:"Kevin De Bruyne (Bélgica) — si aparece, cambia el partido. Gran esperanza belga.",apuesta:"Bélgica gana por la mínima · Menos de 3 goles. Cuota est: 2.3x"},
+  "Uruguay_Cabo Verde":{ganador:"Uruguay igualó 1-1 con Arabia (Araújo al 80'). Cabo Verde empató 0-0 con España sorprendiendo. Uruguay tiene más historia.",goleadores:"Darwin Núñez (Uruguay) — el más peligroso en ataque.",figura:"Federico Valverde (Uruguay) — mediocampista del Real Madrid, motor del equipo celeste.",apuesta:"Uruguay gana · Darwin Núñez anota. Cuota est: 2.1x"},
+  "New Zealand_Egypt":{ganador:"Nueva Zelanda cedió 2-2 con Irán. Egipto empató 1-1 con Bélgica. Partido parejo entre dos equipos irregulares.",goleadores:"Chris Wood (Nueva Zelanda). Omar Marmoush (Egipto) viene de gran temporada en Europa.",figura:"Chris Wood (Nueva Zelanda) — delantero referente. Puede ser la figura.",apuesta:"Empate o Egipto gana · Menos de 2.5 goles. Cuota est: 2.0x"},
+  "Argentina_Austria":{ganador:"Argentina viene de 3-0 a Argelia con hat-trick de Messi. Austria ganó 3-1 a Jordania. El partido más atractivo de la jornada.",goleadores:"Messi (Argentina) en modo histórico — 16 goles mundiales. Arnautovic (Austria) de penal es peligroso.",figura:"Lionel Messi (Argentina) — el mejor de todos los tiempos en su última Copa del Mundo.",apuesta:"Argentina gana · Messi anota · Más de 2.5 goles. Cuota est: 2.0x"},
+  "France_Iraq":{ganador:"Francia viene de 3-1 a Senegal. Iraq perdió 1-4 con Noruega. Francia debería golear sin problemas.",goleadores:"Mbappé (Francia) — el más en forma del torneo. Barcola también marcó en J1.",figura:"Kylian Mbappé (Francia) — goleador histórico de la selección francesa.",apuesta:"Francia gana +2 goles · Mbappé anota. Cuota est: 1.8x"},
+  "Norway_Senegal":{ganador:"Noruega goleó 4-1 a Iraq. Senegal perdió 1-3 con Francia. Noruega favorita clara.",goleadores:"Erling Haaland (Noruega) — doblete en J1, imparable. Sadio Mané (Senegal) si está al 100%.",figura:"Erling Haaland (Noruega) — el delantero más letal del torneo junto a Gyökeres.",apuesta:"Noruega gana · Haaland anota · Más de 2.5 goles. Cuota est: 1.9x"},
+  "Jordan_Algeria":{ganador:"Jordania y Argelia ambas perdieron J1. Partido entre los dos eliminados casi del Grupo J.",goleadores:"Ali Olwan (Jordania) — marcó el primer gol histórico de Jordania en un Mundial.",figura:"Ali Olwan (Jordania) — el autor del histórico gol puede repetir.",apuesta:"Empate o Jordania gana · Menos de 2.5 goles. Cuota est: 2.5x"},
+  "Portugal_Uzbekistan":{ganador:"Portugal decepcionó 1-1 con RD Congo. Uzbekistán perdió 1-3 con Colombia. Portugal obligado a ganar.",goleadores:"Cristiano Ronaldo (Portugal) — necesita despertar. Bruno Fernandes el más creativo.",figura:"Bruno Fernandes (Portugal) — el más dinámico. Si aparece, Portugal gana cómodo.",apuesta:"Portugal gana · Bruno Fernandes anota o asiste. Cuota est: 1.7x"},
+  "England_Ghana":{ganador:"Inglaterra goleó 4-2 a Croacia. Ghana ganó 1-0 a Panamá al 94'. Inglaterra favorita pero Ghana tiene corazón.",goleadores:"Harry Kane (Inglaterra) — doblete en J1. Mohammed Kudus (Ghana) el peligro africano.",figura:"Jude Bellingham (Inglaterra) — mediocampista del Real Madrid, puede marcar la diferencia.",apuesta:"Inglaterra gana · Kane anota · Más de 2.5 goles. Cuota est: 1.8x"},
+  "Panama_Croatia":{ganador:"Panamá perdió 0-1 con Ghana. Croacia perdió 2-4 con Inglaterra. Ambos de vida o muerte.",goleadores:"Ismael Díaz (Panamá). Ivan Perisic (Croacia) si juega es el más letal.",figura:"Luka Modric (Croacia) — su último Mundial. Puede liderar la reacción croata.",apuesta:"Croacia gana · Modric con asistencia. Cuota est: 2.2x"},
+  "Colombia_DR Congo":{ganador:"Colombia goleó 3-1 a Uzbekistán. RD Congo empató 1-1 con Portugal. Colombia favorita.",goleadores:"Luis Díaz (Colombia) — el más desequilibrante. James Rodríguez el cerebro.",figura:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia.",apuesta:"Colombia gana · Luis Díaz anota. Cuota est: 1.9x"},
+};
+function getAnalisis(home, away) {
+  return ANALISIS[`${home}_${away}`] || ANALISIS[`${away}_${home}`] || null;
+}
+
 function card(m, open=false) {
   const home=m.homeTeam, away=m.awayTeam;
   const hG=m.score?.fullTime?.home, aG=m.score?.fullTime?.away;
@@ -74,6 +98,7 @@ function card(m, open=false) {
   const sLabel=done?"✅ Final":live?"🔴 EN VIVO":"⏰ Próximo";
   const sColor=done?"#4ade80":live?"#f87171":"#60a5fa";
   const goals=(m.goals||[]).map(g=>`<span class="badge">${f(g.team?.name)} ${g.scorer?.name||""} ${g.minute||""}'</span>`).join("");
+  const anal=getAnalisis(home?.name, away?.name);
 
   return `<div class="card${open?" open":""}" onclick="toggle(this)">
   <div style="display:flex;align-items:center;gap:7px;">
@@ -90,7 +115,14 @@ function card(m, open=false) {
   </div>
   <div style="display:${open?"block":"none"};margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">
     ${goals?`<div style="font-size:10px;color:#94a3b8;margin-bottom:4px;">⚽ Goles</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${goals}</div>`:""}
-    <div style="font-size:10px;color:#64748b;">📅 ${clDateShort(m.utcDate)} · 🕐 ${clHour(m.utcDate)} Chile${m.venue?` · 🏟 ${m.venue}`:""}</div>
+    <div style="font-size:10px;color:#64748b;margin-bottom:${anal?"8px":"0"};">📅 ${clDateShort(m.utcDate)} · 🕐 ${clHour(m.utcDate)} Chile${m.venue?` · 🏟 ${m.venue}`:""}</div>
+    ${anal?`<div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="border-left:3px solid #4ade80;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:3px;">🏆 ¿Quién debería ganar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.ganador}</div></div>
+      <div style="border-left:3px solid #fbbf24;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:3px;">⚽ ¿Quién debería anotar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.goleadores}</div></div>
+      <div style="border-left:3px solid #60a5fa;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:3px;">⭐ Figura esperada</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.figura}</div></div>
+      <div style="border-left:3px solid #c084fc;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#c084fc;font-weight:700;margin-bottom:3px;">💰 Apuesta recomendada</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">${anal.apuesta}</div></div>
+      <a style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a6b1a,#0f4a0f);border:2px solid #4ade80;border-radius:10px;padding:10px;color:#fff;font-weight:800;font-size:13px;text-decoration:none;margin-top:4px;" href="https://www.jugabet.cl" target="_blank">🎰 Apostar en Jugabet Chile →</a>
+    </div>`:""}
   </div>
 </div>`;
 }
