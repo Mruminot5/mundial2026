@@ -99,8 +99,9 @@ function card(m, open=false) {
   const sColor=done?"#4ade80":live?"#f87171":"#60a5fa";
   const goals=(m.goals||[]).map(g=>`<span class="badge">${f(g.team?.name)} ${g.scorer?.name||""} ${g.minute||""}'</span>`).join("");
   const anal=getAnalisis(home?.name, away?.name);
+  const cid="c"+m.id;
 
-  return `<div class="card${open?" open":""}" onclick="toggle(this)">
+  return `<div class="card${open?" open":""}" onclick="toggleCard('${cid}')">
   <div style="display:flex;align-items:center;gap:7px;">
     ${grp?`<span class="badge">${grp}</span>`:""}
     <span style="font-size:10px;color:${sColor};font-weight:700;min-width:55px;">${sLabel}${live&&m.minute?` ${m.minute}'`:""}</span>
@@ -113,7 +114,7 @@ function card(m, open=false) {
     </div>
     <span style="font-size:9px;color:#4ade80;">${open?"▲":"▼"}</span>
   </div>
-  <div style="display:${open?"block":"none"};margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">
+  <div id="${cid}" style="display:${open?"block":"none"};margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">
     ${goals?`<div style="font-size:10px;color:#94a3b8;margin-bottom:4px;">⚽ Goles</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${goals}</div>`:""}
     <div style="font-size:10px;color:#64748b;margin-bottom:${anal?"8px":"0"};">📅 ${clDateShort(m.utcDate)} · 🕐 ${clHour(m.utcDate)} Chile${m.venue?` · 🏟 ${m.venue}`:""}</div>
     ${anal?`<div style="display:flex;flex-direction:column;gap:6px;">
@@ -402,9 +403,10 @@ function showTab(id,btn){
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
-function toggle(card){
-  const divs=card.querySelectorAll('div');
-  const detail=divs[divs.length-1];
+function toggleCard(id){
+  const detail=document.getElementById(id);
+  if(!detail) return;
+  const card=detail.parentElement;
   const isOpen=card.classList.contains('open');
   card.classList.toggle('open',!isOpen);
   detail.style.display=isOpen?'none':'block';
