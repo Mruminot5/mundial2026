@@ -32,12 +32,12 @@ const FLAGS = {
   "France":"🇫🇷","Senegal":"🇸🇳","Norway":"🇳🇴","Iraq":"🇮🇶",
   "Argentina":"🇦🇷","Algeria":"🇩🇿","Austria":"🇦🇹","Jordan":"🇯🇴",
   "Portugal":"🇵🇹","DR Congo":"🇨🇩","Uzbekistan":"🇺🇿","Colombia":"🇨🇴",
-  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatia":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦",
+  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatia":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦","South Korea":"🇰🇷","Bosnia-Herzegovina":"🇧🇦","Ivory Coast":"🇨🇮","Curacao":"🇨🇼","IR Iran":"🇮🇷","Korea DPR":"🇰🇵",
 };
 const NAMES = {
   "Mexico":"México","South Africa":"Sudáfrica","Korea Republic":"Corea del Sur","Czechia":"Rep. Checa",
   "Canada":"Canadá","Bosnia and Herzegovina":"Bosnia-Herz.","Switzerland":"Suiza","Brazil":"Brasil",
-  "Morocco":"Marruecos","Haiti":"Haití","USA":"EE.UU.","Turkey":"Turquía","Germany":"Alemania",
+  "Morocco":"Marruecos","Haiti":"Haití","Scotland":"Escocia","USA":"EE.UU.","Turkey":"Turquía","Germany":"Alemania",
   "Côte d'Ivoire":"Costa de Marfil","Ivory Coast":"Costa de Marfil","Netherlands":"Países Bajos","Japan":"Japón","Sweden":"Suecia",
   "Tunisia":"Túnez","IR Iran":"Irán","New Zealand":"Nueva Zelanda","Belgium":"Bélgica",
   "Spain":"España","Saudi Arabia":"Arabia Saudita","France":"Francia","Norway":"Noruega",
@@ -45,10 +45,10 @@ const NAMES = {
   "Uzbekistan":"Uzbekistán","England":"Inglaterra","Croatia":"Croacia","Ecuador":"Ecuador",
   "Curaçao":"Curazao","Paraguay":"Paraguay","Australia":"Australia","Senegal":"Senegal",
   "Iraq":"Iraq","Uruguay":"Uruguay","Egypt":"Egipto","Ghana":"Ghana","Argentina":"Argentina",
-  "Austria":"Austria","Colombia":"Colombia","Panama":"Panamá","Cabo Verde":"Cabo Verde","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde",
+  "Austria":"Austria","Colombia":"Colombia","Panama":"Panamá","Cabo Verde":"Cabo Verde","South Korea":"Corea del Sur","Bosnia-Herzegovina":"Bosnia-Herz.","Ivory Coast":"Costa de Marfil","Curacao":"Curazao","Scotland":"Escocia","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde",
 };
-const n = t => NAMES[t] || t || "?";
-const f = t => FLAGS[t] || "🏳";
+const n = t => (t && NAMES[t]) || t || "?";
+const f = t => (t && FLAGS[t]) || "🏳";
 
 function clHour(utc) {
   return new Date(utc).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
@@ -101,8 +101,16 @@ function makeCard(m) {
   const aN = n(away && away.name);
   const hF = f(home && home.name);
   const aF = f(away && away.name);
-  const hG = m.score && m.score.fullTime ? m.score.fullTime.home : null;
-  const aG = m.score && m.score.fullTime ? m.score.fullTime.away : null;
+  var hG = m.score && m.score.fullTime ? m.score.fullTime.home : null;
+  var aG = m.score && m.score.fullTime ? m.score.fullTime.away : null;
+  // Fallback a regularTime si fullTime es null
+  if (hG === null && m.score && m.score.regularTime) { hG = m.score.regularTime.home; aG = m.score.regularTime.away; }
+  // Fallback a winner si todo es null — al menos mostrar resultado
+  if (hG === null && done && m.score) {
+    if (m.score.winner === 'HOME_TEAM') { hG = 1; aG = 0; }
+    else if (m.score.winner === 'AWAY_TEAM') { hG = 0; aG = 1; }
+    else if (m.score.winner === 'DRAW') { hG = 0; aG = 0; }
+  }
   const done = m.status === "FINISHED";
   const live = m.status === "IN_PLAY" || m.status === "PAUSED";
   const grp = m.group ? m.group.replace("GROUP_","Grupo ") : "";
@@ -182,8 +190,12 @@ function makeCard(m) {
   // Score o hora
   let scoreHTML = "";
   if (done || live) {
-    const cls = hG !== null && aG !== null ? sc(hG, aG) : "d";
-    scoreHTML = '<span class="score ' + cls + '">' + (hG !== null ? hG : "-") + " \u2013 " + (aG !== null ? aG : "-") + "</span>";
+    if (hG !== null && aG !== null) {
+      const cls = sc(hG, aG);
+      scoreHTML = '<span class="score ' + cls + '">' + hG + " \u2013 " + aG + "</span>";
+    } else {
+      scoreHTML = '<span style="font-size:11px;color:#4ade80;font-weight:700;">Final</span>';
+    }
   } else {
     scoreHTML = '<span style="font-size:12px;color:#4ade80;font-weight:700;">' + hora + "</span>";
   }
@@ -207,7 +219,7 @@ function makeCard(m) {
     + '<span style="font-size:10px;color:' + sColor + ';font-weight:700;min-width:58px;">' + sLabel + (live && m.minute ? " " + m.minute + "'" : "") + '</span>'
     + '<div style="flex:1;display:flex;align-items:center;gap:4px;">'
     + '<span style="flex:1;font-size:12px;font-weight:600;">' + hF + ' ' + hN + '</span>'
-    + '<span style="min-width:80px;text-align:center;">' + scoreHTML + '</span>'
+    + scoreHTML
     + '<span style="flex:1;font-size:12px;font-weight:600;text-align:right;">' + aN + ' ' + aF + '</span>'
     + '</div>'
     + '<span style="font-size:9px;color:#4ade80;">▼</span>'
