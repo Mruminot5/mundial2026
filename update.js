@@ -327,6 +327,12 @@ async function main() {
   var upcoming  = matches.filter(function(m){ return m.status === "SCHEDULED" || m.status === "TIMED"; }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var todayAll  = matches.filter(function(m){ return isToday(m.utcDate); }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
 
+  // DEBUG — imprimir nombres exactos de la API para verificar claves
+  console.log("=== NOMBRES API ===");
+  todayAll.forEach(function(m){ console.log("HOY: " + m.homeTeam.name + " vs " + m.awayTeam.name); });
+  upcoming.slice(0,8).forEach(function(m){ console.log("PROX: " + m.homeTeam.name + " vs " + m.awayTeam.name); });
+  finished.slice(0,5).forEach(function(m){ console.log("FIN: " + m.homeTeam.name + " vs " + m.awayTeam.name); });
+
   var totalGoals = finished.reduce(function(s,m){ var sc=m.score&&m.score.fullTime; return s+(sc&&sc.home||0)+(sc&&sc.away||0); },0);
   var nowCL  = new Date().toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
   var todayCL = clDateLong(new Date().toISOString());
