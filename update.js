@@ -29,7 +29,7 @@ const FLAGS = {
   "France":"🇫🇷","Senegal":"🇸🇳","Norway":"🇳🇴","Iraq":"🇮🇶",
   "Argentina":"🇦🇷","Algeria":"🇩🇿","Austria":"🇦🇹","Jordan":"🇯🇴",
   "Portugal":"🇵🇹","DR Congo":"🇨🇩","Uzbekistan":"🇺🇿","Colombia":"🇨🇴",
-  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatia":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦",
+  "England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croatia":"🇭🇷","Ghana":"🇬🇭","Panama":"🇵🇦","South Korea":"🇰🇷","Korea DPR":"🇰🇵","Bosnia-Herzegovina":"🇧🇦",
 };
 const NAMES = {
   "Mexico":"México","South Africa":"Sudáfrica","Korea Republic":"Corea del Sur","Czechia":"Rep. Checa",
@@ -44,7 +44,7 @@ const NAMES = {
   "Senegal":"Senegal","Iraq":"Iraq","Uruguay":"Uruguay","Egypt":"Egipto","Ghana":"Ghana",
   "Argentina":"Argentina","Austria":"Austria","Colombia":"Colombia","Panama":"Panamá",
   "Cabo Verde":"Cabo Verde","Cape Verde":"Cabo Verde","Cape Verde Islands":"Cabo Verde",
-  "Portugal":"Portugal","Qatar":"Qatar",
+  "Portugal":"Portugal","Qatar":"Qatar","South Korea":"Corea del Sur","Korea DPR":"Corea del Norte","Bosnia-Herzegovina":"Bosnia-Herz.",
 };
 const n = t => (t && NAMES[t]) || t || "?";
 const f = t => (t && FLAGS[t]) || "🏳";
@@ -110,8 +110,11 @@ ANAL["Netherlands_Sweden"]           = {g:"Países Bajos goleó 5-1 a Suecia. Xa
 // J2 pendientes / próximos con análisis
 ANAL["Tunisia_Japan"]                = {g:"Japón parte como claro favorito. Túnez fue goleado 1-5 por Suecia.",go:"Daichi Kamada (Japón) — marcó el 2-2 al 89min vs Países Bajos. Ritsu Doan peligroso.",fi:"Takumi Minamino (Japón) — motor junto a Kamada.",ap:"Japón gana · Más de 1.5 goles · Kamada anota. Cuota est: 2.2x",pr:"Pred: Japón 2-0"};
 ANAL["Spain_Saudi Arabia"]           = {g:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay.",go:"Pedri y Morata (España). Al-Dawsari (Arabia Saudita) en contraataque.",fi:"Pedri (España) — el creativo que España necesita despertar.",ap:"España gana · Pedri con asistencia. Cuota est: 1.9x",pr:"Pred: España 2-0"};
-ANAL["Belgium_IR Iran"]              = {g:"Bélgica igualó 1-1 con Egipto. Irán cedió 2-2 con Nueva Zelanda. Partido parejo.",go:"Romelu Lukaku (Bélgica). Mehdi Taremi (Irán) referente ofensivo.",fi:"Kevin De Bruyne (Bélgica) — si aparece cambia el partido.",ap:"Bélgica gana por la mínima · Menos de 3 goles. Cuota est: 2.3x",pr:"Pred: Bélgica 1-0"};
-ANAL["Uruguay_Cabo Verde"]           = {g:"Uruguay igualó 1-1 con Arabia (Araújo 80min). Cabo Verde empató 0-0 con España.",go:"Darwin Núñez (Uruguay) — el más peligroso en ataque.",fi:"Federico Valverde (Uruguay) — motor del equipo celeste.",ap:"Uruguay gana · Darwin Núñez anota. Cuota est: 2.1x",pr:"Pred: Uruguay 2-0"};
+ANAL["Belgium_IR Iran"]
+ANAL["Belgium_Iran"]              = {g:"Bélgica igualó 1-1 con Egipto. Irán cedió 2-2 con Nueva Zelanda. Partido parejo.",go:"Romelu Lukaku (Bélgica). Mehdi Taremi (Irán) referente ofensivo.",fi:"Kevin De Bruyne (Bélgica) — si aparece cambia el partido.",ap:"Bélgica gana por la mínima · Menos de 3 goles. Cuota est: 2.3x",pr:"Pred: Bélgica 1-0"};
+ANAL["Uruguay_Cabo Verde"]
+ANAL["Uruguay_Cape Verde Islands"]
+ANAL["Uruguay_Cape Verde"]           = {g:"Uruguay igualó 1-1 con Arabia (Araújo 80min). Cabo Verde empató 0-0 con España.",go:"Darwin Núñez (Uruguay) — el más peligroso en ataque.",fi:"Federico Valverde (Uruguay) — motor del equipo celeste.",ap:"Uruguay gana · Darwin Núñez anota. Cuota est: 2.1x",pr:"Pred: Uruguay 2-0"};
 ANAL["New Zealand_Egypt"]            = {g:"Nueva Zelanda cedió 2-2 con Irán. Egipto empató 1-1 con Bélgica. Partido parejo.",go:"Chris Wood (Nueva Zelanda). Omar Marmoush (Egipto) viene de gran temporada.",fi:"Chris Wood (Nueva Zelanda) — delantero referente.",ap:"Empate o Egipto gana · Menos de 2.5 goles. Cuota est: 2.0x",pr:"Pred: Egipto 1-0"};
 ANAL["Argentina_Austria"]            = {g:"Argentina viene de 3-0 a Argelia con hat-trick de Messi. Austria ganó 3-1 a Jordania.",go:"Messi (Argentina) — 16 goles mundiales. Arnautovic (Austria) peligroso.",fi:"Lionel Messi (Argentina) — el mejor de todos los tiempos.",ap:"Argentina gana · Messi anota · Más de 2.5 goles. Cuota est: 2.0x",pr:"Pred: Argentina 2-0"};
 ANAL["France_Iraq"]                  = {g:"Francia viene de 3-1 a Senegal. Iraq perdió 1-4 con Noruega. Francia debe golear.",go:"Mbappé (Francia) — más en forma del torneo. Barcola también marcó.",fi:"Kylian Mbappé (Francia) — goleador histórico de Francia.",ap:"Francia gana +2 goles · Mbappé anota. Cuota est: 1.8x",pr:"Pred: Francia 3-0"};
@@ -124,9 +127,33 @@ ANAL["Colombia_DR Congo"]            = {g:"Colombia goleó 3-1 a Uzbekistán. RD
 
 function getAnal(home, away) {
   if (!home || !away) return null;
+  // Buscar con nombres originales de la API
   var k1 = home + "_" + away;
   var k2 = away + "_" + home;
-  return ANAL[k1] || ANAL[k2] || null;
+  if (ANAL[k1]) return ANAL[k1];
+  if (ANAL[k2]) return ANAL[k2];
+  // Buscar reemplazando variantes conocidas
+  var fixes = {"IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
+    "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde",
+    "South Korea":"Korea Republic","United States":"USA"};
+  var h2 = fixes[home] || home;
+  var a2 = fixes[away] || away;
+  var k3 = h2 + "_" + a2;
+  var k4 = a2 + "_" + h2;
+  if (ANAL[k3]) return ANAL[k3];
+  if (ANAL[k4]) return ANAL[k4];
+  // Buscar por coincidencia parcial — primera palabra del nombre
+  var keys = Object.keys(ANAL);
+  for (var i = 0; i < keys.length; i++) {
+    var parts = keys[i].split("_");
+    if (parts.length < 2) continue;
+    var a1p = parts[0].split(" ")[0].toLowerCase();
+    var a2p = parts[1].split(" ")[0].toLowerCase();
+    var hp = home.split(" ")[0].toLowerCase();
+    var ap = away.split(" ")[0].toLowerCase();
+    if ((hp === a1p && ap === a2p) || (hp === a2p && ap === a1p)) return ANAL[keys[i]];
+  }
+  return null;
 }
 
 var cardId = 0;
@@ -198,7 +225,9 @@ function makeCard(m) {
 
   // Stats HTML
   var statsHTML = "";
-  if ((done || live) && (golesL.length || golesA.length || tarjL.length || tarjA.length)) {
+  if (done && !golesL.length && !golesA.length && !tarjL.length && !tarjA.length) {
+    statsHTML = '<div style="font-size:10px;color:#64748b;margin-bottom:6px;">ℹ️ Detalles de goles disponibles en la pestaña de Resultados del partido</div>';
+  } else if ((done || live) && (golesL.length || golesA.length || tarjL.length || tarjA.length)) {
     var lCol = '<div style="flex:1;">'
       + (golesL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;">' + golesL.join("") + "</div>" : "")
       + (tarjL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;">' + tarjL.join("") + "</div>" : "")
