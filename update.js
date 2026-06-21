@@ -78,6 +78,7 @@ ANAL["Brazil_Morocco"]               = {g:"Brasil empató 1-1 con Marruecos. Sai
 ANAL["Haiti_Scotland"]               = {g:"Escocia ganó 1-0 a Haití con gol de McGinn al 28min.",go:"John McGinn (Escocia) — el único gol del partido.",fi:"McGinn (Escocia) — gol y liderazgo en el mediocampo.",ap:"Partido terminado · Escocia con 3 pts",pr:"✅ Escocia 1-0"};
 ANAL["Australia_Turkey"]             = {g:"Australia ganó 2-0 a Turquía. Irankunda y Metcalfe.",go:"Irankunda (Australia) al 27min. Metcalfe al 75min.",fi:"Nestory Irankunda (Australia) — joven y explosivo.",ap:"Partido terminado · Australia con 3 pts",pr:"✅ Australia 2-0"};
 ANAL["Germany_Curaçao"]              = {g:"Alemania goleó 7-1 a Curazao. Havertz doblete, Musiala, Schlotterbeck y más.",go:"Kai Havertz (Alemania) con doblete. Comenencia marcó para Curazao.",fi:"Jamal Musiala (Alemania) — el más creativo del torneo.",ap:"Partido terminado · Alemania aplasta",pr:"✅ Alemania 7-1"};
+ANAL["Germany_Ivory Coast"]           = {g:"Alemania ganó 2-1 a Costa de Marfil en partido más ajustado de lo esperado.",go:"Alemania marcó dos goles. Costa de Marfil descontó.",fi:"Jamal Musiala (Alemania) — el más creativo.",ap:"Partido terminado · Alemania 6 pts",pr:"✅ Alemania 2-1"};
 ANAL["Côte d'Ivoire_Ecuador"]        = {g:"Costa de Marfil ganó 1-0 a Ecuador con gol de Amad Diallo al 90min.",go:"Amad Diallo (Costa de Marfil) — gol agónico al 90min.",fi:"Amad Diallo (Costa de Marfil) — el héroe de la jornada.",ap:"Partido terminado · Costa de Marfil con 3 pts",pr:"✅ C. Marfil 1-0"};
 ANAL["Netherlands_Japan"]            = {g:"Japón empató 2-2 con Países Bajos con gol de Kamada al 89min.",go:"Daichi Kamada (Japón) empató al 89min. Van Dijk y Summerville por Países Bajos.",fi:"Daichi Kamada (Japón) — el gol más dramático de J1.",ap:"Partido terminado · Empate 2-2",pr:"✅ Empate 2-2"};
 ANAL["Sweden_Tunisia"]               = {g:"Suecia goleó 5-1 a Túnez. Gyökeres, Isak, Svanberg.",go:"Viktor Gyökeres (Suecia) marcó y fue el mejor del partido.",fi:"Viktor Gyökeres (Suecia) — imparable. El goleador del torneo.",ap:"Partido terminado · Suecia lidera con 3 pts",pr:"✅ Suecia 5-1"};
@@ -98,19 +99,24 @@ ANAL["Ghana_Panama"]                 = {g:"Ghana ganó 1-0 a Panamá con gol ag�
 ANAL["Czechia_South Africa"]         = {g:"Rep. Checa empató 1-1 con Sudáfrica. Krejčí y Mokoena de penal.",go:"Krejčí (Rep. Checa) al 22min. Mokoena (Sudáfrica) de penal al 82min.",fi:"Mokoena (Sudáfrica) — el penal que rescató el punto.",ap:"Partido terminado · Empate 1-1",pr:"✅ Empate 1-1"};
 ANAL["Mexico_Korea Republic"]        = {g:"México ganó 1-0 a Corea del Sur con gol de Luis Romo al 50min. México clasificado.",go:"Luis Romo (México) — el gol decisive que clasifica al Tri.",fi:"Guillermo Ochoa (México) — valla invicta en 2 partidos.",ap:"Partido terminado · México clasificado 6 pts",pr:"✅ México 1-0"};
 ANAL["Switzerland_Bosnia and Herzegovina"] = {g:"Suiza goleó 4-1 a Bosnia. Manzambi doblete desde el banco.",go:"Manzambi (Suiza) doblete al 74min y 90+5min. Xhaka de penal.",fi:"Manzambi (Suiza) — entró desde el banco y decidió el partido.",ap:"Partido terminado · Suiza con 4 pts lidera",pr:"✅ Suiza 4-1"};
+ANAL["Switzerland_Bosnia"] = ANAL["Switzerland_Bosnia and Herzegovina"];
+ANAL["Switzerland_Bosnia-Herzegovina"]  = ANAL["Switzerland_Bosnia and Herzegovina"];
+ANAL["Switzerland_Bosnia"]              = ANAL["Switzerland_Bosnia and Herzegovina"];
 ANAL["Canada_Qatar"]                 = {g:"Canadá goleó 6-0 a Qatar. La mayor goleada del torneo. David, Buchanan, Larin doblete, Osorio, Davies.",go:"Jonathan David (Canadá) abrió el marcador. Larin con doblete.",fi:"Alphonso Davies (Canadá) — gol y asistencia. El más rápido del torneo.",ap:"Partido terminado · Canadá con 4 pts",pr:"✅ Canadá 6-0"};
 ANAL["Morocco_Scotland"]             = {g:"Marruecos ganó 1-0 a Escocia con gol de Saibari al 67min.",go:"Saibari (Marruecos) — el gol que da el liderato del Grupo C.",fi:"Achraf Hakimi (Marruecos) — el más activo por banda.",ap:"Partido terminado · Marruecos lidera Grupo C",pr:"✅ Marruecos 1-0"};
 ANAL["Brazil_Haiti"]                 = {g:"Brasil goleó 3-0 a Haití. Cunha doblete y Vinícius Jr.",go:"Matheus Cunha (Brasil) doblete al 23min y 36min. Vinícius al 45+3min.",fi:"Matheus Cunha (Brasil) — el despertar del scratch.",ap:"Partido terminado · Brasil con 4 pts",pr:"✅ Brasil 3-0"};
 ANAL["USA_Australia"]                = {g:"EE.UU. ganó 2-0 a Australia y se clasificó a 16avos. Autogol + Freeman.",go:"Autogol de Burgess al 11min. A. Freeman al 38min.",fi:"A. Freeman (EE.UU.) — gol y rendimiento destacado.",ap:"Partido terminado · EE.UU. clasificado 6 pts",pr:"✅ EE.UU. 2-0"};
 ANAL["Turkey_Paraguay"]              = {g:"Paraguay ganó 1-0 a Turquía con Almirón expulsado al inicio. Galarza al 2min.",go:"M. Galarza (Paraguay) al 2min. Turquía con 10 hombres todo el partido.",fi:"Galarza (Paraguay) — el gol héroe al minuto 2.",ap:"Partido terminado · Turquía eliminada",pr:"✅ Paraguay 1-0"};
 ANAL["Germany_Côte d'Ivoire"]        = {g:"Alemania ganó 2-1 a Costa de Marfil en partido más ajustado de lo esperado.",go:"Alemania marcó dos goles. Costa de Marfil descontó.",fi:"Jamal Musiala (Alemania) — el más creativo.",ap:"Partido terminado · Alemania 6 pts",pr:"✅ Alemania 2-1"};
+ANAL["Germany_Cote d'Ivoire"]         = ANAL["Germany_Côte d'Ivoire"];
+ANAL["Germany_Ivory Coast"]           = ANAL["Germany_Côte d'Ivoire"];
+ANAL["Germany_Côte d\'Ivoire"]       = ANAL["Germany_Côte d'Ivoire"];
 ANAL["Ecuador_Curaçao"]              = {g:"Ecuador empató 0-0 con Curazao. Decepción total. Ecuador casi eliminado.",go:"Nadie anotó. Ecuador sin ideas ofensivas durante 90min.",fi:"Moisés Caicedo (Ecuador) — el único que intentó.",ap:"Partido terminado · Ecuador en serios problemas",pr:"✅ Empate 0-0"};
 ANAL["Netherlands_Sweden"]           = {g:"Países Bajos goleó 5-1 a Suecia. Xavi Simons doblete. Gyökeres marcó el descuento.",go:"Xavi Simons (Países Bajos) doblete espectacular. Gyökeres (Suecia) marcó.",fi:"Xavi Simons (Países Bajos) — figura del partido con 2 goles.",ap:"Partido terminado · Países Bajos con 4 pts",pr:"✅ Países Bajos 5-1"};
 
 // J2 pendientes / próximos con análisis
 ANAL["Tunisia_Japan"]                = {g:"Japón parte como claro favorito. Túnez fue goleado 1-5 por Suecia.",go:"Daichi Kamada (Japón) — marcó el 2-2 al 89min vs Países Bajos. Ritsu Doan peligroso.",fi:"Takumi Minamino (Japón) — motor junto a Kamada.",ap:"Japón gana · Más de 1.5 goles · Kamada anota. Cuota est: 2.2x",pr:"Pred: Japón 2-0"};
 ANAL["Spain_Saudi Arabia"]           = {g:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay.",go:"Pedri y Morata (España). Al-Dawsari (Arabia Saudita) en contraataque.",fi:"Pedri (España) — el creativo que España necesita despertar.",ap:"España gana · Pedri con asistencia. Cuota est: 1.9x",pr:"Pred: España 2-0"};
-ANAL["Belgium_Iran"] = ANAL["Belgium_IR Iran"];
 ANAL["Belgium_Iran"] = ANAL["Belgium_IR Iran"];
 ANAL["Belgium_Islamic Republic of Iran"] = ANAL["Belgium_IR Iran"];
 ANAL["Uruguay_Cape Verde Islands"] = ANAL["Uruguay_Cabo Verde"];
@@ -128,21 +134,33 @@ ANAL["Colombia_DR Congo"]            = {g:"Colombia goleó 3-1 a Uzbekistán. RD
 
 function getAnal(home, away) {
   if (!home || !away) return null;
-  // Buscar con nombres originales de la API
-  var k1 = home + "_" + away;
-  var k2 = away + "_" + home;
-  if (ANAL[k1]) return ANAL[k1];
-  if (ANAL[k2]) return ANAL[k2];
-  // Buscar reemplazando variantes conocidas
-  var fixes = {"IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
-    "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde",
-    "South Korea":"Korea Republic","United States":"USA"};
-  var h2 = fixes[home] || home;
-  var a2 = fixes[away] || away;
-  var k3 = h2 + "_" + a2;
-  var k4 = a2 + "_" + h2;
-  if (ANAL[k3]) return ANAL[k3];
-  if (ANAL[k4]) return ANAL[k4];
+  // Normalizar apostrofes y caracteres especiales
+  function norm(s) {
+    return s.replace(/’/g,"'").replace(/‘/g,"'").replace(/é/g,"e")
+            .replace(/ô/g,"o").replace(/è/g,"e").replace(/ü/g,"u")
+            .replace(/ä/g,"a").replace(/ö/g,"o").replace(/é/g,"e");
+  }
+  var h = norm(home); var a = norm(away);
+  // Buscar exacto (con y sin normalizar)
+  var combos = [[home,away],[away,home],[h,a],[a,h]];
+  for (var ci=0; ci<combos.length; ci++) {
+    var k = combos[ci][0]+"_"+combos[ci][1];
+    if (ANAL[k]) return ANAL[k];
+  }
+  // Buscar con fixes de nombres
+  var fixes = {
+    "IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
+    "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde",
+    "Cape Verde":"Cabo Verde","South Korea":"Korea Republic","United States":"USA",
+    "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast"
+  };
+  var h2 = fixes[home] || fixes[h] || home;
+  var a2 = fixes[away] || fixes[a] || away;
+  var combos2 = [[h2,a2],[a2,h2],[home,a2],[a2,home],[h2,away],[away,h2]];
+  for (var ci=0; ci<combos2.length; ci++) {
+    var k = combos2[ci][0]+"_"+combos2[ci][1];
+    if (ANAL[k]) return ANAL[k];
+  }
   // Búsqueda flexible por palabras clave
   var keys = Object.keys(ANAL);
   // Primera palabra
