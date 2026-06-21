@@ -94,32 +94,30 @@ function getAnal(home, away) {
 let cardId = 0;
 function makeCard(m) {
   cardId++;
-  const cid = "cd" + cardId;
-  const home = m.homeTeam;
-  const away = m.awayTeam;
-  const hN = n(home && home.name);
-  const aN = n(away && away.name);
-  const hF = f(home && home.name);
-  const aF = f(away && away.name);
+  var cid = "cd" + cardId;
+  var home = m.homeTeam;
+  var away = m.awayTeam;
+  var hN = n(home && home.name);
+  var aN = n(away && away.name);
+  var hF = f(home && home.name);
+  var aF = f(away && away.name);
+  var done = m.status === "FINISHED";
+  var live = m.status === "IN_PLAY" || m.status === "PAUSED";
+  var grp = m.group ? m.group.replace("GROUP_","Grupo ") : "";
+  var sLabel = done ? "✅ Final" : live ? "🔴 EN VIVO" : "⏰ Próximo";
+  var sColor = done ? "#4ade80" : live ? "#f87171" : "#60a5fa";
+  var hora = clHour(m.utcDate);
+  var fecha = clDateShort(m.utcDate);
+  var venue = m.venue || "";
+  var anal = getAnal(home && home.name, away && away.name);
   var hG = m.score && m.score.fullTime ? m.score.fullTime.home : null;
   var aG = m.score && m.score.fullTime ? m.score.fullTime.away : null;
-  // Fallback a regularTime si fullTime es null
   if (hG === null && m.score && m.score.regularTime) { hG = m.score.regularTime.home; aG = m.score.regularTime.away; }
-  // Fallback a winner si todo es null — al menos mostrar resultado
   if (hG === null && done && m.score) {
-    if (m.score.winner === 'HOME_TEAM') { hG = 1; aG = 0; }
-    else if (m.score.winner === 'AWAY_TEAM') { hG = 0; aG = 1; }
-    else if (m.score.winner === 'DRAW') { hG = 0; aG = 0; }
+    if (m.score.winner === "HOME_TEAM") { hG = 1; aG = 0; }
+    else if (m.score.winner === "AWAY_TEAM") { hG = 0; aG = 1; }
+    else if (m.score.winner === "DRAW") { hG = 0; aG = 0; }
   }
-  const done = m.status === "FINISHED";
-  const live = m.status === "IN_PLAY" || m.status === "PAUSED";
-  const grp = m.group ? m.group.replace("GROUP_","Grupo ") : "";
-  const sLabel = done ? "✅ Final" : live ? "🔴 EN VIVO" : "⏰ Próximo";
-  const sColor = done ? "#4ade80" : live ? "#f87171" : "#60a5fa";
-  const hora = clHour(m.utcDate);
-  const fecha = clDateShort(m.utcDate);
-  const venue = m.venue || "";
-  const anal = getAnal(home && home.name, away && away.name);
 
   // Goles
   var golesLocal = [];
@@ -188,10 +186,10 @@ function makeCard(m) {
   var golesHTML = statsHTML; // compatibilidad
 
   // Score o hora
-  let scoreHTML = "";
+  var scoreHTML = "";
   if (done || live) {
     if (hG !== null && aG !== null) {
-      const cls = sc(hG, aG);
+      var cls = sc(hG, aG);
       scoreHTML = '<span class="score ' + cls + '">' + hG + " \u2013 " + aG + "</span>";
     } else {
       scoreHTML = '<span style="font-size:11px;color:#4ade80;font-weight:700;">Final</span>';
@@ -201,7 +199,7 @@ function makeCard(m) {
   }
 
   // Análisis HTML
-  let analHTML = "";
+  var analHTML = "";
   if (anal) {
     var predBadge = anal.pred ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:8px 12px;margin-bottom:6px;text-align:center;"><span style="font-size:13px;font-weight:800;color:#4ade80;">' + anal.pred + '</span></div>' : "";
     analHTML = '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">' + predBadge
