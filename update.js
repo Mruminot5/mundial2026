@@ -110,11 +110,12 @@ ANAL["Netherlands_Sweden"]           = {g:"Países Bajos goleó 5-1 a Suecia. Xa
 // J2 pendientes / próximos con análisis
 ANAL["Tunisia_Japan"]                = {g:"Japón parte como claro favorito. Túnez fue goleado 1-5 por Suecia.",go:"Daichi Kamada (Japón) — marcó el 2-2 al 89min vs Países Bajos. Ritsu Doan peligroso.",fi:"Takumi Minamino (Japón) — motor junto a Kamada.",ap:"Japón gana · Más de 1.5 goles · Kamada anota. Cuota est: 2.2x",pr:"Pred: Japón 2-0"};
 ANAL["Spain_Saudi Arabia"]           = {g:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay.",go:"Pedri y Morata (España). Al-Dawsari (Arabia Saudita) en contraataque.",fi:"Pedri (España) — el creativo que España necesita despertar.",ap:"España gana · Pedri con asistencia. Cuota est: 1.9x",pr:"Pred: España 2-0"};
-ANAL["Belgium_IR Iran"]
-ANAL["Belgium_Iran"]              = {g:"Bélgica igualó 1-1 con Egipto. Irán cedió 2-2 con Nueva Zelanda. Partido parejo.",go:"Romelu Lukaku (Bélgica). Mehdi Taremi (Irán) referente ofensivo.",fi:"Kevin De Bruyne (Bélgica) — si aparece cambia el partido.",ap:"Bélgica gana por la mínima · Menos de 3 goles. Cuota est: 2.3x",pr:"Pred: Bélgica 1-0"};
-ANAL["Uruguay_Cabo Verde"]
-ANAL["Uruguay_Cape Verde Islands"]
-ANAL["Uruguay_Cape Verde"]           = {g:"Uruguay igualó 1-1 con Arabia (Araújo 80min). Cabo Verde empató 0-0 con España.",go:"Darwin Núñez (Uruguay) — el más peligroso en ataque.",fi:"Federico Valverde (Uruguay) — motor del equipo celeste.",ap:"Uruguay gana · Darwin Núñez anota. Cuota est: 2.1x",pr:"Pred: Uruguay 2-0"};
+ANAL["Belgium_Iran"] = ANAL["Belgium_IR Iran"];
+ANAL["Belgium_Iran"] = ANAL["Belgium_IR Iran"];
+ANAL["Belgium_Islamic Republic of Iran"] = ANAL["Belgium_IR Iran"];
+ANAL["Uruguay_Cape Verde Islands"] = ANAL["Uruguay_Cabo Verde"];
+ANAL["Uruguay_Cape Verde"] = ANAL["Uruguay_Cabo Verde"];
+ANAL["Uruguay_Cabo Verde Islands"] = ANAL["Uruguay_Cabo Verde"];
 ANAL["New Zealand_Egypt"]            = {g:"Nueva Zelanda cedió 2-2 con Irán. Egipto empató 1-1 con Bélgica. Partido parejo.",go:"Chris Wood (Nueva Zelanda). Omar Marmoush (Egipto) viene de gran temporada.",fi:"Chris Wood (Nueva Zelanda) — delantero referente.",ap:"Empate o Egipto gana · Menos de 2.5 goles. Cuota est: 2.0x",pr:"Pred: Egipto 1-0"};
 ANAL["Argentina_Austria"]            = {g:"Argentina viene de 3-0 a Argelia con hat-trick de Messi. Austria ganó 3-1 a Jordania.",go:"Messi (Argentina) — 16 goles mundiales. Arnautovic (Austria) peligroso.",fi:"Lionel Messi (Argentina) — el mejor de todos los tiempos.",ap:"Argentina gana · Messi anota · Más de 2.5 goles. Cuota est: 2.0x",pr:"Pred: Argentina 2-0"};
 ANAL["France_Iraq"]                  = {g:"Francia viene de 3-1 a Senegal. Iraq perdió 1-4 con Noruega. Francia debe golear.",go:"Mbappé (Francia) — más en forma del torneo. Barcola también marcó.",fi:"Kylian Mbappé (Francia) — goleador histórico de Francia.",ap:"Francia gana +2 goles · Mbappé anota. Cuota est: 1.8x",pr:"Pred: Francia 3-0"};
@@ -142,8 +143,9 @@ function getAnal(home, away) {
   var k4 = a2 + "_" + h2;
   if (ANAL[k3]) return ANAL[k3];
   if (ANAL[k4]) return ANAL[k4];
-  // Buscar por coincidencia parcial — primera palabra del nombre
+  // Búsqueda flexible por palabras clave
   var keys = Object.keys(ANAL);
+  // Primera palabra
   for (var i = 0; i < keys.length; i++) {
     var parts = keys[i].split("_");
     if (parts.length < 2) continue;
@@ -152,6 +154,21 @@ function getAnal(home, away) {
     var hp = home.split(" ")[0].toLowerCase();
     var ap = away.split(" ")[0].toLowerCase();
     if ((hp === a1p && ap === a2p) || (hp === a2p && ap === a1p)) return ANAL[keys[i]];
+  }
+  // Contiene
+  for (var i = 0; i < keys.length; i++) {
+    var parts = keys[i].split("_");
+    if (parts.length < 2) continue;
+    var k_h = parts[0].toLowerCase();
+    var k_a = parts[1].toLowerCase();
+    var s_h = home.toLowerCase();
+    var s_a = away.toLowerCase();
+    var hInK = k_h.indexOf(s_h) >= 0 || s_h.indexOf(k_h) >= 0;
+    var aInK = k_a.indexOf(s_a) >= 0 || s_a.indexOf(k_a) >= 0;
+    if (hInK && aInK) return ANAL[keys[i]];
+    var hInK2 = k_a.indexOf(s_h) >= 0 || s_h.indexOf(k_a) >= 0;
+    var aInK2 = k_h.indexOf(s_a) >= 0 || s_a.indexOf(k_h) >= 0;
+    if (hInK2 && aInK2) return ANAL[keys[i]];
   }
   return null;
 }
