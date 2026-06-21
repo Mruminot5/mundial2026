@@ -152,7 +152,8 @@ function makeCard(m) {
   // Análisis HTML
   let analHTML = "";
   if (anal) {
-    analHTML = '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">'
+    var predBadge = anal.pred ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:8px 12px;margin-bottom:6px;text-align:center;"><span style="font-size:13px;font-weight:800;color:#4ade80;">' + anal.pred + '</span></div>' : "";
+    analHTML = '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">' + predBadge
       + '<div style="border-left:3px solid #4ade80;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:3px;">🏆 ¿Quién debería ganar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.ganador + '</div></div>'
       + '<div style="border-left:3px solid #fbbf24;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:3px;">⚽ ¿Quién debería anotar?</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.goleadores + '</div></div>'
       + '<div style="border-left:3px solid #60a5fa;border-radius:7px;padding:8px 11px;background:rgba(0,0,0,.2);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:3px;">⭐ Figura esperada</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.figura + '</div></div>'
@@ -165,10 +166,10 @@ function makeCard(m) {
     + '<div style="display:flex;align-items:center;gap:7px;">'
     + (grp ? '<span class="badge">' + grp + '</span>' : '')
     + '<span style="font-size:10px;color:' + sColor + ';font-weight:700;min-width:58px;">' + sLabel + (live && m.minute ? " " + m.minute + "'" : "") + '</span>'
-    + '<div style="flex:1;display:flex;align-items:center;justify-content:space-between;gap:4px;">'
-    + '<span style="font-size:12px;font-weight:600;">' + hF + ' ' + hN + '</span>'
-    + scoreHTML
-    + '<span style="font-size:12px;font-weight:600;text-align:right;">' + aN + ' ' + aF + '</span>'
+    + '<div style="flex:1;display:flex;align-items:center;gap:4px;">'
+    + '<span style="flex:1;font-size:12px;font-weight:600;">' + hF + ' ' + hN + '</span>'
+    + '<span style="min-width:80px;text-align:center;">' + scoreHTML + '</span>'
+    + '<span style="flex:1;font-size:12px;font-weight:600;text-align:right;">' + aN + ' ' + aF + '</span>'
     + '</div>'
     + '<span style="font-size:9px;color:#4ade80;">▼</span>'
     + '</div>'
