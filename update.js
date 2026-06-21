@@ -24,7 +24,7 @@ const FLAGS = {
   "Mexico":"🇲🇽","South Africa":"🇿🇦","Korea Republic":"🇰🇷","Czechia":"🇨🇿",
   "Canada":"🇨🇦","Bosnia and Herzegovina":"🇧🇦","Qatar":"🇶🇦","Switzerland":"🇨🇭",
   "Brazil":"🇧🇷","Morocco":"🇲🇦","Haiti":"🇭🇹","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-  "USA":"🇺🇸","Paraguay":"🇵🇾","Australia":"🇦🇺","Turkey":"🇹🇷",
+  "USA":"🇺🇸","United States":"🇺🇸","Paraguay":"🇵🇾","Australia":"🇦🇺","Turkey":"🇹🇷",
   "Germany":"🇩🇪","Curaçao":"🇨🇼","Côte d'Ivoire":"🇨🇮","Ivory Coast":"🇨🇮","Ecuador":"🇪🇨",
   "Netherlands":"🇳🇱","Japan":"🇯🇵","Sweden":"🇸🇪","Tunisia":"🇹🇳",
   "IR Iran":"🇮🇷","New Zealand":"🇳🇿","Belgium":"🇧🇪","Egypt":"🇪🇬",
@@ -37,7 +37,7 @@ const FLAGS = {
 const NAMES = {
   "Mexico":"México","South Africa":"Sudáfrica","Korea Republic":"Corea del Sur","Czechia":"Rep. Checa",
   "Canada":"Canadá","Bosnia and Herzegovina":"Bosnia-Herz.","Switzerland":"Suiza","Brazil":"Brasil",
-  "Morocco":"Marruecos","Haiti":"Haití","Scotland":"Escocia","USA":"EE.UU.","Turkey":"Turquía","Germany":"Alemania",
+  "Morocco":"Marruecos","Haiti":"Haití","Scotland":"Escocia","USA":"EE.UU.","United States":"EE.UU.","Turkey":"Turquía","Germany":"Alemania",
   "Côte d'Ivoire":"Costa de Marfil","Ivory Coast":"Costa de Marfil","Netherlands":"Países Bajos","Japan":"Japón","Sweden":"Suecia",
   "Tunisia":"Túnez","IR Iran":"Irán","New Zealand":"Nueva Zelanda","Belgium":"Bélgica",
   "Spain":"España","Saudi Arabia":"Arabia Saudita","France":"Francia","Norway":"Noruega",
@@ -51,7 +51,8 @@ const n = t => (t && NAMES[t]) || t || "?";
 const f = t => (t && FLAGS[t]) || "🏳";
 
 function clHour(utc) {
-  return new Date(utc).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
+  var h = new Date(utc).toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
+  return h === "24:00" ? "00:00" : h;
 }
 function clDateShort(utc) {
   return new Date(utc).toLocaleDateString("es-CL",{day:"numeric",month:"short",timeZone:"America/Santiago"});
@@ -97,10 +98,10 @@ function makeCard(m) {
   var cid = "cd" + cardId;
   var home = m.homeTeam;
   var away = m.awayTeam;
-  var hN = n(home && home.name);
-  var aN = n(away && away.name);
-  var hF = f(home && home.name);
-  var aF = f(away && away.name);
+  var hN = n(home && home.name) || "Local";
+  var aN = n(away && away.name) || "Visita";
+  var hF = f(home && home.name) || "🏳";
+  var aF = f(away && away.name) || "🏳";
   var done = m.status === "FINISHED";
   var live = m.status === "IN_PLAY" || m.status === "PAUSED";
   var grp = m.group ? m.group.replace("GROUP_","Grupo ") : "";
@@ -215,10 +216,10 @@ function makeCard(m) {
     + '<div style="display:flex;align-items:center;gap:7px;">'
     + (grp ? '<span class="badge">' + grp + '</span>' : '')
     + '<span style="font-size:10px;color:' + sColor + ';font-weight:700;min-width:58px;">' + sLabel + (live && m.minute ? " " + m.minute + "'" : "") + '</span>'
-    + '<div style="flex:1;display:flex;align-items:center;gap:4px;">'
-    + '<span style="flex:1;font-size:12px;font-weight:600;">' + hF + ' ' + hN + '</span>'
-    + scoreHTML
-    + '<span style="flex:1;font-size:12px;font-weight:600;text-align:right;">' + aN + ' ' + aF + '</span>'
+    + '<div style="flex:1;display:flex;align-items:center;gap:6px;">'
+    + '<span style="flex:1;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + hF + ' ' + hN + '</span>'
+    + '<span style="min-width:72px;text-align:center;flex-shrink:0;">' + scoreHTML + '</span>'
+    + '<span style="flex:1;font-size:12px;font-weight:600;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + aN + ' ' + aF + '</span>'
     + '</div>'
     + '<span style="font-size:9px;color:#4ade80;">▼</span>'
     + '</div>'
