@@ -25,10 +25,10 @@ const FLAGS = {
   "Canada":"🇨🇦","Bosnia and Herzegovina":"🇧🇦","Qatar":"🇶🇦","Switzerland":"🇨🇭",
   "Brazil":"🇧🇷","Morocco":"🇲🇦","Haiti":"🇭🇹","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿",
   "USA":"🇺🇸","Paraguay":"🇵🇾","Australia":"🇦🇺","Turkey":"🇹🇷",
-  "Germany":"🇩🇪","Curaçao":"🇨🇼","Côte d'Ivoire":"🇨🇮","Ecuador":"🇪🇨",
+  "Germany":"🇩🇪","Curaçao":"🇨🇼","Côte d'Ivoire":"🇨🇮","Ivory Coast":"🇨🇮","Ecuador":"🇪🇨",
   "Netherlands":"🇳🇱","Japan":"🇯🇵","Sweden":"🇸🇪","Tunisia":"🇹🇳",
   "IR Iran":"🇮🇷","New Zealand":"🇳🇿","Belgium":"🇧🇪","Egypt":"🇪🇬",
-  "Spain":"🇪🇸","Cabo Verde":"🇨🇻","Saudi Arabia":"🇸🇦","Uruguay":"🇺🇾",
+  "Spain":"🇪🇸","Cabo Verde":"🇨🇻","Cape Verde Islands":"🇨🇻","Cape Verde":"🇨🇻","Saudi Arabia":"🇸🇦","Uruguay":"🇺🇾",
   "France":"🇫🇷","Senegal":"🇸🇳","Norway":"🇳🇴","Iraq":"🇮🇶",
   "Argentina":"🇦🇷","Algeria":"🇩🇿","Austria":"🇦🇹","Jordan":"🇯🇴",
   "Portugal":"🇵🇹","DR Congo":"🇨🇩","Uzbekistan":"🇺🇿","Colombia":"🇨🇴",
@@ -38,14 +38,14 @@ const NAMES = {
   "Mexico":"México","South Africa":"Sudáfrica","Korea Republic":"Corea del Sur","Czechia":"Rep. Checa",
   "Canada":"Canadá","Bosnia and Herzegovina":"Bosnia-Herz.","Switzerland":"Suiza","Brazil":"Brasil",
   "Morocco":"Marruecos","Haiti":"Haití","USA":"EE.UU.","Turkey":"Turquía","Germany":"Alemania",
-  "Côte d'Ivoire":"C. Marfil","Netherlands":"Países Bajos","Japan":"Japón","Sweden":"Suecia",
+  "Côte d'Ivoire":"Costa de Marfil","Ivory Coast":"Costa de Marfil","Netherlands":"Países Bajos","Japan":"Japón","Sweden":"Suecia",
   "Tunisia":"Túnez","IR Iran":"Irán","New Zealand":"Nueva Zelanda","Belgium":"Bélgica",
   "Spain":"España","Saudi Arabia":"Arabia Saudita","France":"Francia","Norway":"Noruega",
   "Algeria":"Argelia","Jordan":"Jordania","Portugal":"Portugal","DR Congo":"RD Congo",
   "Uzbekistan":"Uzbekistán","England":"Inglaterra","Croatia":"Croacia","Ecuador":"Ecuador",
   "Curaçao":"Curazao","Paraguay":"Paraguay","Australia":"Australia","Senegal":"Senegal",
   "Iraq":"Iraq","Uruguay":"Uruguay","Egypt":"Egipto","Ghana":"Ghana","Argentina":"Argentina",
-  "Austria":"Austria","Colombia":"Colombia","Panama":"Panamá","Cabo Verde":"Cabo Verde",
+  "Austria":"Austria","Colombia":"Colombia","Panama":"Panamá","Cabo Verde":"Cabo Verde","Cape Verde Islands":"Cabo Verde","Cape Verde":"Cabo Verde",
 };
 const n = t => NAMES[t] || t || "?";
 const f = t => FLAGS[t] || "🏳";
@@ -114,31 +114,70 @@ function makeCard(m) {
   const anal = getAnal(home && home.name, away && away.name);
 
   // Goles
-  let golesHTML = "";
+  var golesLocal = [];
+  var golesVisita = [];
   if (m.goals && m.goals.length > 0) {
-    golesHTML = m.goals.map(function(g) {
-      const gf = f(g.team && g.team.name);
-      const gs = g.scorer && g.scorer.name ? g.scorer.name : "";
-      const gm = g.minute || "";
-      const gt = g.type === "OWN_GOAL" ? " (OG)" : g.type === "PENALTY" ? " (p)" : "";
-      return '<span class="badge">' + gf + " " + gs + " " + gm + "'" + gt + "</span>";
-    }).join("");
+    m.goals.forEach(function(g) {
+      var gs = g.scorer && g.scorer.name ? g.scorer.name : "Desconocido";
+      var gm = g.minute ? g.minute + "min" : "";
+      var gt = g.type === "OWN_GOAL" ? " (OG)" : g.type === "PENALTY" ? " (p)" : "";
+      var badge = '<span class="badge">⚽ ' + gs + " " + gm + gt + "</span>";
+      // Asignar al equipo correcto
+      if (g.team && g.team.name === (home && home.name)) {
+        golesLocal.push(badge);
+      } else {
+        golesVisita.push(badge);
+      }
+    });
   }
 
-  // Tarjetas
-  let bookHTML = "";
+  // Tarjetas amarillas y rojas separadas por equipo
+  var tarjLocal = [];
+  var tarjVisita = [];
   if (m.bookings && m.bookings.length > 0) {
-    bookHTML = m.bookings.map(function(b) {
-      const isRed = b.card === "RED_CARD" || b.card === "YELLOW_RED_CARD";
-      const emoji = isRed ? "🟥" : "🟨";
-      const color = isRed ? "#f87171" : "#fbbf24";
-      const bg = isRed ? "#1a0808" : "#1a1500";
-      const border = isRed ? "#3a1010" : "#3a3000";
-      const pn = b.player && b.player.name ? b.player.name : "";
-      const pm = b.minute || "";
-      return '<span style="font-size:10px;background:' + bg + ';color:' + color + ';border:1px solid ' + border + ';border-radius:4px;padding:1px 6px;">' + emoji + " " + pn + " " + pm + "'</span>";
-    }).join("");
+    m.bookings.forEach(function(b) {
+      var isRed = b.card === "RED_CARD" || b.card === "YELLOW_RED_CARD";
+      var emoji = isRed ? "🟥" : "🟨";
+      var color = isRed ? "#f87171" : "#fbbf24";
+      var bg = isRed ? "#1a0808" : "#1a1500";
+      var border = isRed ? "#3a1010" : "#3a3000";
+      var pn = b.player && b.player.name ? b.player.name : "";
+      var pm = b.minute ? b.minute + "min" : "";
+      var badge = '<span style="font-size:10px;background:' + bg + ';color:' + color + ';border:1px solid ' + border + ';border-radius:4px;padding:1px 6px;">' + emoji + " " + pn + " " + pm + "</span>";
+      if (b.team && b.team.name === (home && home.name)) {
+        tarjLocal.push(badge);
+      } else {
+        tarjVisita.push(badge);
+      }
+    });
   }
+
+  // Lesionados/sustituciones
+  var subsHTML = "";
+  if (m.substitutions && m.substitutions.length > 0) {
+    var subs = m.substitutions.map(function(s) {
+      var pout = s.playerOut && s.playerOut.name ? s.playerOut.name : "";
+      var pin  = s.playerIn  && s.playerIn.name  ? s.playerIn.name  : "";
+      var sm   = s.minute ? s.minute + "min" : "";
+      return '<span style="font-size:10px;background:#0f1f3a;color:#94a3b8;border:1px solid #1e3a6a;border-radius:4px;padding:1px 6px;">🔄 ' + pout + " → " + pin + " " + sm + "</span>";
+    }).join("");
+    subsHTML = '<div style="margin-bottom:6px;"><div style="font-size:10px;color:#94a3b8;margin-bottom:3px;">🔄 Cambios</div><div style="display:flex;flex-wrap:wrap;gap:3px;">' + subs + "</div></div>";
+  }
+
+  // Construir bloque de stats del partido (goles + tarjetas por equipo)
+  var statsHTML = "";
+  if ((done || live) && (golesLocal.length || golesVisita.length || tarjLocal.length || tarjVisita.length)) {
+    var localCol = '<div style="flex:1;">'
+      + (golesLocal.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;">' + golesLocal.join("") + "</div>" : "")
+      + (tarjLocal.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;">' + tarjLocal.join("") + "</div>" : "")
+      + "</div>";
+    var visitaCol = '<div style="flex:1;text-align:right;">'
+      + (golesVisita.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;margin-bottom:4px;">' + golesVisita.join("") + "</div>" : "")
+      + (tarjVisita.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;">' + tarjVisita.join("") + "</div>" : "")
+      + "</div>";
+    statsHTML = '<div style="display:flex;gap:8px;margin-bottom:8px;">' + localCol + visitaCol + "</div>";
+  }
+  var golesHTML = statsHTML; // compatibilidad
 
   // Score o hora
   let scoreHTML = "";
@@ -174,8 +213,7 @@ function makeCard(m) {
     + '<span style="font-size:9px;color:#4ade80;">▼</span>'
     + '</div>'
     + '<div id="' + cid + '" style="display:none;margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">'
-    + (golesHTML ? '<div style="font-size:10px;color:#94a3b8;margin-bottom:4px;">⚽ Goles</div><div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">' + golesHTML + '</div>' : '')
-    + (bookHTML ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">' + bookHTML + '</div>' : '')
+    + (golesHTML || subsHTML ? golesHTML + subsHTML : '')
     + '<div style="font-size:10px;color:#64748b;">' + '📅 ' + fecha + ' · 🕐 ' + hora + ' Chile' + (venue ? ' · 🏟 ' + venue : '') + '</div>'
     + analHTML
     + '</div>'
@@ -278,29 +316,93 @@ async function main() {
     return '<div id="t' + s.group.replace("GROUP_","") + '" style="display:' + (i===0?"block":"none") + ';">' + tableHTML(s) + '</div>';
   }).join("");
 
-  // ── TIPS ──
+  // ── APUESTAS — dinámico según jornada completada ──
+  const jornadaMax = jornadas.length > 0 ? jornadas[jornadas.length-1] : 0;
+
+  // Tips dinámicos por jornada
+  var tipsLines = [];
+  if (jornadaMax >= 1) {
+    tipsLines = tipsLines.concat([
+      "🇦🇷 <b>Argentina</b> — Messi hat-trick vs Argelia. Candidato al titulo.",
+      "🇩🇪 <b>Alemania</b> — 7-1 a Curazao. La maquina del torneo.",
+      "🇳🇴 <b>Noruega sorpresa</b> — Haaland doblete en debut. Atencion al Grupo I.",
+      "🇵🇹 <b>Portugal en aprietos</b> — 1-1 con RD Congo. Cristiano sin tiros al arco.",
+      "🇪🇸 <b>Espana decepciono</b> — 0-0 vs Cabo Verde. El campeon Euro sin aparecer."
+    ]);
+  }
+  if (jornadaMax >= 2) {
+    tipsLines = tipsLines.concat([
+      "🇲🇽 <b>Mexico clasificado</b> — 6 pts en 2 partidos. Lider Grupo A.",
+      "🇺🇸 <b>EE.UU. clasificado</b> — 6 pts. Efecto local brutal.",
+      "🇨🇦 <b>Canada goleador</b> — 6-0 a Qatar. La sorpresa positiva de J2.",
+      "🇨🇭 <b>Suiza reacciono</b> — 4-1 a Bosnia tras el empate con Qatar.",
+      "🇹🇷 <b>Turquia eliminada</b> — Paraguay heroico con 10 jugadores."
+    ]);
+  }
+  if (jornadaMax >= 3) {
+    tipsLines = tipsLines.concat([
+      "🏆 <b>J3 completa</b> — Fase de grupos terminada. 16avos de final se vienen.",
+      "Revisa la tabla de posiciones para ver los 32 clasificados."
+    ]);
+  }
   const tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
-    + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista</div>'
-    + '<div style="font-size:12px;color:#cbd5e1;line-height:1.9;">'
-    + '🇲🇽 <b>México clasificado</b> — 6 pts en 2 partidos. Primero del Grupo A.<br/>'
-    + '🇺🇸 <b>EE.UU. clasificado</b> — 6 pts. Anfitrión dominante.<br/>'
-    + '🇩🇪 <b>Alemania vs C. Marfil hoy</b> — Goleada probable. Musiala a brillar.<br/>'
-    + '🇸🇪 <b>Países Bajos vs Suecia hoy</b> — El partido más atractivo del día. Gyökeres imparable.<br/>'
-    + '🇵🇹 <b>Portugal en aprietos</b> — 1-1 con RD Congo. Cristiano sin tiros. J3 crucial.<br/>'
-    + '🇹🇷 <b>Turquía eliminada</b> — Paraguay heroico con 10 hombres.'
-    + '</div></div>';
+    + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + ' completada</div>'
+    + '<div style="font-size:12px;color:#cbd5e1;line-height:2.0;">' + tipsLines.join("<br/>") + '</div>'
+    + '</div>';
+
+  // Análisis por continente — dinámico
+  var continentes = [
+    {
+      color:"rgba(96,165,250,0.06)", border:"rgba(96,165,250,0.15)", titleColor:"#93c5fd",
+      titulo:"EUROPA",
+      j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0), Belgica (1-1). Veredicto: Norte europeo domina. Sur decepciona.",
+      j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar confirman nivel. Portugal sigue en crisis. Francia y Noruega son los favoritos del Grupo I.",
+      j3:"Fase de grupos terminada. Se definieron los clasificados europeos."
+    },
+    {
+      color:"rgba(74,222,128,0.06)", border:"rgba(74,222,128,0.15)", titleColor:"#86efac",
+      titulo:"SUDAMERICA",
+      j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1), Ecuador (0-1). Veredicto: Argentina candidato. Colombia sorprendio.",
+      j2:"Brasil reacciono con 3-0 a Haiti. Mexico y EE.UU. clasificados. Paraguay heroico. Ecuador en peligro.",
+      j3:"Clasificados definidos. Argentina lider indiscutible de Sudamerica."
+    },
+    {
+      color:"rgba(251,191,36,0.06)", border:"rgba(251,191,36,0.15)", titleColor:"#fcd34d",
+      titulo:"AFRICA",
+      j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica), RD Congo (1-1 Portugal). Veredicto: Marruecos el mejor africano.",
+      j2:"Marruecos 1-0 Escocia confirma su nivel. Africa en buena posicion para los 16avos.",
+      j3:"Marruecos avanza. Se confirman los clasificados africanos."
+    },
+    {
+      color:"rgba(167,139,250,0.06)", border:"rgba(167,139,250,0.15)", titleColor:"#c4b5fd",
+      titulo:"ASIA Y OCEANIA",
+      j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada). Flojos: Qatar (1-1), Arabia Saudita (1-1). Veredicto: Asia del Este revela nivel.",
+      j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada. Arabia Saudita sigue irregular.",
+      j3:"Japon y Corea clasificados. Qatar eliminado."
+    },
+    {
+      color:"rgba(248,113,113,0.06)", border:"rgba(248,113,113,0.15)", titleColor:"#fca5a5",
+      titulo:"CONCACAF",
+      j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo con 1-1. Veredicto: Los 3 anfitriones fuertes.",
+      j2:"Mexico y EE.UU. clasificados con 6 pts. Canada goleo 6-0 a Qatar. CONCACAF nunca habia tenido 3 tan solidos.",
+      j3:"Los 3 anfitriones clasificados. CONCACAF historico."
+    }
+  ];
 
   const continenteHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
-    + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">🌍 Análisis por continente</div>'
+    + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + jornadaMax + '</div>'
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
-    + '<div style="background:rgba(96,165,250,0.06);border-radius:8px;padding:10px 12px;border:1px solid rgba(96,165,250,0.15);"><div style="font-size:11px;font-weight:700;color:#93c5fd;margin-bottom:5px;">🌍 EUROPA</div><div style="font-size:11px;color:#cbd5e1;line-height:1.8;"><b style="color:#4ade80;">Brillando:</b> Alemania (7-1), Noruega (4-1), Suiza (4-1 J2), Canadá (6-0 J2).<br/><b style="color:#f87171;">Flojos:</b> Portugal (1-1 RD Congo), España (0-0).<br/><b style="color:#fbbf24;">Veredicto:</b> Norte europeo dominante. Portugal en crisis.</div></div>'
-    + '<div style="background:rgba(74,222,128,0.06);border-radius:8px;padding:10px 12px;border:1px solid rgba(74,222,128,0.15);"><div style="font-size:11px;font-weight:700;color:#86efac;margin-bottom:5px;">🌎 SUDAMÉRICA</div><div style="font-size:11px;color:#cbd5e1;line-height:1.8;"><b style="color:#4ade80;">Destacados:</b> Argentina (3-0 Messi hat-trick), Colombia (3-1 Luis Díaz), Brasil reaccionó (3-0).<br/><b style="color:#f87171;">Flojos:</b> Ecuador (0-1 J1), Paraguay heroico pero limitado.<br/><b style="color:#fbbf24;">Veredicto:</b> Argentina y Colombia los mejores.</div></div>'
-    + '<div style="background:rgba(251,191,36,0.06);border-radius:8px;padding:10px 12px;border:1px solid rgba(251,191,36,0.15);"><div style="font-size:11px;font-weight:700;color:#fcd34d;margin-bottom:5px;">🌍 ÁFRICA</div><div style="font-size:11px;color:#cbd5e1;line-height:1.8;"><b style="color:#4ade80;">Destacados:</b> Marruecos (4 pts, líder C), RD Congo (empató con Portugal).<br/><b style="color:#fbbf24;">Veredicto:</b> Marruecos el mejor africano. Puede repetir Qatar 2022.</div></div>'
-    + '<div style="background:rgba(167,139,250,0.06);border-radius:8px;padding:10px 12px;border:1px solid rgba(167,139,250,0.15);"><div style="font-size:11px;font-weight:700;color:#c4b5fd;margin-bottom:5px;">ASIA Y OCEANIA</div><div style="font-size:11px;color:#cbd5e1;line-height:1.8;"><b style="color:#4ade80;">Destacados:</b> Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada).<br/><b style="color:#f87171;">Flojos:</b> Qatar (0-6 vs Canada), Arabia Saudita (1-1).<br/><b style="color:#fbbf24;">Veredicto:</b> Japon y Corea siguen siendo los mejores de Asia.</div></div>'
-    + '<div style="background:rgba(248,113,113,0.06);border-radius:8px;padding:10px 12px;border:1px solid rgba(248,113,113,0.15);"><div style="font-size:11px;font-weight:700;color:#fca5a5;margin-bottom:5px;">🌎 CONCACAF</div><div style="font-size:11px;color:#cbd5e1;line-height:1.8;"><b style="color:#4ade80;">Destacados:</b> México (clasificado, 6 pts), EE.UU. (clasificado, 6 pts), Canadá (6-0 a Qatar).<br/><b style="color:#fbbf24;">Veredicto:</b> Los 3 anfitriones dominan. CONCACAF nunca había tenido 3 tan sólidos.</div></div>'
+    + continentes.map(function(ct) {
+        var texto = jornadaMax >= 3 ? ct.j3 : jornadaMax >= 2 ? ct.j2 : ct.j1;
+        return '<div style="background:' + ct.color + ';border-radius:8px;padding:10px 12px;border:1px solid ' + ct.border + ';">'
+          + '<div style="font-size:11px;font-weight:700;color:' + ct.titleColor + ';margin-bottom:5px;">' + ct.titulo + '</div>'
+          + '<div style="font-size:11px;color:#cbd5e1;line-height:1.8;">' + texto + '</div>'
+          + '</div>';
+      }).join("")
     + '</div></div>';
 
   // ── GENERAR HTML COMPLETO ──
+
   const html = '<!DOCTYPE html>\n<html lang="es">\n<head>\n'
     + '<meta charset="UTF-8"/>\n<meta name="viewport" content="width=device-width, initial-scale=1.0"/>\n'
     + '<title>⚽ Mundial 2026 · En Vivo</title>\n'
