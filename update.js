@@ -212,7 +212,7 @@ function makeCard(m) {
       + '</div>';
   }
 
-  return '<div class="card" onclick="toggleCard(\'' + cid + '\')">'
+  return '<div class="card" data-cid="' + cid + '" onclick="toggleCard(\'' + cid + '\')">'
     + '<div style="display:flex;align-items:center;gap:7px;">'
     + (grp ? '<span class="badge">' + grp + '</span>' : '')
     + '<span style="font-size:10px;color:' + sColor + ';font-weight:700;min-width:58px;">' + sLabel + (live && m.minute ? " " + m.minute + "'" : "") + '</span>'
@@ -221,7 +221,7 @@ function makeCard(m) {
     + '<span style="min-width:72px;text-align:center;flex-shrink:0;">' + scoreHTML + '</span>'
     + '<span style="flex:1;font-size:12px;font-weight:600;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + aN + ' ' + aF + '</span>'
     + '</div>'
-    + '<span style="font-size:9px;color:#4ade80;">▼</span>'
+    + '<span class="toggle-arrow" style="font-size:9px;color:#4ade80;flex-shrink:0;">▼</span>'
     + '</div>'
     + '<div id="' + cid + '" style="display:none;margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">'
     + (golesHTML || subsHTML ? golesHTML + subsHTML : '')
@@ -555,7 +555,7 @@ async function main() {
 
     + '<script>\n'
     + 'function showTab(id,btn){document.querySelectorAll(".pane").forEach(function(p){p.classList.remove("active");});document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");});document.getElementById(id).classList.add("active");btn.classList.add("active");}\n'
-    + 'function toggleCard(id){var d=document.getElementById(id);if(!d)return;var c=d.parentElement;var open=c.classList.contains("open");c.classList.toggle("open",!open);d.style.display=open?"none":"block";var a=c.querySelector("span:last-child");if(a)a.textContent=open?"▼":"▲";}\n'
+    + 'function toggleCard(id){var d=document.getElementById(id);if(!d)return;var p=d.parentElement;while(p&&!p.classList.contains("card")){p=p.parentElement;}if(!p)return;var open=p.classList.contains("open");p.classList.toggle("open",!open);d.style.display=open?"none":"block";var a=p.querySelector(".toggle-arrow");if(a)a.textContent=open?"▼":"▲";}\n'
     + 'function showJornada(j,btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var el=document.getElementById("j"+j);if(el)el.style.display="block";}\n'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}\n'
     + '</script>\n</body>\n</html>';
