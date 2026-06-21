@@ -2,7 +2,12 @@ name: Actualizar Mundial 2026
 
 on:
   schedule:
-    - cron: '0 15 * * *'
+    - cron: '0 5 * * *'    # 02:00 Chile
+    - cron: '0 13 * * *'   # 10:00 Chile
+    - cron: '0 17 * * *'   # 14:00 Chile
+    - cron: '0 20 * * *'   # 17:00 Chile
+    - cron: '0 23 * * *'   # 20:00 Chile
+    - cron: '0 2 * * *'    # 23:00 Chile
   workflow_dispatch:
 
 jobs:
