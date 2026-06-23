@@ -393,8 +393,14 @@ async function main() {
     console.log("HOY: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO")); 
   });
   upcoming.slice(0,10).forEach(function(m){ 
-    var anal = getAnal(m.homeTeam && m.homeTeam.name, m.awayTeam && m.awayTeam.name);
-    console.log("PROX: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO")); 
+    var hn = m.homeTeam && m.homeTeam.name;
+    var an = m.awayTeam && m.awayTeam.name;
+    var anal = getAnal(hn, an);
+    var k1 = hn+"_"+an;
+    var k2 = an+"_"+hn;
+    var directK1 = ANAL[k1] ? "direct" : "no";
+    var directK2 = ANAL[k2] ? "direct" : "no";
+    console.log("PROX: " + hn + " vs " + an + " => k1(" + directK1 + ") k2(" + directK2 + ") anal:" + (anal?"SI":"NO")); 
   });
 
   var totalGoals = finished.reduce(function(s,m){ var sc=m.score&&m.score.fullTime; return s+(sc&&sc.home||0)+(sc&&sc.away||0); },0);
