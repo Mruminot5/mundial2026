@@ -138,6 +138,41 @@ ANAL["Colombia_Republic of Congo"]   = ANAL["Colombia_DR Congo"];
 ANAL["Colombia_Democratic Republic of Congo"] = ANAL["Colombia_DR Congo"];
 ANAL["Colombia_Congo"]               = ANAL["Colombia_DR Congo"];
 
+
+// ── J3 ──
+ANAL["Switzerland_Canada"]           = {g:"Suiza lidera Grupo B con 4 pts. Canadá también con 4 pts. Partido decisivo por el primer lugar. Suiza viene de 4-1 a Bosnia, Canadá de 6-0 a Qatar.",go:"Breel Embolo y Granit Xhaka (Suiza). Jonathan David y Alphonso Davies (Canadá).",fi:"Alphonso Davies (Canadá) — el más explosivo. Si tiene espacio, Suiza no lo para.",ap:"Partido muy parejo · Ambos clasificados · En juego el 1er lugar. Cuota empate: 3.2x",pr:"Pred: Empate 1-1"};
+ANAL["Canada_Switzerland"]           = ANAL["Switzerland_Canada"];
+ANAL["Bosnia and Herzegovina_Qatar"] = {g:"Bosnia-Herz. y Qatar ambos en el fondo del Grupo B. Bosnia con 1 pt, Qatar con 1 pt. Partido entre eliminados casi seguros.",go:"Edin Džeko (Bosnia) — último chance. Almoez Ali (Qatar) el más peligroso.",fi:"Džeko (Bosnia) — leyenda histórica del equipo. Su último Mundial.",ap:"Bosnia gana · Džeko anota. Cuota est: 2.0x",pr:"Pred: Bosnia 2-1"};
+ANAL["Bosnia-Herzegovina_Qatar"] = ANAL["Bosnia and Herzegovina_Qatar"];
+ANAL["Bosnia_Qatar"]                 = ANAL["Bosnia and Herzegovina_Qatar"];
+ANAL["Qatar_Bosnia and Herzegovina"] = ANAL["Bosnia and Herzegovina_Qatar"];
+ANAL["Qatar_Bosnia"]                 = ANAL["Bosnia and Herzegovina_Qatar"];
+ANAL["Morocco_Haiti"]                = {g:"Marruecos lidera Grupo C con 4 pts. Haití sin puntos y ya eliminada. Marruecos debe golear para mejorar diferencia de goles.",go:"Hakimi, Ziyech, Saibari (Marruecos). Haití sin nivel para competir.",fi:"Hakim Ziyech (Marruecos) — regresa como titular. Letal en ataque.",ap:"Marruecos gana amplio · Más de 3.5 goles. Cuota est: 1.7x",pr:"Pred: Marruecos 4-0"};
+ANAL["Haiti_Morocco"]                = ANAL["Morocco_Haiti"];
+ANAL["Scotland_Brazil"]              = {g:"Brasil con 4 pts busca 1er lugar del Grupo C. Escocia con 3 pts también quiere liderar. El partido más atractivo del 24 Jun.",go:"Vinícius Jr y Cunha (Brasil). McGinn y Adams (Escocia).",fi:"Vinícius Jr (Brasil) — el más desequilibrante. Si aparece, Brasil gana.",ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota est: 1.9x",pr:"Pred: Brasil 2-1"};
+ANAL["Brazil_Scotland"]              = ANAL["Scotland_Brazil"];
+ANAL["Czechia_Mexico"]               = {g:"Rep. Checa con 1 pt necesita ganar sí o sí. México con 6 pts ya clasificado, puede rotar. Rep. Checa tiene chance si México descansa titulares.",go:"Krejčí y Souček (Rep. Checa). Jiménez si juega por México.",fi:"Tomáš Souček (Rep. Checa) — el motor. Puede liderar la remontada.",ap:"Rep. Checa gana · México rotado. Cuota est: 2.8x",pr:"Pred: Rep. Checa 2-1"};
+ANAL["Mexico_Czechia"]               = ANAL["Czechia_Mexico"];
+ANAL["South Africa_Korea Republic"]  = {g:"Sudáfrica y Corea del Sur ambos con 1 pt. Partido de vida o muerte. Quien gane se mete en la pelea del 2do lugar.",go:"Oh Hyeon-gyu y Hwang In-beom (Corea). Mokoena (Sudáfrica).",fi:"Hwang In-beom (Corea del Sur) — el mejor de Corea en este Mundial.",ap:"Corea del Sur gana · Hwang anota. Cuota est: 2.2x",pr:"Pred: Corea del Sur 2-0"};
+ANAL["Korea Republic_South Africa"]  = ANAL["South Africa_Korea Republic"];
+ANAL["Ecuador_Germany"]              = {g:"Ecuador sin puntos, casi eliminado. Alemania con 6 pts ya clasificada y puede rotar. Ecuador necesita ganar y esperar resultados.",go:"Enner Valencia y Caicedo (Ecuador). Musiala y Havertz si juegan (Alemania).",fi:"Moisés Caicedo (Ecuador) — el único que puede cambiar el partido.",ap:"Alemania gana aunque rote · Ecuador pelea por el honor. Cuota est: 2.1x",pr:"Pred: Alemania 2-1"};
+ANAL["Germany_Ecuador"]              = ANAL["Ecuador_Germany"];
+ANAL["Ivory Coast_Curacao"]          = {g:"Costa de Marfil con 3 pts quiere el 2do lugar. Curazao sin puntos y goleado 1-7 por Alemania. Costa de Marfil debe golear.",go:"Amad Diallo (Costa de Marfil) — el héroe de J1. Seko Fofana también.",fi:"Amad Diallo (Costa de Marfil) — el más talentoso del equipo.",ap:"Costa de Marfil gana amplio · Amad Diallo anota. Cuota est: 1.6x",pr:"Pred: Costa de Marfil 3-0"};
+ANAL["Curaçao_Côte d'Ivoire"]        = ANAL["Ivory Coast_Curacao"];
+ANAL["Curacao_Ivory Coast"]          = ANAL["Ivory Coast_Curacao"];
+ANAL["Côte d'Ivoire_Curaçao"]        = ANAL["Ivory Coast_Curacao"];
+
+
+// Claves exactas según log de la API (nombres reales)
+ANAL["Bosnia-Herzegovina_Qatar"]     = {g:"Bosnia-Herz. y Qatar ambos eliminados casi. Bosnia con 1 pt, Qatar con 1 pt. Partido de honor.",go:"Edin Džeko (Bosnia) — leyenda histórica. Almoez Ali (Qatar) el más peligroso.",fi:"Džeko (Bosnia) — su último Mundial a los 40 años.",ap:"Bosnia gana · Džeko anota. Cuota est: 2.0x",pr:"Pred: Bosnia 2-1"};
+ANAL["South Africa_South Korea"]     = {g:"Sudáfrica y Corea del Sur ambos con 1 pt. Partido de vida o muerte. Quien gane sigue vivo.",go:"Oh Hyeon-gyu y Hwang In-beom (Corea). Mokoena (Sudáfrica) mostró nivel en J2.",fi:"Hwang In-beom (Corea del Sur) — el mejor de Corea en este Mundial.",ap:"Corea del Sur gana · Hwang anota. Cuota est: 2.2x",pr:"Pred: Corea del Sur 2-0"};
+ANAL["Curaçao_Ivory Coast"]          = {g:"Curazao sin puntos, goleado 1-7 por Alemania. Costa de Marfil con 3 pts quiere asegurar clasificación.",go:"Amad Diallo (Costa de Marfil) — el héroe de J1. Fofana también.",fi:"Amad Diallo (Costa de Marfil) — el más talentoso del equipo.",ap:"Costa de Marfil gana amplio · Amad Diallo anota. Cuota est: 1.6x",pr:"Pred: Costa de Marfil 3-0"};
+ANAL["Switzerland_Canada"]           = {g:"Suiza lidera Grupo B con 4 pts. Canadá también con 4 pts. Decisivo por el 1er lugar. Suiza 4-1 Bosnia, Canadá 6-0 Qatar.",go:"Breel Embolo y Xhaka (Suiza). Jonathan David y Davies (Canadá).",fi:"Alphonso Davies (Canadá) — el más explosivo del torneo. Si tiene espacio, Suiza no lo para.",ap:"Partido muy parejo · Ambos clasificados · En juego el 1er lugar. Cuota empate: 3.2x",pr:"Pred: Empate 1-1"};
+ANAL["Morocco_Haiti"]                = {g:"Marruecos lidera Grupo C con 4 pts. Haití sin puntos y ya eliminada. Marruecos debe golear.",go:"Hakimi, Ziyech, Saibari (Marruecos). Haití sin nivel para competir.",fi:"Hakim Ziyech (Marruecos) — regresa como titular. Letal en ataque.",ap:"Marruecos gana amplio · Más de 3.5 goles. Cuota est: 1.7x",pr:"Pred: Marruecos 4-0"};
+ANAL["Scotland_Brazil"]              = {g:"Brasil con 4 pts busca liderar Grupo C. Escocia con 3 pts también quiere el 1er lugar. El partido más atractivo del 24 Jun.",go:"Vinícius Jr y Cunha (Brasil). McGinn y Adams (Escocia).",fi:"Vinícius Jr (Brasil) — el más desequilibrante. Si aparece, Brasil gana.",ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota est: 1.9x",pr:"Pred: Brasil 2-1"};
+ANAL["Czechia_Mexico"]               = {g:"Rep. Checa con 1 pt necesita ganar sí o sí. México con 6 pts ya clasificado, puede rotar titulares.",go:"Krejčí y Souček (Rep. Checa). Jiménez si juega por México.",fi:"Tomáš Souček (Rep. Checa) — el motor. Puede liderar la remontada.",ap:"Rep. Checa gana · México rotado. Cuota est: 2.8x",pr:"Pred: Rep. Checa 2-1"};
+ANAL["Ecuador_Germany"]              = {g:"Ecuador sin puntos, casi eliminado. Alemania con 6 pts ya clasificada y puede rotar. Ecuador necesita ganar y esperar.",go:"Enner Valencia y Caicedo (Ecuador). Musiala y Havertz si juegan (Alemania).",fi:"Moisés Caicedo (Ecuador) — el único que puede cambiar el partido.",ap:"Alemania gana aunque rote. Cuota est: 2.1x",pr:"Pred: Alemania 2-1"};
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
