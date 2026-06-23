@@ -132,7 +132,11 @@ ANAL["Jordan_Algeria"]               = {g:"Ambas perdieron J1. Partido entre los
 ANAL["Portugal_Uzbekistan"]          = {g:"Portugal decepcionó 1-1 con RD Congo. Uzbekistán perdió 1-3 con Colombia. Portugal obligado.",go:"Cristiano Ronaldo (Portugal) — necesita despertar. Bruno Fernandes creativo.",fi:"Bruno Fernandes (Portugal) — el más dinámico. Si aparece, Portugal gana.",ap:"Portugal gana · Bruno Fernandes anota o asiste. Cuota est: 1.7x",pr:"Pred: Portugal 3-0"};
 ANAL["England_Ghana"]                = {g:"Inglaterra goleó 4-2 a Croacia. Ghana ganó 1-0 a Panamá al 94min. Inglaterra favorita.",go:"Harry Kane (Inglaterra) — doblete J1. Mohammed Kudus (Ghana) peligro africano.",fi:"Jude Bellingham (Inglaterra) — puede marcar la diferencia.",ap:"Inglaterra gana · Kane anota · Más de 2.5 goles. Cuota est: 1.8x",pr:"Pred: Inglaterra 2-0"};
 ANAL["Panama_Croatia"]               = {g:"Panamá perdió 0-1. Croacia perdió 2-4. Ambos de vida o muerte.",go:"Ismael Díaz (Panamá). Ivan Perisic (Croacia) si juega.",fi:"Luka Modric (Croacia) — su último Mundial. Puede liderar la reacción.",ap:"Croacia gana · Modric con asistencia. Cuota est: 2.2x",pr:"Pred: Croacia 2-0"};
-ANAL["Colombia_DR Congo"]            = {g:"Colombia goleó 3-1 a Uzbekistán. RD Congo empató 1-1 con Portugal. Colombia favorita.",go:"Luis Díaz (Colombia) — el más desequilibrante. James el cerebro.",fi:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia.",ap:"Colombia gana · Luis Díaz anota. Cuota est: 1.9x",pr:"Pred: Colombia 2-0"};
+ANAL["Colombia_DR Congo"]            = {g:"Colombia goleó 3-1 a Uzbekistán. RD Congo empató 1-1 con Portugal sorprendiendo a todos. El Congo tiene a Wissa (Brentford) y Aaron Wan-Bissaka como figuras. Colombia favorita pero debe cuidarse del contragolpe congoleño.",go:"Luis Díaz (Colombia) — el más desequilibrante. James Rodríguez como cerebro creativo. Yoane Wissa (RD Congo) ya demostró su nivel vs Portugal.",fi:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia. Si aparece, Colombia gana cómodo.",ap:"Colombia gana · Luis Díaz anota · Más de 1.5 goles. Cuota est: 1.9x",pr:"Pred: Colombia 2-0"};
+ANAL["Colombia_Congo DR"]            = ANAL["Colombia_DR Congo"];
+ANAL["Colombia_Republic of Congo"]   = ANAL["Colombia_DR Congo"];
+ANAL["Colombia_Democratic Republic of Congo"] = ANAL["Colombia_DR Congo"];
+ANAL["Colombia_Congo"]               = ANAL["Colombia_DR Congo"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
