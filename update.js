@@ -163,6 +163,21 @@ ANAL["Curacao_Ivory Coast"]          = ANAL["Ivory Coast_Curacao"];
 ANAL["Côte d'Ivoire_Curaçao"]        = ANAL["Ivory Coast_Curacao"];
 
 
+
+// ── J3 RESULTADOS ──
+ANAL["Switzerland_Canada"]    = {g:"Suiza venció 2-1 a Canadá y se lleva el 1er lugar del Grupo B. Manzambi abrió, Simons amplió. Promise David descontó al 76min.",go:"Johan Manzambi (Suiza) al 57min fue el goleador decisivo.",fi:"Xavi Simons (Suiza) — el más creativo del partido.",ap:"Partido terminado · Suiza 1era del Grupo B",pr:"✅ Suiza 2-1"};
+ANAL["Canada_Switzerland"]    = ANAL["Switzerland_Canada"];
+ANAL["Bosnia-Herzegovina_Qatar"] = {g:"Bosnia goleó 3-1 a Qatar y clasificó como uno de los mejores terceros. Mahmic con doblete.",go:"Mahmic (Bosnia) doblete decisivo. Qatar no tuvo nivel.",fi:"Mahmic (Bosnia) — el héroe de la clasificación.",ap:"Partido terminado · Bosnia clasifica",pr:"✅ Bosnia 3-1"};
+ANAL["Qatar_Bosnia-Herzegovina"] = ANAL["Bosnia-Herzegovina_Qatar"];
+ANAL["Scotland_Brazil"]       = {g:"Brasil goleó 3-0 a Escocia con doblete de Vinícius Jr. Brasil campeón del Grupo C. Neymar entró desde el banco.",go:"Vinícius Jr (Brasil) doblete. Matheus Cunha marcó el 3ro.",fi:"Vinícius Jr (Brasil) — figura indiscutida del Grupo C.",ap:"Partido terminado · Brasil 1ero del Grupo C",pr:"✅ Brasil 3-0"};
+ANAL["Brazil_Scotland"]       = ANAL["Scotland_Brazil"];
+ANAL["Morocco_Haiti"]         = {g:"Marruecos sufrió pero venció 4-2 a Haití. Hakimi, Saibari, Rahimi y Yassine para los africanos. Haití marcó 2 goles de honor.",go:"Achraf Hakimi (Marruecos) abrió el marcador. Saibari sumó el 2do.",fi:"Achraf Hakimi (Marruecos) — el mejor africano del torneo.",ap:"Partido terminado · Marruecos 2do del Grupo C",pr:"✅ Marruecos 4-2"};
+ANAL["Haiti_Morocco"]         = ANAL["Morocco_Haiti"];
+ANAL["Czechia_Mexico"]        = {g:"México venció 2-0 a Rep. Checa y lidera el Grupo A con 9 puntos. Mateo Chávez al 55min en su debut, Quiñones al 61min.",go:"Mateo Chávez (México) primer gol en su debut mundialista. Quiñones su 2do del torneo.",fi:"Mateo Chávez (México) — el gol del debut más emotivo del torneo.",ap:"Partido terminado · México 1ero del Grupo A con 9 pts",pr:"✅ México 2-0"};
+ANAL["Mexico_Czechia"]        = ANAL["Czechia_Mexico"];
+ANAL["South Africa_South Korea"] = {g:"Sudáfrica sorprendió y venció 1-0 a Corea del Sur. Maseko al 63min. Corea queda fuera o debe esperar como mejor tercero.",go:"Thapelo Maseko (Sudáfrica) — el gol que cambió todo al 63min.",fi:"Maseko (Sudáfrica) — figura sorpresa del día.",ap:"Partido terminado · Sudáfrica 2da del Grupo A",pr:"✅ Sudáfrica 1-0"};
+ANAL["Korea Republic_South Africa"] = ANAL["South Africa_South Korea"];
+
 // Claves exactas según log de la API (nombres reales)
 ANAL["Bosnia-Herzegovina_Qatar"]     = {g:"Bosnia-Herz. y Qatar ambos eliminados casi. Bosnia con 1 pt, Qatar con 1 pt. Partido de honor.",go:"Edin Džeko (Bosnia) — leyenda histórica. Almoez Ali (Qatar) el más peligroso.",fi:"Džeko (Bosnia) — su último Mundial a los 40 años.",ap:"Bosnia gana · Džeko anota. Cuota est: 2.0x",pr:"Pred: Bosnia 2-1"};
 ANAL["South Africa_South Korea"]     = {g:"Sudáfrica y Corea del Sur ambos con 1 pt. Partido de vida o muerte. Quien gane sigue vivo.",go:"Oh Hyeon-gyu y Hwang In-beom (Corea). Mokoena (Sudáfrica) mostró nivel en J2.",fi:"Hwang In-beom (Corea del Sur) — el mejor de Corea en este Mundial.",ap:"Corea del Sur gana · Hwang anota. Cuota est: 2.2x",pr:"Pred: Corea del Sur 2-0"};
@@ -460,7 +475,14 @@ async function main() {
   var tipsLines = [];
   if(jornadaMax>=1) tipsLines = tipsLines.concat(["🇦🇷 <b>Argentina</b> — Messi hat-trick vs Argelia. Candidato al titulo.","🇩🇪 <b>Alemania</b> — 7-1 a Curazao. La maquina del torneo.","🇳🇴 <b>Noruega sorpresa</b> — Haaland doblete en debut.","🇵🇹 <b>Portugal en aprietos</b> — 1-1 con RD Congo.","🇪🇸 <b>Espana decepciono</b> — 0-0 vs Cabo Verde."]);
   if(jornadaMax>=2) tipsLines = tipsLines.concat(["🇲🇽 <b>Mexico clasificado</b> — 6 pts. Lider Grupo A.","🇺🇸 <b>EE.UU. clasificado</b> — 6 pts. Efecto local brutal.","🇨🇦 <b>Canada</b> — 6-0 a Qatar. Sorpresa positiva de J2.","🇨🇭 <b>Suiza reacciono</b> — 4-1 a Bosnia.","🇹🇷 <b>Turquia eliminada</b> — Paraguay heroico con 10 jugadores."]);
-  if(jornadaMax>=3) tipsLines = tipsLines.concat(["🏆 <b>J3 completa</b> — Fase de grupos terminada. 16avos se vienen."]);
+  if(jornadaMax>=3) tipsLines = tipsLines.concat([
+    "🇲🇽 <b>México histórico</b> — 9 pts, 3 victorias en 3. El Tri nunca había hecho esto.",
+    "🇧🇷 <b>Brasil despertó</b> — 3-0 a Escocia. Vinícius Jr + Neymar disponible. Peligroso.",
+    "🇦🇷 <b>Argentina pleno</b> — 3 victorias, 9 pts. Messi en modo histórico. Favoritísimo.",
+    "🇿🇦 <b>Sudáfrica sorpresa</b> — Eliminó a Corea del Sur. Los Bafana Bafana clasificaron.",
+    "🇰🇷 <b>Corea del Sur fuera</b> — Perdió ante Sudáfrica. Eliminada en la fase de grupos.",
+    "🏆 Fase de grupos terminada · 16avos de final arrancan el 29 Jun."
+  ]);
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + " completada</div>"
     + '<div style="font-size:12px;color:#cbd5e1;line-height:2.0;">' + tipsLines.join("<br>") + "</div></div>";
