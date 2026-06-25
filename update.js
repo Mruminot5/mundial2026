@@ -164,6 +164,24 @@ ANAL["Côte d'Ivoire_Curaçao"]        = ANAL["Ivory Coast_Curacao"];
 
 
 
+
+// ── J3 HOY 25 Jun ──
+ANAL["Ecuador_Germany"]              = {g:"Ecuador sin puntos y eliminada. Alemania con 6 pts ya clasificada puede rotar. Pero Alemania nunca afloja.",go:"Musiala y Havertz (Alemania). Enner Valencia y Caicedo (Ecuador) buscan el honor.",fi:"Jamal Musiala (Alemania) — incluso rotando es el mejor del grupo.",ap:"Alemania gana · Más de 2.5 goles. Cuota est: 1.8x",pr:"Pred: Alemania 3-1"};
+ANAL["Germany_Ecuador"]              = ANAL["Ecuador_Germany"];
+ANAL["Curaçao_Ivory Coast"]          = {g:"Curazao sin puntos, goleada 1-7 por Alemania. Costa de Marfil con 3 pts quiere asegurar 2do lugar. Costa de Marfil debe golear.",go:"Amad Diallo (Costa de Marfil) — el héroe de J1 al 90min. Seko Fofana también.",fi:"Amad Diallo (Costa de Marfil) — el más talentoso. Puede hacer hat-trick.",ap:"Costa de Marfil gana amplio · Más de 3.5 goles. Cuota est: 1.6x",pr:"Pred: Costa de Marfil 4-0"};
+ANAL["Curacao_Ivory Coast"]          = ANAL["Curaçao_Ivory Coast"];
+ANAL["Ivory Coast_Curaçao"]          = ANAL["Curaçao_Ivory Coast"];
+ANAL["Ivory Coast_Curacao"]          = ANAL["Curaçao_Ivory Coast"];
+ANAL["Tunisia_Netherlands"]          = {g:"Países Bajos con 4 pts lidera Grupo F. Túnez con 0 pts y eliminada. Países Bajos debe ganar para mantener el liderato sobre Suecia.",go:"Cody Gakpo y Memphis Depay (Países Bajos) letales. Túnez sin nivel para competir.",fi:"Cody Gakpo (Países Bajos) — en gran forma, peligroso por banda.",ap:"Países Bajos gana · Más de 2.5 goles · Gakpo anota. Cuota est: 1.7x",pr:"Pred: Países Bajos 3-0"};
+ANAL["Netherlands_Tunisia"]          = ANAL["Tunisia_Netherlands"];
+ANAL["Japan_Sweden"]                 = {g:"Japón con 4 pts vs Suecia con 3 pts. Quien gane lidera o asegura clasificación cómoda. Partido muy parejo.",go:"Daichi Kamada y Minamino (Japón). Viktor Gyökeres (Suecia) — el goleador del torneo.",fi:"Viktor Gyökeres (Suecia) — si aparece puede decidir solo el partido.",ap:"Ambos anotan · Más de 2.5 goles · Gyökeres anota. Cuota est: 2.0x",pr:"Pred: Empate 1-1"};
+ANAL["Sweden_Japan"]                 = ANAL["Japan_Sweden"];
+ANAL["Turkey_United States"]         = {g:"EE.UU. con 6 pts ya clasificado. Turquía con 0 pts y eliminada. Pero EE.UU. quiere el 1er lugar del Grupo D con pleno de victorias.",go:"Folarin Balogun (EE.UU.) — goleador del torneo. Kerem Aktürkoğlu (Turquía) único peligro.",fi:"Folarin Balogun (EE.UU.) — viene con un doblete en J1. El más letal del grupo.",ap:"EE.UU. gana · Balogun anota · Más de 2.5 goles. Cuota est: 1.8x",pr:"Pred: EE.UU. 3-0"};
+ANAL["United States_Turkey"]         = ANAL["Turkey_United States"];
+ANAL["USA_Turkey"]                   = ANAL["Turkey_United States"];
+ANAL["Paraguay_Australia"]           = {g:"Australia con 3 pts vs Paraguay con 3 pts. Ambos necesitan ganar para asegurar clasificación. El partido más parejo del día.",go:"Martin Ojeda y Alvarado (Paraguay). Nestory Irankunda y Ryan (Australia).",fi:"Irankunda (Australia) — el joven más explosivo. Puede decidir con su velocidad.",ap:"Partido muy parejo · Ambos se juegan la clasificación. Cuota empate: 3.0x",pr:"Pred: Australia 1-0"};
+ANAL["Australia_Paraguay"]           = ANAL["Paraguay_Australia"];
+
 // ── J3 RESULTADOS ──
 ANAL["Switzerland_Canada"]    = {g:"Suiza venció 2-1 a Canadá y se lleva el 1er lugar del Grupo B. Manzambi abrió, Simons amplió. Promise David descontó al 76min.",go:"Johan Manzambi (Suiza) al 57min fue el goleador decisivo.",fi:"Xavi Simons (Suiza) — el más creativo del partido.",ap:"Partido terminado · Suiza 1era del Grupo B",pr:"✅ Suiza 2-1"};
 ANAL["Canada_Switzerland"]    = ANAL["Switzerland_Canada"];
@@ -187,6 +205,43 @@ ANAL["Morocco_Haiti"]                = {g:"Marruecos lidera Grupo C con 4 pts. H
 ANAL["Scotland_Brazil"]              = {g:"Brasil con 4 pts busca liderar Grupo C. Escocia con 3 pts también quiere el 1er lugar. El partido más atractivo del 24 Jun.",go:"Vinícius Jr y Cunha (Brasil). McGinn y Adams (Escocia).",fi:"Vinícius Jr (Brasil) — el más desequilibrante. Si aparece, Brasil gana.",ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota est: 1.9x",pr:"Pred: Brasil 2-1"};
 ANAL["Czechia_Mexico"]               = {g:"Rep. Checa con 1 pt necesita ganar sí o sí. México con 6 pts ya clasificado, puede rotar titulares.",go:"Krejčí y Souček (Rep. Checa). Jiménez si juega por México.",fi:"Tomáš Souček (Rep. Checa) — el motor. Puede liderar la remontada.",ap:"Rep. Checa gana · México rotado. Cuota est: 2.8x",pr:"Pred: Rep. Checa 2-1"};
 ANAL["Ecuador_Germany"]              = {g:"Ecuador sin puntos, casi eliminado. Alemania con 6 pts ya clasificada y puede rotar. Ecuador necesita ganar y esperar.",go:"Enner Valencia y Caicedo (Ecuador). Musiala y Havertz si juegan (Alemania).",fi:"Moisés Caicedo (Ecuador) — el único que puede cambiar el partido.",ap:"Alemania gana aunque rote. Cuota est: 2.1x",pr:"Pred: Alemania 2-1"};
+
+
+// Claves exactas 25-27 Jun según log API
+ANAL["Tunisia_Netherlands"]          = {g:"Países Bajos con 4 pts lidera Grupo F. Túnez con 0 pts eliminada. Países Bajos debe ganar para mantener liderato.",go:"Cody Gakpo y Memphis Depay (Países Bajos) letales. Túnez sin nivel.",fi:"Cody Gakpo (Países Bajos) — en gran forma, peligroso por banda.",ap:"Países Bajos gana · Más de 2.5 goles · Gakpo anota. Cuota est: 1.7x",pr:"Pred: Países Bajos 3-0"};
+ANAL["Netherlands_Tunisia"]          = ANAL["Tunisia_Netherlands"];
+ANAL["Japan_Sweden"]                 = {g:"Japón con 4 pts vs Suecia con 3 pts. Quien gane lidera o asegura clasificación. Partido muy parejo y abierto.",go:"Daichi Kamada (Japón). Viktor Gyökeres (Suecia) — el goleador del torneo.",fi:"Viktor Gyökeres (Suecia) — si aparece puede decidir él solo el partido.",ap:"Ambos anotan · Gyökeres anota. Cuota est: 2.0x",pr:"Pred: Empate 1-1"};
+ANAL["Sweden_Japan"]                 = ANAL["Japan_Sweden"];
+ANAL["Turkey_United States"]         = {g:"EE.UU. con 6 pts clasificado. Turquía con 0 pts eliminada. EE.UU. quiere el 1er lugar con pleno de victorias.",go:"Folarin Balogun (EE.UU.) — goleador del torneo. Çalhanoğlu (Turquía) único peligro.",fi:"Folarin Balogun (EE.UU.) — doblete en J1, el más letal del grupo.",ap:"EE.UU. gana · Balogun anota · Más de 2.5 goles. Cuota est: 1.8x",pr:"Pred: EE.UU. 3-0"};
+ANAL["United States_Turkey"]         = ANAL["Turkey_United States"];
+ANAL["Paraguay_Australia"]           = {g:"Australia con 3 pts vs Paraguay con 3 pts. Ambos necesitan ganar. El partido más parejo del día. Clasificación en juego.",go:"Irankunda (Australia) veloz y peligroso. Ojeda y Alvarado (Paraguay) buscan el gol.",fi:"Nestory Irankunda (Australia) — el joven más explosivo, puede decidir.",ap:"Partido muy parejo · Ambos se juegan la clasificación. Cuota empate: 3.0x",pr:"Pred: Australia 1-0"};
+ANAL["Australia_Paraguay"]           = ANAL["Paraguay_Australia"];
+// 26 Jun
+ANAL["Norway_France"]                = {g:"Francia con 6 pts lidera Grupo I. Noruega con 6 pts también. El partido más atractivo del torneo hasta ahora. Mbappé vs Haaland.",go:"Kylian Mbappé (Francia) — goleador histórico. Erling Haaland (Noruega) — 4 goles en 2 partidos.",fi:"Erling Haaland (Noruega) — si marca doblete puede ser figura del Mundial.",ap:"Ambos anotan · Más de 3 goles · Partido del año. Cuota empate: 3.0x",pr:"Pred: Francia 2-1"};
+ANAL["France_Norway"]                = ANAL["Norway_France"];
+ANAL["Senegal_Iraq"]                 = {g:"Francia lidera Grupo I. Senegal con 0 pts y Irak con 0 pts. Partido entre los dos eliminados del grupo.",go:"Sadio Mané (Senegal) — el más peligroso. Mohanad Ali (Iraq) busca el gol del honor.",fi:"Sadio Mané (Senegal) — necesita reivindicarse tras un torneo pobre.",ap:"Senegal gana · Mané anota. Cuota est: 2.0x",pr:"Pred: Senegal 2-0"};
+ANAL["Iraq_Senegal"]                 = ANAL["Senegal_Iraq"];
+ANAL["Uruguay_Spain"]                = {g:"España con 4 pts busca el 1er lugar del Grupo H. Uruguay con 4 pts también. Partido muy parejo. De Bruyne vs Valverde.",go:"Pedri y Morata (España). Darwin Núñez y Valverde (Uruguay).",fi:"Federico Valverde (Uruguay) — el jugador más completo de su equipo.",ap:"España gana por la mínima · Pedri con asistencia. Cuota est: 2.2x",pr:"Pred: España 1-0"};
+ANAL["Spain_Uruguay"]                = ANAL["Uruguay_Spain"];
+ANAL["Cape Verde Islands_Saudi Arabia"] = {g:"Arabia Saudita con 1 pt vs Cabo Verde con 1 pt. España lidera el grupo. Partido entre los dos que pelean el 2do lugar.",go:"Al-Dawsari (Arabia Saudita) — el más peligroso. Garry Rodrigues (Cabo Verde).",fi:"Al-Dawsari (Arabia Saudita) — extremo rápido, puede desequilibrar.",ap:"Arabia Saudita gana · Al-Dawsari anota. Cuota est: 2.1x",pr:"Pred: Arabia Saudita 2-1"};
+ANAL["Saudi Arabia_Cape Verde Islands"] = ANAL["Cape Verde Islands_Saudi Arabia"];
+ANAL["New Zealand_Belgium"]          = {g:"Bélgica con 1 pt vs Nueva Zelanda con 1 pt. Partido parejo entre dos equipos irregulares.",go:"Lukaku y De Bruyne (Bélgica). Chris Wood (Nueva Zelanda).",fi:"Kevin De Bruyne (Bélgica) — si aparece cambia el partido completamente.",ap:"Bélgica gana · De Bruyne con asistencia. Cuota est: 2.0x",pr:"Pred: Bélgica 2-0"};
+ANAL["Belgium_New Zealand"]          = ANAL["New Zealand_Belgium"];
+ANAL["Egypt_Iran"]                   = {g:"Irán con 1 pt vs Egipto con 1 pt. Ambos buscan el 2do lugar del Grupo G. Partido determinante.",go:"Mohamed Salah si juega (Egipto). Mehdi Taremi (Irán) — el goleador histórico.",fi:"Mohamed Salah (Egipto) — si está al 100% es el mejor del partido.",ap:"Empate o Egipto gana · Salah anota. Cuota est: 2.3x",pr:"Pred: Egipto 1-0"};
+ANAL["Iran_Egypt"]                   = ANAL["Egypt_Iran"];
+// 27-28 Jun
+ANAL["Panama_England"]               = {g:"Inglaterra con 6 pts clasificada. Panamá con 0 pts eliminada. Inglaterra puede rotar pero siempre gana.",go:"Harry Kane (Inglaterra) — doblete en J1. Bellingham también peligroso.",fi:"Jude Bellingham (Inglaterra) — puede ser figura incluso con rotaciones.",ap:"Inglaterra gana · Kane anota. Cuota est: 1.7x",pr:"Pred: Inglaterra 3-0"};
+ANAL["England_Panama"]               = ANAL["Panama_England"];
+ANAL["Croatia_Ghana"]                = {g:"Croacia con 0 pts vs Ghana con 3 pts. Ghana ya casi clasificada. Croacia necesita ganar sí o sí para seguir viva.",go:"Mohammed Kudus (Ghana) — el más desequilibrante. Modric (Croacia) última chance.",fi:"Luka Modric (Croacia) — 40 años, su último Mundial. Todo o nada.",ap:"Ghana gana · Kudus anota. Cuota est: 2.0x",pr:"Pred: Ghana 1-0"};
+ANAL["Ghana_Croatia"]                = ANAL["Croatia_Ghana"];
+ANAL["Colombia_Portugal"]            = {g:"Colombia con 3 pts vs Portugal con 1 pt. El partido más atractivo del Grupo K. Luis Díaz vs Cristiano.",go:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia. Cristiano (Portugal) necesita despertar.",fi:"Luis Díaz (Colombia) — el más desequilibrante. Si aparece Colombia gana cómodo.",ap:"Colombia gana · Luis Díaz anota. Cuota est: 2.0x",pr:"Pred: Colombia 2-1"};
+ANAL["Portugal_Colombia"]            = ANAL["Colombia_Portugal"];
+ANAL["Jordan_Argentina"]             = {g:"Argentina con 6 pts ya clasificada. Jordania con 0 pts eliminada. Argentina quiere los 9 pts con Messi.",go:"Lionel Messi (Argentina) — ya con 6 goles en el torneo. Busca el récord.",fi:"Lionel Messi (Argentina) — el mejor jugador de la historia en su última Copa.",ap:"Argentina gana · Messi anota · Más de 3 goles. Cuota est: 1.6x",pr:"Pred: Argentina 3-0"};
+ANAL["Argentina_Jordan"]             = ANAL["Jordan_Argentina"];
+ANAL["Algeria_Austria"]              = {g:"Austria con 3 pts vs Argelia con 0 pts. Argentina lidera. Austria quiere asegurar clasificación.",go:"Marko Arnautovic (Austria) — de penal es muy peligroso. Belaïli (Argelia).",fi:"Marko Arnautovic (Austria) — el delantero referente del equipo.",ap:"Austria gana · Arnautovic anota. Cuota est: 1.9x",pr:"Pred: Austria 2-0"};
+ANAL["Austria_Algeria"]              = ANAL["Algeria_Austria"];
+ANAL["Uzbekistan_DR Congo"]          = {g:"RD Congo con 1 pt vs Uzbekistán con 0 pts. Colombia lidera. Partido entre los dos de abajo del Grupo K.",go:"Yoane Wissa (RD Congo) — ya demostró nivel vs Portugal. Shomurodov (Uzbekistán).",fi:"Yoane Wissa (RD Congo) — el héroe de J1 contra Portugal.",ap:"RD Congo gana · Wissa anota. Cuota est: 2.1x",pr:"Pred: RD Congo 2-0"};
+ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
