@@ -603,18 +603,36 @@ async function main() {
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
-  // 16avos fixture
-  var p16=[{f:"28 jun",h:"16:00",L:"🇿🇦 Sudáfrica",V:"🇨🇦 Canadá",E:"SoFi Stadium, Los Ángeles"},{f:"28 jun",h:"20:00",L:"🇧🇷 Brasil",V:"🇯🇵 Japón",E:"NRG Stadium, Houston"},{f:"29 jun",h:"13:00",L:"🇩🇪 Alemania",V:"🇵🇾 Paraguay",E:"AT&T Stadium, Dallas"},{f:"29 jun",h:"17:00",L:"🇳🇱 Países Bajos",V:"🇲🇦 Marruecos",E:"Levi Stadium, San José"},{f:"29 jun",h:"20:00",L:"🇨🇮 Costa de Marfil",V:"🇳🇴 Noruega",E:"Rose Bowl, Los Ángeles"},{f:"30 jun",h:"13:00",L:"🇫🇷 Francia",V:"🇸🇪 Suecia",E:"MetLife Stadium, Nueva York"},{f:"30 jun",h:"17:00",L:"🇲🇽 México",V:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",E:"Arrowhead Stadium, Kansas City"},{f:"30 jun",h:"20:00",L:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",V:"🇨🇻 Cabo Verde",E:"AT&T Stadium, Dallas"},{f:"1 jul",h:"13:00",L:"🇪🇬 Egipto",V:"🇰🇷 Corea del Sur",E:"BBVA, Monterrey"},{f:"1 jul",h:"17:00",L:"🇪🇸 España",V:"🇦🇹 Austria",E:"Hard Rock Stadium, Miami"},{f:"1 jul",h:"20:00",L:"🇺🇸 EE.UU.",V:"🇧🇦 Bosnia-Herz.",E:"SoFi Stadium, Los Ángeles"},{f:"2 jul",h:"13:00",L:"🇦🇺 Australia",V:"🇮🇷 Irán",E:"NRG Stadium, Houston"},{f:"2 jul",h:"17:00",L:"🇨🇭 Suiza",V:"🇩🇿 Argelia",E:"MetLife Stadium, Nueva York"},{f:"3 jul",h:"13:00",L:"🇦🇷 Argentina",V:"🇺🇾 Uruguay",E:"Hard Rock Stadium, Miami"},{f:"3 jul",h:"17:00",L:"🇵🇹 Portugal",V:"🇬🇭 Ghana",E:"SoFi Stadium, Los Ángeles"},{f:"3 jul",h:"20:00",L:"🇨🇴 Colombia",V:"🇭🇷 Croacia",E:"AT&T Stadium, Dallas"}];
-  var _pf="",_rows="";
-  p16.forEach(function(p){
-    if(p.f!==_pf){_rows+="<tr style='background:#0d2a18'><td colspan='4' style='padding:7px 10px;font-size:11px;font-weight:700;color:#4ade80'>📅 "+p.f+"</td></tr>";_pf=p.f;}
-    _rows+="<tr><td style='padding:7px 8px;font-size:11px;color:#60a5fa;font-weight:700'>"+p.h+"</td><td style='padding:7px 8px;font-size:12px;font-weight:600;text-align:right'>"+p.L+"</td><td style='padding:7px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center'>vs</td><td style='padding:7px 8px;font-size:12px;font-weight:600'>"+p.V+"</td></tr>"
-    +"<tr style='background:rgba(0,0,0,.15)'><td colspan='4' style='padding:2px 8px 7px;font-size:10px;color:#64748b'>🏟 "+p.E+"</td></tr>";
-  });
-  var fix16="<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'>"
-    +"<div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'><div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 16avos de Final</div><div style='font-size:10px;color:#94a3b8'>28 Jun – 3 Jul · Hora Chile</div></div>"
-    +"<div style='overflow-x:auto'><table style='width:100%;border-collapse:collapse'><tbody>"+_rows+"</tbody></table></div>"
-    +"<div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>24 clasificados + 8 mejores terceros · Empate: tiempo extra + penales</div></div>";
+  // Bracket 16avos estilo llave
+  function bSlot(t){return "<div style='background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;padding:4px 7px;font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap;min-width:118px;height:26px;display:flex;align-items:center'>"+(t||"&nbsp;")+"</div>";}
+  function bPair(a,b,sub){return "<div style='margin-bottom:5px'><div style='font-size:9px;color:#60a5fa;margin-bottom:2px'>"+(sub||"&nbsp;")+"</div><div style='border-radius:4px;overflow:hidden'>"+bSlot(a)+bSlot(b)+"</div></div>";}
+  function bEmpty(){return bPair("","","");}
+  function bCol(lbl,items,mt){return "<div style='display:flex;flex-direction:column;min-width:134px;margin-top:"+(mt||0)+"px'>"+(lbl?"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:6px'>"+lbl+"</div>":"<div style='height:20px'></div>")+items.join("")+"</div>";}
+  function bConnR(t,b){return "<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'><div style='height:"+t+"px;border-right:1px solid #2a3a5a;border-bottom:1px solid #2a3a5a'></div><div style='height:"+b+"px;border-right:1px solid #2a3a5a;border-top:1px solid #2a3a5a'></div></div>";}
+  function bConnL(t,b){return "<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'><div style='height:"+t+"px;border-left:1px solid #2a3a5a;border-bottom:1px solid #2a3a5a'></div><div style='height:"+b+"px;border-left:1px solid #2a3a5a;border-top:1px solid #2a3a5a'></div></div>";}
+  function bHL(mt){return "<div style='width:12px;border-top:1px solid #2a3a5a;margin-top:"+mt+"px;flex-shrink:0'></div>";}
+  var BL=[["🇿🇦 Sudáfrica","🇨🇦 Canadá","28/6 16:00"],["🇩🇪 Alemania","🇵🇾 Paraguay","29/6 13:00"],["🇨🇮 C. Marfil","🇳🇴 Noruega","29/6 20:00"],["🇲🇽 México","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","30/6 17:00"],["🇪🇬 Egipto","🇰🇷 Corea Sur","1/7 13:00"],["🇺🇸 EE.UU.","🇧🇦 Bosnia","1/7 20:00"],["🇨🇭 Suiza","🇩🇿 Argelia","2/7 17:00"],["🇦🇷 Argentina","🇺🇾 Uruguay","3/7 13:00"]];
+  var BR=[["🇧🇷 Brasil","🇯🇵 Japón","28/6 20:00"],["🇳🇱 Países Bajos","🇲🇦 Marruecos","29/6 17:00"],["🇫🇷 Francia","🇸🇪 Suecia","30/6 13:00"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","🇨🇻 Cabo Verde","30/6 20:00"],["🇪🇸 España","🇦🇹 Austria","1/7 17:00"],["🇦🇺 Australia","🇮🇷 Irán","2/7 13:00"],["🇵🇹 Portugal","🇬🇭 Ghana","3/7 17:00"],["🇨🇴 Colombia","🇭🇷 Croacia","3/7 20:00"]];
+  var bL16a=bCol("16avos",BL.slice(0,4).map(function(m){return bPair(m[0],m[1],m[2]);}));
+  var bL16b=bCol("",BL.slice(4,8).map(function(m){return bPair(m[0],m[1],m[2]);}));
+  var bR16a=bCol("16avos",BR.slice(0,4).map(function(m){return bPair(m[0],m[1],m[2]);}));
+  var bR16b=bCol("",BR.slice(4,8).map(function(m){return bPair(m[0],m[1],m[2]);}));
+  var bL8a=bCol("8vos",[bEmpty(),bEmpty()],29);
+  var bL8b=bCol("",[bEmpty(),bEmpty()],29);
+  var bR8a=bCol("8vos",[bEmpty(),bEmpty()],29);
+  var bR8b=bCol("",[bEmpty(),bEmpty()],29);
+  var bL4a=bCol("4tos",[bEmpty()],87);
+  var bL4b=bCol("",[bEmpty()],87);
+  var bR4a=bCol("4tos",[bEmpty()],87);
+  var bR4b=bCol("",[bEmpty()],87);
+  var bLSF=bCol("Semis",[bEmpty()],205);
+  var bRSF=bCol("Semis",[bEmpty()],205);
+  var bFin="<div style='min-width:80px;padding-top:234px;display:flex;flex-direction:column;align-items:center'><div style='font-size:9px;color:#fbbf24;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:linear-gradient(135deg,#1a2200,#0d2a18);border:1px solid #fbbf24;border-radius:4px;padding:3px 6px;text-align:center;margin-bottom:8px'>🏆 FINAL<br><span style='font-size:8px;color:#64748b;font-weight:400'>19 Jul · MetLife</span></div><div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:12px;text-align:center'><div style='font-size:22px'>🏆</div><div style='font-size:9px;color:#fbbf24;font-weight:700;margin-top:4px'>Campeón</div></div></div>";
+  var bRow1=bL16a+bConnR(29,29)+bHL(26)+bL8a+bConnR(58,58)+bHL(55)+bL4a+bConnR(116,116)+bHL(120)+bLSF+bHL(230)+bFin+bHL(230)+bRSF+bConnL(116,116)+bHL(120)+bR4a+bConnL(58,58)+bHL(55)+bR8a+bConnL(29,29)+bHL(26)+bR16a;
+  var bSP="<div style='min-width:12px'></div><div style='min-width:12px'></div><div style='min-width:134px'></div>";
+  var bRow2=bL16b+bConnR(29,29)+bHL(26)+bL8b+bConnR(58,58)+bHL(55)+bL4b+bSP+bSP+bSP+"<div style='min-width:80px'></div>"+bSP+bSP+bSP+bR4b+bConnL(58,58)+bHL(55)+bR8b+bConnL(29,29)+bHL(26)+bR16b;
+  var fix16="<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'><div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'><div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 Bracket 16avos → Final</div><div style='font-size:10px;color:#94a3b8'>28 Jun – 19 Jul · Hora Chile</div></div><div style='overflow-x:auto;padding:12px'><div style='display:flex;gap:0;align-items:flex-start;min-width:980px'>"+bRow1+"</div><div style='display:flex;gap:0;align-items:flex-start;min-width:980px;margin-top:0'>"+bRow2+"</div></div><div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>Slots vacíos se completan a medida que avanza el torneo · Empate: tiempo extra + penales</div></div>";
+
 
   var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>'
     + '<title>⚽ Mundial 2026 · En Vivo</title><style>' + css + '</style></head><body>'
