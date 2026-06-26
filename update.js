@@ -603,35 +603,126 @@ async function main() {
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
-  // Bracket 16avos estilo llave
-  function bSlot(t){return "<div style='background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;padding:4px 7px;font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap;min-width:118px;height:26px;display:flex;align-items:center'>"+(t||"&nbsp;")+"</div>";}
-  function bPair(a,b,sub){return "<div style='margin-bottom:5px'><div style='font-size:9px;color:#60a5fa;margin-bottom:2px'>"+(sub||"&nbsp;")+"</div><div style='border-radius:4px;overflow:hidden'>"+bSlot(a)+bSlot(b)+"</div></div>";}
-  function bEmpty(){return bPair("","","");}
-  function bCol(lbl,items,mt){return "<div style='display:flex;flex-direction:column;min-width:134px;margin-top:"+(mt||0)+"px'>"+(lbl?"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:6px'>"+lbl+"</div>":"<div style='height:20px'></div>")+items.join("")+"</div>";}
-  function bConnR(t,b){return "<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'><div style='height:"+t+"px;border-right:1px solid #2a3a5a;border-bottom:1px solid #2a3a5a'></div><div style='height:"+b+"px;border-right:1px solid #2a3a5a;border-top:1px solid #2a3a5a'></div></div>";}
-  function bConnL(t,b){return "<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'><div style='height:"+t+"px;border-left:1px solid #2a3a5a;border-bottom:1px solid #2a3a5a'></div><div style='height:"+b+"px;border-left:1px solid #2a3a5a;border-top:1px solid #2a3a5a'></div></div>";}
-  function bHL(mt){return "<div style='width:12px;border-top:1px solid #2a3a5a;margin-top:"+mt+"px;flex-shrink:0'></div>";}
-  var BL=[["🇿🇦 Sudáfrica","🇨🇦 Canadá","28/6 16:00"],["🇩🇪 Alemania","🇵🇾 Paraguay","29/6 13:00"],["🇨🇮 C. Marfil","🇳🇴 Noruega","29/6 20:00"],["🇲🇽 México","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","30/6 17:00"],["🇪🇬 Egipto","🇰🇷 Corea Sur","1/7 13:00"],["🇺🇸 EE.UU.","🇧🇦 Bosnia","1/7 20:00"],["🇨🇭 Suiza","🇩🇿 Argelia","2/7 17:00"],["🇦🇷 Argentina","🇺🇾 Uruguay","3/7 13:00"]];
-  var BR=[["🇧🇷 Brasil","🇯🇵 Japón","28/6 20:00"],["🇳🇱 Países Bajos","🇲🇦 Marruecos","29/6 17:00"],["🇫🇷 Francia","🇸🇪 Suecia","30/6 13:00"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","🇨🇻 Cabo Verde","30/6 20:00"],["🇪🇸 España","🇦🇹 Austria","1/7 17:00"],["🇦🇺 Australia","🇮🇷 Irán","2/7 13:00"],["🇵🇹 Portugal","🇬🇭 Ghana","3/7 17:00"],["🇨🇴 Colombia","🇭🇷 Croacia","3/7 20:00"]];
-  var bL16a=bCol("16avos",BL.slice(0,4).map(function(m){return bPair(m[0],m[1],m[2]);}));
-  var bL16b=bCol("",BL.slice(4,8).map(function(m){return bPair(m[0],m[1],m[2]);}));
-  var bR16a=bCol("16avos",BR.slice(0,4).map(function(m){return bPair(m[0],m[1],m[2]);}));
-  var bR16b=bCol("",BR.slice(4,8).map(function(m){return bPair(m[0],m[1],m[2]);}));
-  var bL8a=bCol("8vos",[bEmpty(),bEmpty()],29);
-  var bL8b=bCol("",[bEmpty(),bEmpty()],29);
-  var bR8a=bCol("8vos",[bEmpty(),bEmpty()],29);
-  var bR8b=bCol("",[bEmpty(),bEmpty()],29);
-  var bL4a=bCol("4tos",[bEmpty()],87);
-  var bL4b=bCol("",[bEmpty()],87);
-  var bR4a=bCol("4tos",[bEmpty()],87);
-  var bR4b=bCol("",[bEmpty()],87);
-  var bLSF=bCol("Semis",[bEmpty()],205);
-  var bRSF=bCol("Semis",[bEmpty()],205);
-  var bFin="<div style='min-width:80px;padding-top:234px;display:flex;flex-direction:column;align-items:center'><div style='font-size:9px;color:#fbbf24;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:linear-gradient(135deg,#1a2200,#0d2a18);border:1px solid #fbbf24;border-radius:4px;padding:3px 6px;text-align:center;margin-bottom:8px'>🏆 FINAL<br><span style='font-size:8px;color:#64748b;font-weight:400'>19 Jul · MetLife</span></div><div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:12px;text-align:center'><div style='font-size:22px'>🏆</div><div style='font-size:9px;color:#fbbf24;font-weight:700;margin-top:4px'>Campeón</div></div></div>";
-  var bRow1=bL16a+bConnR(29,29)+bHL(26)+bL8a+bConnR(58,58)+bHL(55)+bL4a+bConnR(116,116)+bHL(120)+bLSF+bHL(230)+bFin+bHL(230)+bRSF+bConnL(116,116)+bHL(120)+bR4a+bConnL(58,58)+bHL(55)+bR8a+bConnL(29,29)+bHL(26)+bR16a;
-  var bSP="<div style='min-width:12px'></div><div style='min-width:12px'></div><div style='min-width:134px'></div>";
-  var bRow2=bL16b+bConnR(29,29)+bHL(26)+bL8b+bConnR(58,58)+bHL(55)+bL4b+bSP+bSP+bSP+"<div style='min-width:80px'></div>"+bSP+bSP+bSP+bR4b+bConnL(58,58)+bHL(55)+bR8b+bConnL(29,29)+bHL(26)+bR16b;
-  var fix16="<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'><div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'><div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 Bracket 16avos → Final</div><div style='font-size:10px;color:#94a3b8'>28 Jun – 19 Jul · Hora Chile</div></div><div style='overflow-x:auto;padding:12px'><div style='display:flex;gap:0;align-items:flex-start;min-width:980px'>"+bRow1+"</div><div style='display:flex;gap:0;align-items:flex-start;min-width:980px;margin-top:0'>"+bRow2+"</div></div><div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>Slots vacíos se completan a medida que avanza el torneo · Empate: tiempo extra + penales</div></div>";
+  // Bracket 16avos — reconstruido limpio
+  var BL=[
+    ["🇿🇦 Sudáfrica","🇨🇦 Canadá","28/6 16:00"],
+    ["🇩🇪 Alemania","🇵🇾 Paraguay","29/6 13:00"],
+    ["🇨🇮 C. Marfil","🇳🇴 Noruega","29/6 20:00"],
+    ["🇲🇽 México","🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia","30/6 17:00"],
+    ["🇪🇬 Egipto","🇰🇷 Corea Sur","1/7 13:00"],
+    ["🇺🇸 EE.UU.","🇧🇦 Bosnia","1/7 20:00"],
+    ["🇨🇭 Suiza","🇩🇿 Argelia","2/7 17:00"],
+    ["🇦🇷 Argentina","🇺🇾 Uruguay","3/7 13:00"]
+  ];
+  var BR=[
+    ["🇧🇷 Brasil","🇯🇵 Japón","28/6 20:00"],
+    ["🇳🇱 Países Bajos","🇲🇦 Marruecos","29/6 17:00"],
+    ["🇫🇷 Francia","🇸🇪 Suecia","30/6 13:00"],
+    ["🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","🇨🇻 Cabo Verde","30/6 20:00"],
+    ["🇪🇸 España","🇦🇹 Austria","1/7 17:00"],
+    ["🇦🇺 Australia","🇮🇷 Irán","2/7 13:00"],
+    ["🇵🇹 Portugal","🇬🇭 Ghana","3/7 17:00"],
+    ["🇨🇴 Colombia","🇭🇷 Croacia","3/7 20:00"]
+  ];
+
+  // Genera una tarjeta de equipo
+  function bTeam(name, time) {
+    return "<div style='display:flex;align-items:center;background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;padding:3px 7px;margin:1px 0;min-width:130px;height:24px'>"
+      +"<span style='font-size:11px;font-weight:600;color:#e2e8f0;flex:1;white-space:nowrap;overflow:hidden'>"+(name||"&nbsp;")+"</span>"
+      +(time?"<span style='font-size:9px;color:#60a5fa;margin-left:4px;white-space:nowrap'>"+time+"</span>":"")
+      +"</div>";
+  }
+
+  // Genera un par de equipos (un partido)
+  function bMatch(a, b, time) {
+    return "<div style='margin-bottom:8px'>"
+      +bTeam(a, time)
+      +bTeam(b, "")
+      +"</div>";
+  }
+
+  function bEmpty() { return bMatch("","",""); }
+
+  // Genera una columna
+  function bCol(title, matches, marginTop) {
+    var mt = marginTop || 0;
+    return "<div style='display:flex;flex-direction:column;min-width:148px;margin-top:"+mt+"px'>"
+      +(title
+        ? "<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:6px'>"+title+"</div>"
+        : "<div style='height:21px'></div>")
+      +matches.join("")
+      +"</div>";
+  }
+
+  // Conectores derecha (curva hacia la derecha)
+  function bCR(h1, h2) {
+    return "<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'>"
+      +"<div style='flex:"+h1+";border-right:1px solid #334155;border-bottom:1px solid #334155'></div>"
+      +"<div style='flex:"+h2+";border-right:1px solid #334155;border-top:1px solid #334155'></div>"
+      +"</div>"
+      +"<div style='width:10px;border-top:1px solid #334155;flex-shrink:0'></div>";
+  }
+
+  // Conectores izquierda
+  function bCL(h1, h2) {
+    return "<div style='width:10px;border-top:1px solid #334155;flex-shrink:0'></div>"
+      +"<div style='display:flex;flex-direction:column;width:12px;flex-shrink:0'>"
+      +"<div style='flex:"+h1+";border-left:1px solid #334155;border-bottom:1px solid #334155'></div>"
+      +"<div style='flex:"+h2+";border-left:1px solid #334155;border-top:1px solid #334155'></div>"
+      +"</div>";
+  }
+
+  // Construir columnas
+  var bL1 = bCol("16avos", BL.slice(0,4).map(function(m){return bMatch(m[0],m[1],m[2]);}), 0);
+  var bL2 = bCol("", BL.slice(4,8).map(function(m){return bMatch(m[0],m[1],m[2]);}), 0);
+  var bR1 = bCol("16avos", BR.slice(0,4).map(function(m){return bMatch(m[0],m[1],m[2]);}), 0);
+  var bR2 = bCol("", BR.slice(4,8).map(function(m){return bMatch(m[0],m[1],m[2]);}), 0);
+  var b8L1 = bCol("8vos", [bEmpty(),bEmpty()], 26);
+  var b8L2 = bCol("", [bEmpty(),bEmpty()], 26);
+  var b8R1 = bCol("8vos", [bEmpty(),bEmpty()], 26);
+  var b8R2 = bCol("", [bEmpty(),bEmpty()], 26);
+  var b4L1 = bCol("4tos", [bEmpty()], 84);
+  var b4L2 = bCol("", [bEmpty()], 84);
+  var b4R1 = bCol("4tos", [bEmpty()], 84);
+  var b4R2 = bCol("", [bEmpty()], 84);
+  var bSFL = bCol("Semis", [bEmpty()], 200);
+  var bSFR = bCol("Semis", [bEmpty()], 200);
+
+  var bFinalBox = "<div style='display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:88px;padding-top:228px'>"
+    +"<div style='font-size:9px;color:#fbbf24;font-weight:700;text-transform:uppercase;background:linear-gradient(135deg,#1a2200,#0d2a18);border:1px solid #fbbf24;border-radius:4px;padding:3px 6px;text-align:center;margin-bottom:8px;white-space:nowrap'>🏆 FINAL</div>"
+    +"<div style='font-size:8px;color:#64748b;text-align:center;margin-bottom:6px'>19 Jul<br>MetLife NJ</div>"
+    +"<div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:12px 10px;text-align:center'>"
+    +"<div style='font-size:22px'>🏆</div>"
+    +"<div style='font-size:9px;color:#fbbf24;font-weight:700;margin-top:4px'>Campeón</div>"
+    +"</div></div>";
+
+  // Fila superior: primeras 4 llaves de cada lado
+  var bTop = "<div style='display:flex;align-items:flex-start;min-width:1000px'>"
+    +bL1 + bCR(1,1) + b8L1 + bCR(1,1) + b4L1 + bCR(1,1) + bSFL
+    +"<div style='width:10px;border-top:1px solid #334155;flex-shrink:0;margin-top:225px'></div>"
+    +bFinalBox
+    +"<div style='width:10px;border-top:1px solid #334155;flex-shrink:0;margin-top:225px'></div>"
+    +bSFR + bCL(1,1) + b4R1 + bCL(1,1) + b8R1 + bCL(1,1) + bR1
+    +"</div>";
+
+  // Fila inferior: últimas 4 llaves de cada lado
+  var SP = "<div style='min-width:170px'></div>";
+  var bBot = "<div style='display:flex;align-items:flex-start;min-width:1000px'>"
+    +bL2 + bCR(1,1) + b8L2 + bCR(1,1) + b4L2
+    +SP+SP+SP+"<div style='min-width:88px'></div>"+SP+SP+SP
+    +b4R2 + bCL(1,1) + b8R2 + bCL(1,1) + bR2
+    +"</div>";
+
+  var fix16 = "<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'>"
+    +"<div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'>"
+    +"<div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 Bracket 16avos → Final</div>"
+    +"<div style='font-size:10px;color:#94a3b8'>28 Jun – 19 Jul · Hora Chile</div></div>"
+    +"<div style='overflow-x:auto;padding:14px'>"
+    +bTop+bBot
+    +"</div>"
+    +"<div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>Slots vacíos se completan a medida que avanza el torneo</div>"
+    +"</div>";
+
 
 
   var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>'
