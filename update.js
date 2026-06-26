@@ -673,7 +673,7 @@ async function main() {
     +BR.map(function(m){ return bMatch16(m); }).join("")
     +"</div>";
 
-  var bFinalBox = "<div style='display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:80px;padding-top:4px'>"
+  var bFinalBox = "<div style='display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-width:80px;margin-top:290px'>"
     +"<div style='font-size:9px;color:#fbbf24;font-weight:700;text-transform:uppercase;letter-spacing:1px;background:linear-gradient(135deg,#1a2200,#0d2a18);border:1px solid #fbbf24;border-radius:4px;padding:3px 6px;text-align:center;margin-bottom:8px;white-space:nowrap'>🏆 FINAL</div>"
     +"<div style='font-size:8px;color:#64748b;text-align:center;margin-bottom:8px'>19 Jul<br>MetLife</div>"
     +"<div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:12px 8px;text-align:center'>"
@@ -681,21 +681,27 @@ async function main() {
     +"<div style='font-size:9px;color:#fbbf24;font-weight:700;margin-top:4px'>Campeón</div>"
     +"</div></div>";
 
+  // Altura por partido: 2 cards(25px) + 2px margen + 6px gap = 58px por partido
+  // 8vos une pares → mt = 29 (mitad del 1er par, después del header 20px)
+  // 4tos une pares de 8vos → mt = 29 + 58 = 87
+  // Semis une pares de 4tos → mt = 87 + 2*58 = 203
+  // Final centrado → mt = 203 + 116 = ~290
+
   var bMiddle = "<div style='display:flex;align-items:flex-start;gap:0'>"
     +bArrow+bSep
-    +bRound("8vos", 4, 0)
+    +bRound("8vos", 4, 29)
     +bSep+bArrow+bSep
-    +bRound("4tos", 2, 58)
+    +bRound("4tos", 2, 87)
     +bSep+bArrow+bSep
-    +bRoundSingle("Semis", 174)
+    +bRoundSingle("Semis", 203)
     +bSep+bArrow+bSep
     +bFinalBox
     +bSep+bArrowL+bSep
-    +bRoundSingle("Semis", 174)
+    +bRoundSingle("Semis", 203)
     +bSep+bArrowL+bSep
-    +bRound("4tos", 2, 58)
+    +bRound("4tos", 2, 87)
     +bSep+bArrowL+bSep
-    +bRound("8vos", 4, 0)
+    +bRound("8vos", 4, 29)
     +bSep+bArrowL
     +"</div>";
 
