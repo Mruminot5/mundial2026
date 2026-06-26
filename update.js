@@ -635,7 +635,7 @@ async function main() {
   function bCard(name, time) {
     return "<div style='display:flex;align-items:center;justify-content:space-between;"
       +"background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;"
-      +"padding:3px 8px;height:"+CH+"px;min-width:138px'>"
+      +"padding:3px 8px;height:"+CH+"px;min-width:115px'>"
       +"<span style='font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap'>"+(name||"&nbsp;")+"</span>"
       +(time?"<span style='font-size:9px;color:#60a5fa;margin-left:4px;flex-shrink:0'>"+time+"</span>":"")
       +"</div>";
@@ -650,18 +650,18 @@ async function main() {
 
   function bEmptySlot(padTop) {
     return "<div style='padding-top:"+padTop+"px;margin-bottom:"+MGAP+"px'>"
-      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:126px;margin-bottom:"+GAP+"px'></div>"
-      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:126px'></div>"
+      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:98px;margin-bottom:"+GAP+"px'></div>"
+      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:98px'></div>"
       +"</div>";
   }
 
   // Columna 16avos (8 partidos)
-  var b16L = "<div style='min-width:150px'>"
+  var b16L = "<div style='min-width:112px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>16avos</div>"
     +BL.map(function(m){return bMatch(m);}).join("")
     +"</div>";
 
-  var b16R = "<div style='min-width:150px'>"
+  var b16R = "<div style='min-width:112px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>16avos</div>"
     +BR.map(function(m){return bMatch(m);}).join("")
     +"</div>";
@@ -670,12 +670,12 @@ async function main() {
   // 1er slot: paddingTop = PH/2 - CH (para centrar entre partido 1 y 2)
   // Los siguientes slots tienen paddingTop = PH (espacio de 1 partido)
   var pt8 = Math.floor(PH/2 - CH); // 66/2-28 = 5px
-  var b8L = "<div style='min-width:130px'>"
+  var b8L = "<div style='min-width:100px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>8vos</div>"
     +[0,1,2,3].map(function(i){ return bEmptySlot(i===0 ? pt8 : PH-CH*2-GAP); }).join("")
     +"</div>";
 
-  var b8R = "<div style='min-width:130px'>"
+  var b8R = "<div style='min-width:100px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>8vos</div>"
     +[0,1,2,3].map(function(i){ return bEmptySlot(i===0 ? pt8 : PH-CH*2-GAP); }).join("")
     +"</div>";
@@ -686,12 +686,12 @@ async function main() {
   // Para 4tos: paddingTop = altura de 2 slots de 8vos / 2 - CH = (2*(pt8+CH*2+GAP+MGAP))/2 - CH
   var slot8H = pt8 + CH*2 + GAP + MGAP; // 71px
   var pt4 = Math.floor(slot8H - CH); // 71-28 = 43px
-  var b4L = "<div style='min-width:118px'>"
+  var b4L = "<div style='min-width:95px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>4tos</div>"
     +[0,1].map(function(i){ return bEmptySlot(i===0 ? pt4 : slot8H*2-CH*2-GAP); }).join("")
     +"</div>";
 
-  var b4R = "<div style='min-width:118px'>"
+  var b4R = "<div style='min-width:95px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>4tos</div>"
     +[0,1].map(function(i){ return bEmptySlot(i===0 ? pt4 : slot8H*2-CH*2-GAP); }).join("")
     +"</div>";
@@ -699,12 +699,12 @@ async function main() {
   // Semis: 1 slot, centrado entre los 2 slots de 4tos
   var slot4H = pt4 + CH*2 + GAP + MGAP; // 43+66 = 109px
   var ptSF = Math.floor(slot4H - CH); // 109-28 = 81px
-  var bSFL = "<div style='min-width:108px'>"
+  var bSFL = "<div style='min-width:90px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>Semis</div>"
     +bEmptySlot(ptSF)
     +"</div>";
 
-  var bSFR = "<div style='min-width:108px'>"
+  var bSFR = "<div style='min-width:90px'>"
     +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>Semis</div>"
     +bEmptySlot(ptSF)
     +"</div>";
@@ -712,7 +712,7 @@ async function main() {
   // Final: centrado entre los 2 slots de semis
   var slotSFH = ptSF + CH*2 + GAP + MGAP;
   var ptFin = Math.floor(slotSFH - 50); // centrar el trofeo
-  var bFin = "<div style='min-width:84px;padding-top:"+ptFin+"px'>"
+  var bFin = "<div style='min-width:75px;padding-top:"+ptFin+"px'>"
     +"<div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:10px 8px;text-align:center'>"
     +"<div style='font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;margin-bottom:4px'>🏆 FINAL</div>"
     +"<div style='font-size:8px;color:#64748b;margin-bottom:6px'>19 Jul · MetLife</div>"
@@ -729,7 +729,7 @@ async function main() {
     +"<div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 Bracket 16avos → Final</div>"
     +"<div style='font-size:10px;color:#94a3b8'>28 Jun – 19 Jul · Hora Chile</div></div>"
     +"<div style='overflow-x:auto;padding:14px'>"
-    +"<div style='display:flex;align-items:flex-start;gap:0;min-width:900px'>"
+    +"<div style='display:flex;align-items:flex-start;gap:0;min-width:1100px'>"
     +b16L+bSep+bArr+bSep+b8L+bSep+bArr+bSep+b4L+bSep+bArr+bSep+bSFL+bSep+bArr+bSep
     +bFin
     +bSep+bArrL+bSep+bSFR+bSep+bArrL+bSep+b4R+bSep+bArrL+bSep+b8R+bSep+bArrL+bSep+b16R
