@@ -603,6 +603,19 @@ async function main() {
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
+  // 16avos fixture
+  var p16=[{f:"28 jun",h:"16:00",L:"🇿🇦 Sudáfrica",V:"🇨🇦 Canadá",E:"SoFi Stadium, Los Ángeles"},{f:"28 jun",h:"20:00",L:"🇧🇷 Brasil",V:"🇯🇵 Japón",E:"NRG Stadium, Houston"},{f:"29 jun",h:"13:00",L:"🇩🇪 Alemania",V:"🇵🇾 Paraguay",E:"AT&T Stadium, Dallas"},{f:"29 jun",h:"17:00",L:"🇳🇱 Países Bajos",V:"🇲🇦 Marruecos",E:"Levi Stadium, San José"},{f:"29 jun",h:"20:00",L:"🇨🇮 Costa de Marfil",V:"🇳🇴 Noruega",E:"Rose Bowl, Los Ángeles"},{f:"30 jun",h:"13:00",L:"🇫🇷 Francia",V:"🇸🇪 Suecia",E:"MetLife Stadium, Nueva York"},{f:"30 jun",h:"17:00",L:"🇲🇽 México",V:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",E:"Arrowhead Stadium, Kansas City"},{f:"30 jun",h:"20:00",L:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",V:"🇨🇻 Cabo Verde",E:"AT&T Stadium, Dallas"},{f:"1 jul",h:"13:00",L:"🇪🇬 Egipto",V:"🇰🇷 Corea del Sur",E:"BBVA, Monterrey"},{f:"1 jul",h:"17:00",L:"🇪🇸 España",V:"🇦🇹 Austria",E:"Hard Rock Stadium, Miami"},{f:"1 jul",h:"20:00",L:"🇺🇸 EE.UU.",V:"🇧🇦 Bosnia-Herz.",E:"SoFi Stadium, Los Ángeles"},{f:"2 jul",h:"13:00",L:"🇦🇺 Australia",V:"🇮🇷 Irán",E:"NRG Stadium, Houston"},{f:"2 jul",h:"17:00",L:"🇨🇭 Suiza",V:"🇩🇿 Argelia",E:"MetLife Stadium, Nueva York"},{f:"3 jul",h:"13:00",L:"🇦🇷 Argentina",V:"🇺🇾 Uruguay",E:"Hard Rock Stadium, Miami"},{f:"3 jul",h:"17:00",L:"🇵🇹 Portugal",V:"🇬🇭 Ghana",E:"SoFi Stadium, Los Ángeles"},{f:"3 jul",h:"20:00",L:"🇨🇴 Colombia",V:"🇭🇷 Croacia",E:"AT&T Stadium, Dallas"}];
+  var _pf="",_rows="";
+  p16.forEach(function(p){
+    if(p.f!==_pf){_rows+="<tr style='background:#0d2a18'><td colspan='4' style='padding:7px 10px;font-size:11px;font-weight:700;color:#4ade80'>📅 "+p.f+"</td></tr>";_pf=p.f;}
+    _rows+="<tr><td style='padding:7px 8px;font-size:11px;color:#60a5fa;font-weight:700'>"+p.h+"</td><td style='padding:7px 8px;font-size:12px;font-weight:600;text-align:right'>"+p.L+"</td><td style='padding:7px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center'>vs</td><td style='padding:7px 8px;font-size:12px;font-weight:600'>"+p.V+"</td></tr>"
+    +"<tr style='background:rgba(0,0,0,.15)'><td colspan='4' style='padding:2px 8px 7px;font-size:10px;color:#64748b'>🏟 "+p.E+"</td></tr>";
+  });
+  var fix16="<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'>"
+    +"<div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'><div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 16avos de Final</div><div style='font-size:10px;color:#94a3b8'>28 Jun – 3 Jul · Hora Chile</div></div>"
+    +"<div style='overflow-x:auto'><table style='width:100%;border-collapse:collapse'><tbody>"+_rows+"</tbody></table></div>"
+    +"<div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>24 clasificados + 8 mejores terceros · Empate: tiempo extra + penales</div></div>";
+
   var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>'
     + '<title>⚽ Mundial 2026 · En Vivo</title><style>' + css + '</style></head><body>'
     + '<div class="header"><div class="inner">'
