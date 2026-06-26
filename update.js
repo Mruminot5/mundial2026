@@ -748,21 +748,21 @@ async function main() {
       // 8vos L vacío
       +"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:120px'></div></td>"
       // Espaciador
-      +"<td style='padding:2px 8px;font-size:11px;color:#334155;text-align:center'>"+(i%2===1?"→":"")+"</td>"
+      +"<td style='padding:2px 8px;font-size:11px;color:#334155;text-align:center'>"+(i%2===0?"→":"")+"</td>"
       // 4tos L vacío (solo en filas impares)
-      +(i%2===1?"<td rowspan='1' style='padding:2px 4px;vertical-align:middle'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:110px'></div></td>":"<td></td>")
+      +(i%2===0?"<td rowspan='1' style='padding:2px 4px;vertical-align:middle'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:110px'></div></td>":"<td></td>")
       // Espaciador
       +"<td style='padding:2px 4px'></td>"
       // Semis L (solo en i=1,5)
-      +(i===1||i===5?"<td rowspan='1' style='padding:2px 4px;vertical-align:middle'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:100px'></div></td>":"<td></td>")
+      +(i===0||i===4?"<td rowspan='1' style='padding:2px 4px;vertical-align:middle'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:100px'></div></td>":"<td></td>")
       // FINAL (solo en i=3)
-      +(i===3?"<td rowspan='2' style='padding:8px;vertical-align:middle;text-align:center'><div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:10px;text-align:center;min-width:70px'><div style='font-size:9px;color:#fbbf24;font-weight:700'>🏆 FINAL</div><div style='font-size:22px;margin:4px 0'>🏆</div><div style='font-size:9px;color:#fbbf24;font-weight:700'>Campeón</div><div style='font-size:8px;color:#64748b;margin-top:2px'>19 Jul · MetLife</div></div></td>":"<td></td>")
+      +(i===0?"<td rowspan='8' style='padding:8px;vertical-align:middle;text-align:center'><div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:10px;text-align:center;min-width:70px'><div style='font-size:9px;color:#fbbf24;font-weight:700'>🏆 FINAL</div><div style='font-size:22px;margin:4px 0'>🏆</div><div style='font-size:9px;color:#fbbf24;font-weight:700'>Campeón</div><div style='font-size:8px;color:#64748b;margin-top:2px'>19 Jul · MetLife</div></div></td>":"<td></td>")
       // Semis R
-      +(i===2||i===6?"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:100px'></div></td>":"<td></td>")
+      +(i===1||i===5?"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:100px'></div></td>":"<td></td>")
       +"<td style='padding:2px 4px'></td>"
       // 4tos R
-      +(i%2===0?"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:110px'></div></td>":"<td></td>")
-      +"<td style='padding:2px 8px;font-size:11px;color:#334155;text-align:center'>"+(i%2===0?"←":"")+"</td>"
+      +(i%2===1?"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:110px'></div></td>":"<td></td>")
+      +"<td style='padding:2px 8px;font-size:11px;color:#334155;text-align:center'>"+(i%2===1?"←":"")+"</td>"
       // 8vos R vacío
       +"<td style='padding:2px 4px'><div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:26px;min-width:120px'></div></td>"
       +"<td style='padding:2px 8px;font-size:11px;color:#334155;text-align:center'>←</td>"
