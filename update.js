@@ -603,139 +603,159 @@ async function main() {
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
-  // ── BRACKET 16AVOS V5 ── slots espaciados individualmente
+  // ── BRACKET 16AVOS V6 ── matemáticamente preciso
   var BL=[
-    {L:"🇿🇦 Sudáfrica",  V:"🇨🇦 Canadá",       h:"28/6 16:00"},
-    {L:"🇩🇪 Alemania",   V:"🇵🇾 Paraguay",      h:"29/6 13:00"},
-    {L:"🇨🇮 C. Marfil",  V:"🇳🇴 Noruega",       h:"29/6 20:00"},
-    {L:"🇲🇽 México",     V:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",     h:"30/6 17:00"},
-    {L:"🇪🇬 Egipto",     V:"🇰🇷 Corea Sur",     h:"1/7 13:00"},
-    {L:"🇺🇸 EE.UU.",     V:"🇧🇦 Bosnia",        h:"1/7 20:00"},
-    {L:"🇨🇭 Suiza",      V:"🇩🇿 Argelia",       h:"2/7 17:00"},
-    {L:"🇦🇷 Argentina",  V:"🇺🇾 Uruguay",       h:"3/7 13:00"}
+    {L:"🇿🇦 Sudáfrica",V:"🇨🇦 Canadá",h:"28/6 16:00"},
+    {L:"🇩🇪 Alemania",V:"🇵🇾 Paraguay",h:"29/6 13:00"},
+    {L:"🇨🇮 C. Marfil",V:"🇳🇴 Noruega",h:"29/6 20:00"},
+    {L:"🇲🇽 México",V:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",h:"30/6 17:00"},
+    {L:"🇪🇬 Egipto",V:"🇰🇷 Corea Sur",h:"1/7 13:00"},
+    {L:"🇺🇸 EE.UU.",V:"🇧🇦 Bosnia",h:"1/7 20:00"},
+    {L:"🇨🇭 Suiza",V:"🇩🇿 Argelia",h:"2/7 17:00"},
+    {L:"🇦🇷 Argentina",V:"🇺🇾 Uruguay",h:"3/7 13:00"}
   ];
   var BR=[
-    {L:"🇧🇷 Brasil",         V:"🇯🇵 Japón",        h:"28/6 20:00"},
-    {L:"🇳🇱 Países Bajos",   V:"🇲🇦 Marruecos",    h:"29/6 17:00"},
-    {L:"🇫🇷 Francia",        V:"🇸🇪 Suecia",       h:"30/6 13:00"},
-    {L:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",   V:"🇨🇻 Cabo Verde",   h:"30/6 20:00"},
-    {L:"🇪🇸 España",         V:"🇦🇹 Austria",      h:"1/7 17:00"},
-    {L:"🇦🇺 Australia",      V:"🇮🇷 Irán",         h:"2/7 13:00"},
-    {L:"🇵🇹 Portugal",       V:"🇬🇭 Ghana",        h:"3/7 17:00"},
-    {L:"🇨🇴 Colombia",       V:"🇭🇷 Croacia",      h:"3/7 20:00"}
+    {L:"🇧🇷 Brasil",V:"🇯🇵 Japón",h:"28/6 20:00"},
+    {L:"🇳🇱 Países Bajos",V:"🇲🇦 Marruecos",h:"29/6 17:00"},
+    {L:"🇫🇷 Francia",V:"🇸🇪 Suecia",h:"30/6 13:00"},
+    {L:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",V:"🇨🇻 Cabo Verde",h:"30/6 20:00"},
+    {L:"🇪🇸 España",V:"🇦🇹 Austria",h:"1/7 17:00"},
+    {L:"🇦🇺 Australia",V:"🇮🇷 Irán",h:"2/7 13:00"},
+    {L:"🇵🇹 Portugal",V:"🇬🇭 Ghana",h:"3/7 17:00"},
+    {L:"🇨🇴 Colombia",V:"🇭🇷 Croacia",h:"3/7 20:00"}
   ];
 
-  // Altura fija de cada tarjeta de equipo
-  var CH = 28; // card height px
-  var GAP = 2; // gap entre tarjetas del mismo partido
-  var MGAP = 8; // margen entre partidos
-  // Altura de un partido completo: 2 tarjetas + gap + margin = 28+28+2+8 = 66px
-  var PH = CH*2 + GAP + MGAP; // 66px por partido
+  var H = 26;  // altura de cada tarjeta de equipo
+  var G = 2;   // gap entre las 2 tarjetas de un partido
+  var M = 8;   // margen entre partidos
 
+  // Altura total de un partido = H + G + H + M = 64px
+  var P = H + G + H + M;
+
+  // Para centrar un slot entre N partidos:
+  // El slot va a la mitad del bloque de N partidos
+  // paddingTop = (N * P / 2) - H - G/2
+  function centerPad(n) {
+    return Math.round((n * P) / 2 - H - G / 2);
+  }
+
+  // Tarjeta de equipo
   function bCard(name, time) {
-    return "<div style='display:flex;align-items:center;justify-content:space-between;"
-      +"background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;"
-      +"padding:3px 8px;height:"+CH+"px;min-width:115px'>"
-      +"<span style='font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap'>"+(name||"&nbsp;")+"</span>"
+    return "<div style='background:#0b1120;border:1px solid #2a3a5a;border-radius:4px;"
+      +"padding:3px 7px;height:"+H+"px;min-width:115px;display:flex;align-items:center;justify-content:space-between'>"
+      +"<span style='font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden'>"+(name||"&nbsp;")+"</span>"
       +(time?"<span style='font-size:9px;color:#60a5fa;margin-left:4px;flex-shrink:0'>"+time+"</span>":"")
       +"</div>";
   }
 
+  // Partido de 16avos con 2 equipos
   function bMatch(m) {
-    return "<div style='margin-bottom:"+MGAP+"px'>"
-      +"<div style='margin-bottom:"+GAP+"px'>"+bCard(m.L, m.h)+"</div>"
+    return "<div style='margin-bottom:"+M+"px'>"
+      +"<div style='margin-bottom:"+G+"px'>"+bCard(m.L, m.h)+"</div>"
       +bCard(m.V, "")
       +"</div>";
   }
 
-  function bEmptySlot(padTop) {
-    return "<div style='padding-top:"+padTop+"px;margin-bottom:"+MGAP+"px'>"
-      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:98px;margin-bottom:"+GAP+"px'></div>"
-      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+CH+"px;min-width:98px'></div>"
+  // Slot vacío para rondas posteriores, con paddingTop para centrarlo
+  function bSlot(padTop, w) {
+    var width = w || 100;
+    return "<div style='padding-top:"+padTop+"px;margin-bottom:"+M+"px'>"
+      +"<div style='margin-bottom:"+G+"px;background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+H+"px;min-width:"+width+"px'></div>"
+      +"<div style='background:#0d1525;border:1px solid #1e2d45;border-radius:4px;height:"+H+"px;min-width:"+width+"px'></div>"
       +"</div>";
   }
 
-  // Columna 16avos (8 partidos)
-  var b16L = "<div style='min-width:112px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>16avos</div>"
+  // Header de columna
+  function bHeader(label, color) {
+    return "<div style='font-size:9px;color:"+(color||"#4ade80")+";font-weight:700;text-align:center;"
+      +"text-transform:uppercase;letter-spacing:1px;background:"+(color=="#fbbf24"?"#1a2200":"#0d2a18")+";"
+      +"border-radius:4px;padding:3px;margin-bottom:4px'>"+(label||"&nbsp;")+"</div>";
+  }
+
+  // Separador / flecha
+  var SEP = "<div style='width:5px;flex-shrink:0'></div>";
+  var ARR = "<div style='width:10px;flex-shrink:0;color:#334155;font-size:10px;display:flex;align-items:center;padding-top:"+(centerPad(1))+"px'>›</div>";
+  var ARRL = "<div style='width:10px;flex-shrink:0;color:#334155;font-size:10px;display:flex;align-items:center;padding-top:"+(centerPad(1))+"px'>‹</div>";
+
+  // Calcular paddingTop para cada ronda
+  // 8vos: cada slot cubre 2 partidos de 16avos
+  var pt8 = centerPad(2);
+  // 4tos: cada slot cubre 2 slots de 8vos
+  // Un slot de 8vos ocupa: pt8 + H + G + H + M = pt8 + P
+  var h8 = pt8 + P;
+  var pt4 = h8 - H - G/2;
+  // Semis: cubre 2 slots de 4tos
+  var h4 = pt4 + P;
+  var ptSF = h4*2 - H - G/2;
+  // Final: cubre 2 semis
+  var hSF = ptSF + P;
+  var ptFin = Math.round(hSF - 35);
+
+  // Construir columnas izquierda
+  var b16L = "<div style='flex-shrink:0'>"
+    +bHeader("16avos")
     +BL.map(function(m){return bMatch(m);}).join("")
     +"</div>";
 
-  var b16R = "<div style='min-width:112px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>16avos</div>"
-    +BR.map(function(m){return bMatch(m);}).join("")
+  var b8L = "<div style='flex-shrink:0'>"
+    +bHeader("8vos")
+    +[0,1,2,3].map(function(){return bSlot(pt8,105);}).join("")
     +"</div>";
 
-  // 8vos: 4 slots, cada uno centrado entre 2 partidos de 16avos
-  // 1er slot: paddingTop = PH/2 - CH (para centrar entre partido 1 y 2)
-  // Los siguientes slots tienen paddingTop = PH (espacio de 1 partido)
-  var pt8 = Math.floor(PH/2 - CH); // 66/2-28 = 5px
-  var b8L = "<div style='min-width:100px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>8vos</div>"
-    +[0,1,2,3].map(function(i){ return bEmptySlot(i===0 ? pt8 : PH-CH*2-GAP); }).join("")
+  var b4L = "<div style='flex-shrink:0'>"
+    +bHeader("4tos")
+    +[0,1].map(function(){return bSlot(pt4,95);}).join("")
     +"</div>";
 
-  var b8R = "<div style='min-width:100px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>8vos</div>"
-    +[0,1,2,3].map(function(i){ return bEmptySlot(i===0 ? pt8 : PH-CH*2-GAP); }).join("")
+  var bSFL = "<div style='flex-shrink:0'>"
+    +bHeader("Semis")
+    +bSlot(ptSF,88)
     +"</div>";
 
-  // 4tos: 2 slots, centrados entre cada par de 8vos
-  var PH8 = CH*2+GAP+MGAP + PH; // altura de 2 partidos de 16avos = 2*PH = 132px, pero el slot de 8vos ocupa menos
-  // El slot de 8vos ocupa: padTop + CH*2 + GAP + MGAP = pt8 + 28+28+2+8 = 5+66 = 71px
-  // Para 4tos: paddingTop = altura de 2 slots de 8vos / 2 - CH = (2*(pt8+CH*2+GAP+MGAP))/2 - CH
-  var slot8H = pt8 + CH*2 + GAP + MGAP; // 71px
-  var pt4 = Math.floor(slot8H - CH); // 71-28 = 43px
-  var b4L = "<div style='min-width:95px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>4tos</div>"
-    +[0,1].map(function(i){ return bEmptySlot(i===0 ? pt4 : slot8H*2-CH*2-GAP); }).join("")
-    +"</div>";
-
-  var b4R = "<div style='min-width:95px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>4tos</div>"
-    +[0,1].map(function(i){ return bEmptySlot(i===0 ? pt4 : slot8H*2-CH*2-GAP); }).join("")
-    +"</div>";
-
-  // Semis: 1 slot, centrado entre los 2 slots de 4tos
-  var slot4H = pt4 + CH*2 + GAP + MGAP; // 43+66 = 109px
-  var ptSF = Math.floor(slot4H - CH); // 109-28 = 81px
-  var bSFL = "<div style='min-width:90px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>Semis</div>"
-    +bEmptySlot(ptSF)
-    +"</div>";
-
-  var bSFR = "<div style='min-width:90px'>"
-    +"<div style='font-size:9px;color:#4ade80;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:1px;background:#0d2a18;border-radius:4px;padding:3px;margin-bottom:4px'>Semis</div>"
-    +bEmptySlot(ptSF)
-    +"</div>";
-
-  // Final: centrado entre los 2 slots de semis
-  var slotSFH = ptSF + CH*2 + GAP + MGAP;
-  var ptFin = Math.floor(slotSFH - 50); // centrar el trofeo
-  var bFin = "<div style='min-width:75px;padding-top:"+ptFin+"px'>"
-    +"<div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:10px 8px;text-align:center'>"
+  // Final
+  var bFin = "<div style='flex-shrink:0;padding-top:"+ptFin+"px'>"
+    +"<div style='background:linear-gradient(135deg,#1a2200,#0d2a18);border:2px solid #fbbf24;border-radius:10px;padding:10px 8px;text-align:center;min-width:72px'>"
     +"<div style='font-size:9px;color:#fbbf24;font-weight:700;letter-spacing:1px;margin-bottom:4px'>🏆 FINAL</div>"
-    +"<div style='font-size:8px;color:#64748b;margin-bottom:6px'>19 Jul · MetLife</div>"
-    +"<div style='font-size:22px'>🏆</div>"
+    +"<div style='font-size:8px;color:#64748b;margin-bottom:6px'>19 Jul<br>MetLife</div>"
+    +"<div style='font-size:20px'>🏆</div>"
     +"<div style='font-size:9px;color:#fbbf24;font-weight:700;margin-top:4px'>Campeón</div>"
     +"</div></div>";
 
-  var bSep = "<div style='width:6px;flex-shrink:0'></div>";
-  var bArr = "<div style='display:flex;align-items:center;width:8px;flex-shrink:0;padding-top:"+Math.floor(pt8+CH)+"px;color:#334155;font-size:10px'>›</div>";
-  var bArrL = "<div style='display:flex;align-items:center;width:8px;flex-shrink:0;padding-top:"+Math.floor(pt8+CH)+"px;color:#334155;font-size:10px'>‹</div>";
+  // Columnas derecha (simétricas)
+  var bSFR = "<div style='flex-shrink:0'>"
+    +bHeader("Semis")
+    +bSlot(ptSF,88)
+    +"</div>";
+
+  var b4R = "<div style='flex-shrink:0'>"
+    +bHeader("4tos")
+    +[0,1].map(function(){return bSlot(pt4,95);}).join("")
+    +"</div>";
+
+  var b8R = "<div style='flex-shrink:0'>"
+    +bHeader("8vos")
+    +[0,1,2,3].map(function(){return bSlot(pt8,105);}).join("")
+    +"</div>";
+
+  var b16R = "<div style='flex-shrink:0'>"
+    +bHeader("16avos")
+    +BR.map(function(m){return bMatch(m);}).join("")
+    +"</div>";
 
   var fix16 = "<div style='background:#121c30;border-radius:10px;border:2px solid #4ade80;overflow:hidden;margin-top:20px'>"
     +"<div style='padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between'>"
     +"<div style='font-size:15px;font-weight:800;color:#4ade80'>🏆 Bracket 16avos → Final</div>"
     +"<div style='font-size:10px;color:#94a3b8'>28 Jun – 19 Jul · Hora Chile</div></div>"
     +"<div style='overflow-x:auto;padding:14px'>"
-    +"<div style='display:flex;align-items:flex-start;gap:0;min-width:1100px'>"
-    +b16L+bSep+bArr+bSep+b8L+bSep+bArr+bSep+b4L+bSep+bArr+bSep+bSFL+bSep+bArr+bSep
+    +"<div style='display:flex;align-items:flex-start;gap:0'>"
+    +b16L+SEP+ARR+SEP+b8L+SEP+ARR+SEP+b4L+SEP+ARR+SEP+bSFL+SEP+ARR+SEP
     +bFin
-    +bSep+bArrL+bSep+bSFR+bSep+bArrL+bSep+b4R+bSep+bArrL+bSep+b8R+bSep+bArrL+bSep+b16R
+    +SEP+ARRL+SEP+bSFR+SEP+ARRL+SEP+b4R+SEP+ARRL+SEP+b8R+SEP+ARRL+SEP+b16R
     +"</div></div>"
     +"<div style='padding:8px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b'>Slots vacíos se completan a medida que avanza el torneo · Empate: tiempo extra + penales</div>"
     +"</div>";
+
+
 
 
 
