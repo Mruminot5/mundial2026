@@ -649,7 +649,7 @@ async function main() {
     + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados por Grupo</h2><div>' + jorBtns + '</div></div>'
     + jorBlocks + '</div>'
     // TABLAS
-    + '<div id="tablas" class="pane"><div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:14px;">' + grpBtns + '</div>' + tablaBlocks + '</div>'
+    + '<div id="tablas" class="pane"><div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:14px;">' + grpBtns + '</div>' + tablaBlocks + fix16 + '</div>'
     // APUESTAS
     + '<div id="apuestas" class="pane">'
     + '<div style="background:#1a2200;border:1px solid #3a5a00;border-radius:10px;padding:11px 13px;margin-bottom:14px;"><div style="font-size:12px;color:#86efac;font-weight:700;">⚠️ Análisis al ' + dateCL + ' · ' + finished.length + ' partidos jugados</div></div>'
