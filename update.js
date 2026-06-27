@@ -242,6 +242,10 @@ ANAL["Algeria_Austria"]              = {g:"Austria con 3 pts vs Argelia con 0 pt
 ANAL["Austria_Algeria"]              = ANAL["Algeria_Austria"];
 ANAL["Uzbekistan_DR Congo"]          = {g:"RD Congo con 1 pt vs Uzbekistán con 0 pts. Colombia lidera. Partido entre los dos de abajo del Grupo K.",go:"Yoane Wissa (RD Congo) — ya demostró nivel vs Portugal. Shomurodov (Uzbekistán).",fi:"Yoane Wissa (RD Congo) — el héroe de J1 contra Portugal.",ap:"RD Congo gana · Wissa anota. Cuota est: 2.1x",pr:"Pred: RD Congo 2-0"};
 ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
+ANAL["Congo DR_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
+ANAL["Uzbekistan_Congo DR"]          = ANAL["Uzbekistan_DR Congo"];
+ANAL["Congo_Uzbekistan"]             = ANAL["Uzbekistan_DR Congo"];
+ANAL["Uzbekistan_Congo"]             = ANAL["Uzbekistan_DR Congo"];
 
 // ── J3 RESULTADOS FINALES (siempre al final para sobrescribir predicciones) ──
 // Group A - 24/25 Jun ✅
@@ -312,7 +316,8 @@ function getAnal(home, away) {
     "IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
     "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde",
     "Cape Verde":"Cabo Verde","South Korea":"Korea Republic","United States":"USA",
-    "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast"
+    "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast",
+    "Congo DR":"DR Congo","Republic of Congo":"DR Congo","Democratic Republic of Congo":"DR Congo"
   };
   var h2 = fixes[home] || fixes[h] || home;
   var a2 = fixes[away] || fixes[a] || away;
@@ -421,7 +426,13 @@ function makeCard(m) {
   // Stats HTML
   var statsHTML = "";
   if (done && !golesL.length && !golesA.length && !tarjL.length && !tarjA.length) {
-    statsHTML = '<div style="font-size:10px;color:#64748b;margin-bottom:6px;">ℹ️ Detalles de goles disponibles en la pestaña de Resultados del partido</div>';
+    // La API gratuita no devuelve eventos — mostrar goleadores del ANAL si existen
+    if (anal && anal.go) {
+      statsHTML = '<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:6px;padding:7px 10px;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);border-radius:7px;">'
+        + '<span style="font-size:11px;">⚽</span>'
+        + '<span style="font-size:11px;color:#cbd5e1;line-height:1.5;">' + anal.go + '</span>'
+        + '</div>';
+    }
   } else if ((done || live) && (golesL.length || golesA.length || tarjL.length || tarjA.length)) {
     var lCol = '<div style="flex:1;">'
       + (golesL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;">' + golesL.join("") + "</div>" : "")
