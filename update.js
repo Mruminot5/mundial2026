@@ -243,6 +243,55 @@ ANAL["Austria_Algeria"]              = ANAL["Algeria_Austria"];
 ANAL["Uzbekistan_DR Congo"]          = {g:"RD Congo con 1 pt vs Uzbekistán con 0 pts. Colombia lidera. Partido entre los dos de abajo del Grupo K.",go:"Yoane Wissa (RD Congo) — ya demostró nivel vs Portugal. Shomurodov (Uzbekistán).",fi:"Yoane Wissa (RD Congo) — el héroe de J1 contra Portugal.",ap:"RD Congo gana · Wissa anota. Cuota est: 2.1x",pr:"Pred: RD Congo 2-0"};
 ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
 
+// ── J3 RESULTADOS FINALES (siempre al final para sobrescribir predicciones) ──
+// Group A - 24/25 Jun ✅
+ANAL["Czechia_Mexico"]               = {g:"México venció 2-0 a Rep. Checa y termina 1ero del Grupo A con 9 pts perfectos. Mateo Chávez anotó en su debut mundialista al 55min, Quiñones al 61min.",go:"Mateo Chávez (México) — gol en su primer partido mundialista. El goleador emotivo del día.",fi:"Mateo Chávez (México) — debut histórico. El ídolo del Azteca en su primera Copa del Mundo.",ap:"Partido terminado · México 1ero del Grupo A · 9 pts perfectos",pr:"✅ México 2-0"};
+ANAL["Mexico_Czechia"]               = ANAL["Czechia_Mexico"];
+ANAL["South Africa_South Korea"]     = {g:"Sudáfrica sorprendió y venció 1-0 a Corea del Sur. Maseko al 63min clasificó a las Bafana Bafana como 2das del Grupo A.",go:"Thapelo Maseko (Sudáfrica) — el gol que cambió todo al 63min.",fi:"Maseko (Sudáfrica) — figura sorpresa del torneo.",ap:"Partido terminado · Sudáfrica 2da del Grupo A · Corea eliminada",pr:"✅ Sudáfrica 1-0"};
+ANAL["Korea Republic_South Africa"]  = ANAL["South Africa_South Korea"];
+// Group B - 24/25 Jun ✅
+ANAL["Switzerland_Canada"]           = {g:"Suiza venció 2-1 a Canadá y se lleva el 1er lugar del Grupo B. Manzambi y Simons marcaron para Suiza, Promise David descontó.",go:"Johan Manzambi (Suiza) al 57min — el gol decisivo del partido.",fi:"Xavi Simons (Suiza) — el más creativo, fue determinante.",ap:"Partido terminado · Suiza 1era del Grupo B · Canadá 2da",pr:"✅ Suiza 2-1"};
+ANAL["Canada_Switzerland"]           = ANAL["Switzerland_Canada"];
+ANAL["Bosnia-Herzegovina_Qatar"]     = {g:"Bosnia-Herz. goleó 3-1 a Qatar y clasifica como uno de los mejores terceros. Mahmic con doblete fue el héroe.",go:"Mahmic (Bosnia) doblete. Qatar marcó un gol de honor.",fi:"Mahmic (Bosnia) — el héroe inesperado de la jornada.",ap:"Partido terminado · Bosnia clasifica como mejor 3ro",pr:"✅ Bosnia 3-1"};
+ANAL["Qatar_Bosnia-Herzegovina"]     = ANAL["Bosnia-Herzegovina_Qatar"];
+// Group C - 24/25 Jun ✅
+ANAL["Scotland_Brazil"]              = {g:"Brasil goleó 3-0 a Escocia y es campeón del Grupo C. Vinícius Jr doblete aplastante, Cunha cerró el marcador.",go:"Vinícius Jr (Brasil) doblete estelar. Matheus Cunha marcó el 3ro.",fi:"Vinícius Jr (Brasil) — figura indiscutida del Grupo C. Candidato a MVP del torneo.",ap:"Partido terminado · Brasil 1ero del Grupo C · 7 pts",pr:"✅ Brasil 3-0"};
+ANAL["Brazil_Scotland"]              = ANAL["Scotland_Brazil"];
+ANAL["Morocco_Haiti"]                = {g:"Marruecos goleó 4-2 a Haití pese al susto inicial. Hakimi, Saibari, Rahimi y Yassine marcaron para los leones del Atlas.",go:"Achraf Hakimi (Marruecos) abrió el marcador y lideró el ataque.",fi:"Achraf Hakimi (Marruecos) — el mejor africano del torneo.",ap:"Partido terminado · Marruecos 2do del Grupo C",pr:"✅ Marruecos 4-2"};
+ANAL["Haiti_Morocco"]                = ANAL["Morocco_Haiti"];
+// Group D - 25 Jun ✅
+ANAL["Turkey_United States"]         = {g:"SORPRESA: Turquía derrotó 3-2 a EE.UU. en un final de infarto. Kaan Ayhan marcó en el descuento y eliminó al anfitrión. EE.UU. queda fuera pese a sus 6 pts en J1 y J2.",go:"Kaan Ayhan (Turquía) — el gol agónico que cambió el torneo. Balogun anotó dos para EE.UU.",fi:"Kaan Ayhan (Turquía) — héroe inesperado. El gol más dramático del torneo hasta ahora.",ap:"Partido terminado · Turquía 3-2 EE.UU. · ELIMINACIÓN HISTÓRICA DEL ANFITRIÓN",pr:"✅ Turquía 3-2 (SORPRESA)"};
+ANAL["United States_Turkey"]         = ANAL["Turkey_United States"];
+ANAL["USA_Turkey"]                   = ANAL["Turkey_United States"];
+ANAL["Paraguay_Australia"]           = {g:"Paraguay y Australia empataron 0-0 en un partido sin goles. Ambos quedan eliminados del Grupo D. Un final decepcionante para ambos.",go:"Sin goles. Ambos equipos muy defensivos y sin ideas ofensivas.",fi:"Nadie destacó en este partido para olvidar.",ap:"Partido terminado · Empate 0-0 · Paraguay y Australia eliminados",pr:"✅ Empate 0-0"};
+ANAL["Australia_Paraguay"]           = ANAL["Paraguay_Australia"];
+// Group E - 25 Jun ✅
+ANAL["Ecuador_Germany"]              = {g:"SORPRESA MAYÚSCULA: Ecuador venció 2-1 a Alemania y la elimina del torneo. Valencia y Caicedo marcaron los goles históricos. Alemania cae con 7 pts, víctima del grupo de la muerte.",go:"Enner Valencia (Ecuador) gol determinante. Moisés Caicedo también anotó.",fi:"Moisés Caicedo (Ecuador) — el motor del equipo. Logró lo imposible contra la potencia germana.",ap:"Partido terminado · Ecuador 2-1 Alemania · La eliminación más impactante del torneo",pr:"✅ Ecuador 2-1 (SORPRESA HISTÓRICA)"};
+ANAL["Germany_Ecuador"]              = ANAL["Ecuador_Germany"];
+ANAL["Curaçao_Ivory Coast"]          = {g:"Costa de Marfil goleó 2-0 a Curazao y se clasifica a 16avos por primera vez en su historia. Amad Diallo lideró el ataque con autoridad.",go:"Amad Diallo (Costa de Marfil) — figura y goleador del partido.",fi:"Amad Diallo (Costa de Marfil) — el más talentoso. Confirmó su gran Mundial.",ap:"Partido terminado · Costa de Marfil clasifica a 16avos históricos",pr:"✅ Costa de Marfil 2-0"};
+ANAL["Ivory Coast_Curaçao"]          = ANAL["Curaçao_Ivory Coast"];
+ANAL["Curacao_Ivory Coast"]          = ANAL["Curaçao_Ivory Coast"];
+// Group F - 25 Jun ✅
+ANAL["Japan_Sweden"]                 = {g:"Japón y Suecia empataron 1-1 en un gran partido. Gyökeres mantuvo su racha, Kamada igualó para Japón. Ambos clasificados.",go:"Viktor Gyökeres (Suecia) — 4 goles en el torneo, el máximo goleador. Kamada igualó.",fi:"Viktor Gyökeres (Suecia) — el mejor delantero del torneo. Imparable.",ap:"Partido terminado · Empate 1-1 · Japón 1ero · Suecia 2da",pr:"✅ Empate 1-1"};
+ANAL["Sweden_Japan"]                 = ANAL["Japan_Sweden"];
+ANAL["Tunisia_Netherlands"]          = {g:"Países Bajos goleó 3-1 a Túnez y termina 1ero del Grupo F. Gakpo, Depay y otro anotaron. Túnez marcó el gol del honor.",go:"Cody Gakpo (Países Bajos) — el más incisivo del grupo en todo el torneo.",fi:"Cody Gakpo (Países Bajos) — en gran forma para los 16avos de final.",ap:"Partido terminado · Países Bajos 1era del Grupo F con 9 pts",pr:"✅ Países Bajos 3-1"};
+ANAL["Netherlands_Tunisia"]          = ANAL["Tunisia_Netherlands"];
+// Group G - 26 Jun ✅
+ANAL["Egypt_Iran"]                   = {g:"Egipto e Irán empataron 1-1. Salah finalmente marcó su primer gol del torneo. Un empate que clasifica a Egipto como mejor tercero.",go:"Mohamed Salah (Egipto) — el gol que desbloqueó su torneo. Por fin apareció el crack del Liverpool.",fi:"Mohamed Salah (Egipto) — el gol que todos esperaban. Listo para brillar en 16avos.",ap:"Partido terminado · Empate 1-1 · Egipto 3ro clasificado · Irán eliminado",pr:"✅ Empate 1-1"};
+ANAL["Iran_Egypt"]                   = ANAL["Egypt_Iran"];
+ANAL["New Zealand_Belgium"]          = {g:"Bélgica aplastó 5-1 a Nueva Zelanda en la mejor actuación belga del torneo. De Bruyne magistral con 3 asistencias. Bélgica se corona 1era del Grupo G.",go:"Kevin De Bruyne (Bélgica) — 3 asistencias, el director de orquesta. Lukaku con doblete.",fi:"Kevin De Bruyne (Bélgica) — uno de los mejores partidos de su carrera mundialista.",ap:"Partido terminado · Bélgica 5-1 · 1era del Grupo G con 7 pts",pr:"✅ Bélgica 5-1"};
+ANAL["Belgium_New Zealand"]          = ANAL["New Zealand_Belgium"];
+// Group H - 26 Jun ✅
+ANAL["Cape Verde Islands_Saudi Arabia"] = {g:"Cabo Verde y Arabia Saudita empataron 0-0. Con España ya clasificada, ambos equipos no tenían nada que perder pero tampoco supieron ganar.",go:"Sin goles. Un partido sin emoción entre dos equipos eliminados.",fi:"Nadie destacó. Un final de grupo sin alicientes.",ap:"Partido terminado · Empate 0-0 · Ambos eliminados del Grupo H",pr:"✅ Empate 0-0"};
+ANAL["Saudi Arabia_Cape Verde Islands"] = ANAL["Cape Verde Islands_Saudi Arabia"];
+ANAL["Uruguay_Spain"]                = {g:"España venció 1-0 a Uruguay y termina 1era del Grupo H. Pedri marcó el gol decisivo en la 2da mitad. España recupera su nivel tras el empate del inicio.",go:"Pedri (España) — el gol decisivo que da el liderato del grupo.",fi:"Pedri (España) — el mejor mediocampista del torneo hasta ahora. Listo para brillar en 16avos.",ap:"Partido terminado · España 1era del Grupo H · Uruguay 2do clasificado",pr:"✅ España 1-0"};
+ANAL["Spain_Uruguay"]                = ANAL["Uruguay_Spain"];
+// Group I - 26 Jun ✅
+ANAL["Norway_France"]                = {g:"Francia aplastó 4-1 a Noruega en el partido del año. Mbappé hat-trick histórico. Haaland anotó para Noruega pero no pudo evitar la paliza. El duelo más esperado del grupo se saldó con una exhibición francesa.",go:"Kylian Mbappé (Francia) hat-trick — ya es el máximo goleador del torneo con 5 goles. Haaland marcó pero quedó eclipsado.",fi:"Kylian Mbappé (Francia) — el mejor jugador del torneo. Hat-trick en el partido más difícil. Candidato indiscutible al Balón de Oro.",ap:"Partido terminado · Francia 4-1 · 1era del Grupo I con 9 pts · Noruega 2da clasificada",pr:"✅ Francia 4-1 (Mbappé hat-trick)"};
+ANAL["France_Norway"]                = ANAL["Norway_France"];
+ANAL["Senegal_Iraq"]                 = {g:"Senegal aplastó 5-0 a Iraq en su mejor partido del torneo. Sadio Mané se reivindicó con doblete tras un inicio decepcionante. Senegal clasifica como 2da del Grupo I.",go:"Sadio Mané (Senegal) doblete para reivindicarse tras J1 y J2 sin goles.",fi:"Sadio Mané (Senegal) — el héroe tardío que encontró su nivel justo a tiempo.",ap:"Partido terminado · Senegal 5-0 Iraq · Senegal 2da del Grupo I",pr:"✅ Senegal 5-0"};
+ANAL["Iraq_Senegal"]                 = ANAL["Senegal_Iraq"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
