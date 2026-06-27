@@ -296,6 +296,47 @@ ANAL["France_Norway"]                = ANAL["Norway_France"];
 ANAL["Senegal_Iraq"]                 = {g:"Senegal aplastó 5-0 a Iraq en su mejor partido del torneo. Sadio Mané se reivindicó con doblete tras un inicio decepcionante. Senegal clasifica como 2da del Grupo I.",go:"Sadio Mané (Senegal) doblete para reivindicarse tras J1 y J2 sin goles.",fi:"Sadio Mané (Senegal) — el héroe tardío que encontró su nivel justo a tiempo.",ap:"Partido terminado · Senegal 5-0 Iraq · Senegal 2da del Grupo I",pr:"✅ Senegal 5-0"};
 ANAL["Iraq_Senegal"]                 = ANAL["Senegal_Iraq"];
 
+// ── 16AVOS DE FINAL (Round of 32) ──────────────────────────────────────────
+// Match 73 · 28 Jun · Sudáfrica vs Canadá
+ANAL["South Africa_Canada"] = {
+  g:"16avos de final histórico: ambos disputan su primer partido de eliminatoria mundialista. Canadá llega como favorito claro con Alphonso Davies, Jonathan David (3 goles en el torneo) y Larin. Sudáfrica es un equipo rocoso que llegó a esta instancia como segundo del Grupo A gracias al gol de Maseko vs Corea del Sur. Los Bafana Bafana son sólidos en defensa pero Canadá tiene demasiada calidad ofensiva.",
+  go:"Jonathan David (Canadá) — ya lleva 3 goles en el torneo, el máximo goleador canadiense. Alphonso Davies imparable por la banda. Thapelo Maseko (Sudáfrica) — el héroe de J3.",
+  fi:"Alphonso Davies (Canadá) — si tiene espacio, ninguna defensa lo para. El jugador más peligroso del partido.",
+  ap:"Canadá gana · Jonathan David anota · Más de 1.5 goles. Cuota est: 1.65x",
+  pr:"Pred: Canadá 2-0"
+};
+ANAL["Canada_South Africa"] = ANAL["South Africa_Canada"];
+
+// Match 74 · 29 Jun · Alemania vs Paraguay
+ANAL["Germany_Paraguay"] = {
+  g:"Alemania llega como uno de los candidatos al título. Musiala y Wirtz forman el mejor mediocampo del torneo. Paraguay clasificó como mejor tercero del Grupo D con 4 puntos — venció a Turquía 1-0 y empató 0-0 con Australia. El único antecedente mundialista fue en 2002: Alemania eliminó a Paraguay 1-0 en el minuto 88 con Oliver Neuville. La historia favorece al equipo europeo.",
+  go:"Florian Wirtz (Alemania) — el creador, capaz de marcar y asistir en cualquier momento. Jamal Musiala (Alemania) — el más habilidoso del torneo. Havertz como referente del ataque.",
+  fi:"Florian Wirtz (Alemania) — junto a Musiala son el mejor dúo del torneo. Si Wirtz aparece, Paraguay no tiene respuesta.",
+  ap:"Alemania gana · Wirtz o Musiala anotan · Más de 2.5 goles. Cuota est: 1.55x",
+  pr:"Pred: Alemania 3-1"
+};
+ANAL["Paraguay_Germany"] = ANAL["Germany_Paraguay"];
+
+// Match 75 · 29 Jun · Brasil vs Japón
+ANAL["Brazil_Japan"] = {
+  g:"El partido más desequilibrado del día en papel pero Japón tiene historia de sorpresas. Brasil cerró el Grupo C como primero con 7 pts y Vinícius Jr en estado de gracia. Japón clasificó 2do del Grupo F con 5 pts, siendo el único en empatar a Países Bajos en el torneo (2-2). Kamada al 89min es su carta de presentación. Brasil tiene demasiada calidad individual pero Japón sorprendió a todos en Qatar 2022 y puede hacerlo de nuevo.",
+  go:"Vinícius Jr (Brasil) — figura indiscutida del torneo con doblete vs Escocia. Matheus Cunha (Brasil) también peligroso. Daichi Kamada (Japón) — el que empató al 89min vs Países Bajos.",
+  fi:"Vinícius Jr (Brasil) — el mejor atacante del torneo. Si sale al 100%, el partido no llega al 70min.",
+  ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota est: 1.75x",
+  pr:"Pred: Brasil 3-1"
+};
+ANAL["Japan_Brazil"] = ANAL["Brazil_Japan"];
+
+// Match 76 · 29 Jun · Países Bajos vs Marruecos
+ANAL["Netherlands_Morocco"] = {
+  g:"El partido más parejo de los 16avos del día. Países Bajos terminó 1ero del Grupo F (7 pts) con Gakpo y Xavi Simons en gran forma. Marruecos fue 2do del Grupo C (7 pts) con Hakimi, Saibari y la solidez defensiva que los llevó al semifinal de Qatar 2022. Los leones del Atlas son peligrosos en contra y pueden aguantar. Países Bajos tiene la posesión pero Marruecos el bloque bajo. Puede ir a prórroga.",
+  go:"Cody Gakpo (Países Bajos) — el más incisivo en todo el torneo, 3 goles. Xavi Simons (Países Bajos) — doblete en J2. Achraf Hakimi (Marruecos) — el mejor africano del torneo.",
+  fi:"Cody Gakpo (Países Bajos) — si encuentra espacios entre la defensa marroquí, puede decidir el partido.",
+  ap:"Partido muy parejo · Ambos marcan · Gakpo anota · Cuota gana Países Bajos: 2.1x",
+  pr:"Pred: Países Bajos 2-1"
+};
+ANAL["Morocco_Netherlands"] = ANAL["Netherlands_Morocco"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
