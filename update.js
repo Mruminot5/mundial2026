@@ -658,28 +658,65 @@ async function main() {
     afDebug.espnDates = [];
     var rawSampleSaved = false;
 
+    // Precarga ESPN para cada fecha + día anterior (diferencia UTC vs hora local USA)
+    var espnByDate = {};
+    for (var espnDate of Object.keys(dateGroups)) {
+      var dates = [espnDate];
+      var prev = new Date(espnDate); prev.setDate(prev.getDate() - 1);
+      dates.push(prev.toISOString().substring(0, 10));
+      var combined = [];
+      for (var dd of dates) {
+        try {
+          var sbRes = await getESPN("scoreboard?dates=" + dd.replace(/-/g, ""));
+          combined = combined.concat(sbRes.events || []);
+        } catch(e) {}
+      }
+      espnByDate[espnDate] = combined;
+      console.log("ESPN pool " + espnDate + ": " + combined.length + " partidos");
+      afDebug.espnDates.push({ date: espnDate, count: combined.length });
+    }
+
     for (var espnDate of Object.keys(dateGroups)) {
       try {
-        var espnDateStr = espnDate.replace(/-/g, ""); // "2026-06-15" → "20260615"
-        var sbRes = await getESPN("scoreboard?dates=" + espnDateStr);
-        var espnEvents = sbRes.events || [];
-        console.log("ESPN " + espnDate + ": " + espnEvents.length + " partidos");
-        afDebug.espnDates.push({ date: espnDate, count: espnEvents.length });
+        // Pool mutable: cada partido ESPN se usa una sola vez (evita duplicados por mismo marcador)
+        var espnPool = espnByDate[espnDate].slice();
 
         for (var fdm of dateGroups[espnDate]) {
           var hScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null;
           var aScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null;
 
-          // Buscar partido ESPN por marcador
-          var espnMatch = espnEvents.find(function(e) {
+          // Buscar partido ESPN por marcador, intentando también con nombres de equipo
+          var fdmHome = (fdm.homeTeam && fdm.homeTeam.shortName || fdm.homeTeam && fdm.homeTeam.name || "").toLowerCase();
+          var fdmAway = (fdm.awayTeam && fdm.awayTeam.shortName || fdm.awayTeam && fdm.awayTeam.name || "").toLowerCase();
+
+          var espnIdx = -1;
+          espnPool.forEach(function(e, i) {
+            if (espnIdx >= 0) return;
             var comp = e.competitions && e.competitions[0];
-            if (!comp || !comp.status || !comp.status.type || !comp.status.type.completed) return false;
+            if (!comp || !comp.status || !comp.status.type || !comp.status.type.completed) return;
             var home = (comp.competitors || []).find(function(c){ return c.homeAway === "home"; });
             var away = (comp.competitors || []).find(function(c){ return c.homeAway === "away"; });
-            return home && away &&
-                   parseInt(home.score) === hScore &&
-                   parseInt(away.score) === aScore;
+            if (!home || !away) return;
+            if (parseInt(home.score) !== hScore || parseInt(away.score) !== aScore) return;
+            // Si hay más de un partido con el mismo marcador, intentar confirmar por nombre de equipo
+            var eName = (e.name || "").toLowerCase();
+            var eHome = (home.team && home.team.displayName || "").toLowerCase();
+            var eAway = (away.team && away.team.displayName || "").toLowerCase();
+            var nameMatch = eName.includes(fdmHome) || eName.includes(fdmAway) ||
+                            eHome.includes(fdmHome) || fdmHome.includes(eHome.split(" ")[0]) ||
+                            eAway.includes(fdmAway) || fdmAway.includes(eAway.split(" ")[0]);
+            // Aceptar si el marcador coincide (y nombres si hay duda)
+            var scoreMatchOnly = espnPool.filter(function(e2) {
+              var c2 = e2.competitions && e2.competitions[0];
+              if (!c2 || !c2.status || !c2.status.type || !c2.status.type.completed) return false;
+              var h2 = (c2.competitors||[]).find(function(c){ return c.homeAway==="home"; });
+              var a2 = (c2.competitors||[]).find(function(c){ return c.homeAway==="away"; });
+              return h2 && a2 && parseInt(h2.score)===hScore && parseInt(a2.score)===aScore;
+            }).length;
+            if (scoreMatchOnly === 1 || nameMatch) espnIdx = i;
           });
+
+          var espnMatch = espnIdx >= 0 ? espnPool.splice(espnIdx, 1)[0] : null;
 
           if (!espnMatch) {
             console.log("ESPN: no match for " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name) + " (" + hScore + "-" + aScore + ")");
