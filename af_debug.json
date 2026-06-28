@@ -1,0 +1,84 @@
+{
+  "ts": "2026-06-28T14:41:34.113Z",
+  "finishedCount": 72,
+  "toFetchCount": 10,
+  "cacheSize": 10,
+  "firstFinishedIds": [
+    537401,
+    537402,
+    537407,
+    537408,
+    537413
+  ],
+  "toFetchIds": [
+    537401,
+    537402,
+    537407,
+    537408,
+    537413,
+    537414,
+    537367,
+    537368,
+    537373,
+    537374
+  ],
+  "status": {
+    "get": "status",
+    "parameters": [],
+    "errors": [],
+    "results": 0,
+    "paging": {
+      "current": 1,
+      "total": 1
+    },
+    "response": {
+      "account": {
+        "firstname": "Mauricio",
+        "lastname": "Ruminot",
+        "email": "mauroruminot@gmail.com"
+      },
+      "subscription": {
+        "plan": "Free",
+        "end": "2027-06-28T00:00:00+00:00",
+        "active": true
+      },
+      "requests": {
+        "current": 0,
+        "limit_day": 100
+      }
+    }
+  },
+  "leaguesSearch": {
+    "get": "leagues",
+    "parameters": {
+      "name": "World Cup",
+      "season": "2026"
+    },
+    "errors": {
+      "plan": "Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "results": 0,
+    "paging": {
+      "current": 1,
+      "total": 1
+    },
+    "response": []
+  },
+  "leagueId1": {
+    "get": "leagues",
+    "parameters": {
+      "id": "1",
+      "season": "2026"
+    },
+    "errors": {
+      "plan": "Free plans do not have access to this season, try from 2022 to 2024."
+    },
+    "results": 0,
+    "paging": {
+      "current": 1,
+      "total": 1
+    },
+    "response": []
+  },
+  "last5": []
+}
