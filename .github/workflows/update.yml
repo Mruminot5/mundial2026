@@ -17,6 +17,7 @@ on:
     - cron: '0 0 * * *'    # 21:00 Chile
     - cron: '0 1 * * *'    # 22:00 Chile
     - cron: '0 2 * * *'    # 23:00 Chile
+          - cron: '0 3 * * *'      # 00:00 Chile
   workflow_dispatch:
 
 jobs:
