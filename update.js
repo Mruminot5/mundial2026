@@ -42,19 +42,23 @@ function mapESPNStats(summary, homeTeam, awayTeam) {
   return teams.map(function(t) {
     var sm = {};
     (t.statistics || []).forEach(function(s) { sm[s.name] = s.displayValue !== undefined ? s.displayValue : String(s.value || 0); });
+    // possessionPct viene como "54.6", lo convertimos a "54.6%"
+    var poss = sm.possessionPct ? sm.possessionPct + "%" : "0%";
+    // passPct viene como "0.9" (fracción), lo convertimos a "90%"
+    var passPctVal = sm.passPct ? Math.round(parseFloat(sm.passPct) * 100) + "%" : "0%";
     return {
       team: { name: t.team && t.team.displayName || "" },
       statistics: [
-        { type: "Total Shots",     value: sm.totalShots || sm.shots || "0" },
+        { type: "Total Shots",     value: sm.totalShots || "0" },
         { type: "Shots on Goal",   value: sm.shotsOnTarget || "0" },
-        { type: "Ball Possession", value: sm.possessionPct || sm.possession || "0%" },
-        { type: "Total passes",    value: sm.totalPasses || sm.passingAttempts || "0" },
-        { type: "Passes %",        value: sm.passingAccuracy || sm.passPct || "0%" },
-        { type: "Fouls",           value: sm.foulsCommitted || sm.fouls || "0" },
+        { type: "Ball Possession", value: poss },
+        { type: "Total passes",    value: sm.totalPasses || "0" },
+        { type: "Passes %",        value: passPctVal },
+        { type: "Fouls",           value: sm.foulsCommitted || "0" },
         { type: "Yellow Cards",    value: sm.yellowCards || "0" },
         { type: "Red Cards",       value: sm.redCards || "0" },
         { type: "Offsides",        value: sm.offsides || "0" },
-        { type: "Corner Kicks",    value: sm.cornerKicks || "0" }
+        { type: "Corner Kicks",    value: sm.wonCorners || "0" }
       ]
     };
   });
