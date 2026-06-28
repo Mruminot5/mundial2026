@@ -574,6 +574,45 @@ async function main() {
     console.log("PROX: " + hn + " vs " + an + " => k1(" + directK1 + ") k2(" + directK2 + ") anal:" + (anal?"SI":"NO")); 
   });
 
+  // ── PARCHE R32: sustituir nombres null del API ──
+  var R32_TEAMS = [
+    {d:"2026-06-28T19:00:00Z",h:"South Africa",a:"Canada"},
+    {d:"2026-06-29T17:00:00Z",h:"Brazil",a:"Japan"},
+    {d:"2026-06-29T20:30:00Z",h:"Germany",a:"Paraguay"},
+    {d:"2026-06-30T01:00:00Z",h:"Netherlands",a:"Morocco"},
+    {d:"2026-06-30T17:00:00Z",h:"Côte d'Ivoire",a:"Norway"},
+    {d:"2026-06-30T21:00:00Z",h:"France",a:"Sweden"},
+    {d:"2026-07-01T01:00:00Z",h:"Mexico",a:"Ecuador"},
+    {d:"2026-07-01T16:00:00Z",h:"England",a:"DR Congo"},
+    {d:"2026-07-01T20:00:00Z",h:"Belgium",a:"Senegal"},
+    {d:"2026-07-02T00:00:00Z",h:"USA",a:"Bosnia and Herzegovina"},
+    {d:"2026-07-02T19:00:00Z",h:"Spain",a:"Austria"},
+    {d:"2026-07-02T23:00:00Z",h:"Portugal",a:"Croatia"},
+    {d:"2026-07-03T02:00:00Z",h:"Switzerland",a:null},
+    {d:"2026-07-03T18:00:00Z",h:"Australia",a:"Egypt"},
+    {d:"2026-07-03T22:00:00Z",h:"Argentina",a:"Cabo Verde"},
+    {d:"2026-07-04T01:30:00Z",h:"Colombia",a:"Ghana"},
+  ];
+  function patchR32(m) {
+    var needH = !m.homeTeam || !m.homeTeam.name;
+    var needA = !m.awayTeam || !m.awayTeam.name;
+    if (!needH && !needA) return m;
+    var mt = new Date(m.utcDate).getTime();
+    for (var ri = 0; ri < R32_TEAMS.length; ri++) {
+      var rt = new Date(R32_TEAMS[ri].d).getTime();
+      if (Math.abs(mt - rt) <= 90 * 60000) { // dentro de ±90 min
+        if (!m.homeTeam) m.homeTeam = {};
+        if (!m.awayTeam) m.awayTeam = {};
+        if (needH && R32_TEAMS[ri].h) m.homeTeam.name = R32_TEAMS[ri].h;
+        if (needA && R32_TEAMS[ri].a) m.awayTeam.name = R32_TEAMS[ri].a;
+        return m;
+      }
+    }
+    return m;
+  }
+  upcoming  = upcoming.map(patchR32);
+  todayAll  = todayAll.map(patchR32);
+
   var totalGoals = finished.reduce(function(s,m){ var sc=m.score&&m.score.fullTime; return s+(sc&&sc.home||0)+(sc&&sc.away||0); },0);
   var nowCL  = new Date().toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
   var todayCL = clDateLong(new Date().toISOString());
