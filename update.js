@@ -597,6 +597,24 @@ function makeCard(m) {
   var htH = m.score && m.score.halfTime ? m.score.halfTime.home : null;
   var htA = m.score && m.score.halfTime ? m.score.halfTime.away : null;
 
+  // ── API Statistics (paid tier) ──
+  var hSt = {}, aSt = {};
+  (m.homeTeam && m.homeTeam.statistics || []).forEach(function(s){ hSt[s.type] = s.value; });
+  (m.awayTeam && m.awayTeam.statistics || []).forEach(function(s){ aSt[s.type] = s.value; });
+  var STAT_DEFS = [
+    {k:"SHOTS_TOTAL",       lb:"Remates"},
+    {k:"SHOTS_ON_GOAL",     lb:"Remates al arco"},
+    {k:"BALL_POSSESSION",   lb:"Posesión",   pct:true},
+    {k:"PASSES",            lb:"Pases"},
+    {k:"ACCURATE_PASSES",   lb:"Precisión pases", pct:true},
+    {k:"FOULS",             lb:"Faltas",     inv:true},
+    {k:"YELLOW_CARDS",      lb:"T. Amarillas", inv:true},
+    {k:"RED_CARDS",         lb:"T. Rojas",   inv:true},
+    {k:"OFFSIDES",          lb:"Fuera de juego", inv:true},
+    {k:"CORNER_KICKS",      lb:"Córners"}
+  ];
+  var hasApiStats = STAT_DEFS.some(function(d){ return hSt[d.k] !== undefined || aSt[d.k] !== undefined; });
+
   // ── Helper: bloque de sección ──
   function secBox(color, title, inner) {
     return '<div style="margin-bottom:7px;background:rgba(0,0,0,0.18);border-radius:8px;overflow:hidden;">'
@@ -613,7 +631,6 @@ function makeCard(m) {
     // ⚽ Goles: dos columnas (local | visitante)
     var golesHTML = "";
     if (goalItemsL.length || goalItemsA.length) {
-      var maxG = Math.max(goalItemsL.length, goalItemsA.length);
       var gRowsHTML = '<div style="display:flex;gap:4px;">'
         + '<div style="flex:1;border-right:1px solid rgba(255,255,255,0.06);padding-right:6px;">'
         + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + hF + ' ' + hN + '</div>'
@@ -636,7 +653,7 @@ function makeCard(m) {
     // 📊 Marcador por tiempo
     var marcHTML = "";
     if (htH !== null && htA !== null && hG !== null) {
-      var inner = '<div style="display:flex;gap:16px;">'
+      var marcInner = '<div style="display:flex;gap:16px;">'
         + '<div style="text-align:center;">'
         + '<div style="font-size:9px;color:#64748b;margin-bottom:2px;">1er Tiempo</div>'
         + '<div style="font-size:14px;font-weight:800;color:#60a5fa;">' + htH + ' – ' + htA + '</div>'
@@ -646,16 +663,49 @@ function makeCard(m) {
         + '<div style="font-size:14px;font-weight:800;color:#4ade80;">' + hG + ' – ' + aG + '</div>'
         + '</div>'
         + '</div>';
-      marcHTML = secBox("#60a5fa", "📊 Marcador", inner);
+      marcHTML = secBox("#60a5fa", "📊 Marcador", marcInner);
     }
 
-    statsHTML = golesHTML + tarjHTML + marcHTML;
+    // 📈 Estadísticas del partido (API paid tier)
+    var apiStatHTML = "";
+    if (hasApiStats) {
+      var statRows = STAT_DEFS.filter(function(d){ return hSt[d.k] !== undefined || aSt[d.k] !== undefined; }).map(function(d) {
+        var hv = hSt[d.k] != null ? hSt[d.k] : 0;
+        var av = aSt[d.k] != null ? aSt[d.k] : 0;
+        var hvStr = d.pct ? hv + "%" : String(hv);
+        var avStr = d.pct ? av + "%" : String(av);
+        var hBetter = d.inv ? hv < av : hv > av;
+        var aBetter = d.inv ? av < hv : av > hv;
+        var total = hv + av;
+        var hPct = total > 0 ? Math.round(hv / total * 100) : 50;
+        var PILL = "background:#c026d3;color:#fff;padding:1px 8px;border-radius:20px;font-weight:800;font-size:12px;display:inline-block;";
+        var PLAIN = "font-size:12px;color:#cbd5e1;padding:1px 8px;display:inline-block;";
+        return '<div style="padding:4px 0;">'
+          + '<div style="display:flex;align-items:center;gap:6px;">'
+          + '<div style="flex:1;text-align:right;"><span style="' + (hBetter ? PILL : PLAIN) + '">' + hvStr + '</span></div>'
+          + '<div style="flex:2;text-align:center;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.4px;">' + d.lb + '</div>'
+          + '<div style="flex:1;text-align:left;"><span style="' + (aBetter ? PILL : PLAIN) + '">' + avStr + '</span></div>'
+          + '</div>'
+          + '<div style="height:3px;background:rgba(255,255,255,0.07);border-radius:2px;margin-top:3px;">'
+          + '<div style="height:3px;width:' + hPct + '%;background:#7c3aed;border-radius:2px;"></div>'
+          + '</div>'
+          + '</div>';
+      }).join('<div style="height:1px;background:rgba(255,255,255,0.04);"></div>');
+      var statHeader = '<div style="display:flex;align-items:center;gap:6px;padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.08);">'
+        + '<div style="flex:1;text-align:right;font-size:10px;font-weight:700;color:#e2e8f0;">' + hF + ' ' + hN + '</div>'
+        + '<div style="flex:2;"></div>'
+        + '<div style="flex:1;text-align:left;font-size:10px;font-weight:700;color:#e2e8f0;">' + aF + ' ' + aN + '</div>'
+        + '</div>';
+      apiStatHTML = secBox("#c084fc", "📈 Estadísticas", statHeader + statRows);
+    }
+
+    statsHTML = golesHTML + tarjHTML + marcHTML + apiStatHTML;
 
   } else if (done && !hasEvents && anal && anal.go) {
     // Sin datos del API — usar ANAL.go como goleadores
     statsHTML = secBox("#fbbf24", "⚽ Goleadores", '<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + '</span>');
   } else if (live && hasEvents) {
-    // En vivo: misma estructura resumida
+    // En vivo: misma estructura + estadísticas si disponibles
     var liveGolesHTML = "";
     if (goalItemsL.length || goalItemsA.length) {
       liveGolesHTML = '<div style="display:flex;gap:4px;">'
@@ -663,8 +713,35 @@ function makeCard(m) {
         + '<div style="flex:1;">' + goalItemsA.join("") + '</div>'
         + '</div>';
     }
+    var liveStatHTML = "";
+    if (hasApiStats) {
+      var liveStatRows = STAT_DEFS.filter(function(d){ return hSt[d.k] !== undefined || aSt[d.k] !== undefined; }).map(function(d) {
+        var hv = hSt[d.k] != null ? hSt[d.k] : 0;
+        var av = aSt[d.k] != null ? aSt[d.k] : 0;
+        var hvStr = d.pct ? hv + "%" : String(hv);
+        var avStr = d.pct ? av + "%" : String(av);
+        var hBetter = d.inv ? hv < av : hv > av;
+        var aBetter = d.inv ? av < hv : av > hv;
+        var total = hv + av;
+        var hPct = total > 0 ? Math.round(hv / total * 100) : 50;
+        var PILL = "background:#c026d3;color:#fff;padding:1px 8px;border-radius:20px;font-weight:800;font-size:12px;display:inline-block;";
+        var PLAIN = "font-size:12px;color:#cbd5e1;padding:1px 8px;display:inline-block;";
+        return '<div style="padding:4px 0;">'
+          + '<div style="display:flex;align-items:center;gap:6px;">'
+          + '<div style="flex:1;text-align:right;"><span style="' + (hBetter ? PILL : PLAIN) + '">' + hvStr + '</span></div>'
+          + '<div style="flex:2;text-align:center;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.4px;">' + d.lb + '</div>'
+          + '<div style="flex:1;text-align:left;"><span style="' + (aBetter ? PILL : PLAIN) + '">' + avStr + '</span></div>'
+          + '</div>'
+          + '<div style="height:3px;background:rgba(255,255,255,0.07);border-radius:2px;margin-top:3px;">'
+          + '<div style="height:3px;width:' + hPct + '%;background:#7c3aed;border-radius:2px;"></div>'
+          + '</div>'
+          + '</div>';
+      }).join('<div style="height:1px;background:rgba(255,255,255,0.04);"></div>');
+      liveStatHTML = secBox("#c084fc", "📈 Estadísticas", liveStatRows);
+    }
     statsHTML = secBox("#4ade80", "⚽ Goles en vivo", liveGolesHTML || '—')
-      + (cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "");
+      + (cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "")
+      + liveStatHTML;
   }
 
   // ── Análisis HTML ──
