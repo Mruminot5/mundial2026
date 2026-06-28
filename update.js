@@ -324,6 +324,42 @@ ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
 ANAL["South Africa_Canada"]  = {g:"Sudáfrica llega como la gran sorpresa del Grupo A (2da), venció a Corea del Sur 1-0 en J3. Canadá clasificó 2da del Grupo B tras perder 1-2 con Suiza. Primer eliminatorio de la historia para ambas selecciones en WC 2026.",go:"Alphonso Davies (Canadá) — el más explosivo del torneo. Jonathan David busca el gol. Thapelo Maseko (Sudáfrica) — el héroe de J3.",fi:"Alphonso Davies (Canadá) — el más peligroso. Si tiene espacio, nadie lo para.",ap:"Canadá favorita · Davies anota · Más de 1.5 goles. Cuota Canadá: 2.0x",pr:"Pred: Canadá 2-1"};
 ANAL["Canada_South Africa"]  = ANAL["South Africa_Canada"];
 
+// 29 Jun
+ANAL["Brazil_Japan"]         = {g:"Brasil arrasó en el Grupo C con 9 pts y 8 goles a favor. Japón fue sorprendente, clasificó con 6 pts venciendo a Túnez y empatando vs Países Bajos. El choque más atractivo del día.",go:"Vinícius Jr (Brasil) — 3 goles en la fase de grupos, imparable. Daichi Kamada (Japón) — el motor del mediocampo.",fi:"Vinícius Jr (Brasil) — si está en el día, el partido se acaba en el primer tiempo.",ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota Brasil: 1.7x",pr:"Pred: Brasil 3-1"};
+ANAL["Japan_Brazil"]         = ANAL["Brazil_Japan"];
+ANAL["Germany_Paraguay"]     = {g:"Alemania dominó el Grupo E con 9 pts (7-1 a Curazao, 2-1 a Costa de Marfil, 2-1 a Ecuador). Paraguay clasificó como mejor tercero con batallas épicas. Alemania es amplio favorita.",go:"Jamal Musiala (Alemania) — el jugador del torneo hasta ahora. Havertz peligroso. Adalberto Pereira (Paraguay) — el único que puede generar peligro.",fi:"Jamal Musiala (Alemania) — el más creativo e imparable. Figura del torneo.",ap:"Alemania gana · Musiala da asistencia · Havertz anota. Cuota Alemania: 1.5x",pr:"Pred: Alemania 3-0"};
+ANAL["Paraguay_Germany"]     = ANAL["Germany_Paraguay"];
+ANAL["Netherlands_Morocco"]  = {g:"Países Bajos goleó 5-1 a Suecia en J2 y lidera el Grupo F. Marruecos fue 2do del Grupo C (detrás de Brasil). Duelo muy competitivo — Marruecos siempre difícil de vencer.",go:"Cody Gakpo (Países Bajos) — extremo en gran nivel. Xavi Simons con doblete en J2. Achraf Hakimi (Marruecos) — el mejor africano del torneo.",fi:"Achraf Hakimi (Marruecos) — si aparece por la banda, Países Bajos tiene problemas.",ap:"Países Bajos favorita · Gakpo anota. Cuota PB: 2.0x",pr:"Pred: Países Bajos 2-1"};
+ANAL["Morocco_Netherlands"]  = ANAL["Netherlands_Morocco"];
+
+// 30 Jun
+ANAL["Ivory Coast_Norway"]   = {g:"Costa de Marfil clasificó del Grupo E con 4 pts. Noruega lideró el Grupo I con 9 pts — Haaland anotó 4 veces y fue dominante. Noruega parte como gran favorita con el mejor delantero del torneo.",go:"Erling Haaland (Noruega) — 4 goles, el máximo goleador del torneo. Amad Diallo (Costa de Marfil) — la única amenaza real.",fi:"Erling Haaland (Noruega) — si recibe bien la pelota, anota. Es inevitable.",ap:"Noruega gana · Haaland anota · Más de 2 goles. Cuota Noruega: 1.6x",pr:"Pred: Noruega 3-1"};
+ANAL["Norway_Ivory Coast"]   = ANAL["Ivory Coast_Norway"];
+ANAL["Côte d'Ivoire_Norway"] = ANAL["Ivory Coast_Norway"];
+ANAL["Norway_Côte d'Ivoire"] = ANAL["Ivory Coast_Norway"];
+ANAL["France_Sweden"]        = {g:"Francia ganó el Grupo I (9 pts, Mbappé 4 goles). Suecia clasificó 2da del Grupo F con 6 pts — Gyökeres fue letal. El duelo de goleadores: Mbappé vs Gyökeres.",go:"Kylian Mbappé (Francia) — 4 goles, el más peligroso de Europa. Viktor Gyökeres (Suecia) — 3 goles, el rival más duro de afrontar.",fi:"Kylian Mbappé (Francia) — si está sano y en ritmo, es el mejor jugador del torneo.",ap:"Francia favorita · Mbappé anota · Partido con goles. Cuota Francia: 1.8x",pr:"Pred: Francia 2-1"};
+ANAL["Sweden_France"]        = ANAL["France_Sweden"];
+ANAL["Mexico_Ecuador"]       = {g:"México fue primero del Grupo A con 9 pts perfectos. Ecuador clasificó del Grupo E como mejor tercero. México llega en su mejor nivel en décadas, Ecuador en riesgo desde el inicio.",go:"Alexis Vega y Quiñones (México) — dupla de ataque. Rodrigo Bentancur... error, Moisés Caicedo (Ecuador) el único que puede sacudir.",fi:"Alexis Vega (México) — el más desequilibrante del equipo. Peligroso por velocidad.",ap:"México gana · Quiñones anota · Sin empate. Cuota México: 1.8x",pr:"Pred: México 2-0"};
+ANAL["Ecuador_Mexico"]       = ANAL["Mexico_Ecuador"];
+
+// 1 Jul
+ANAL["England_DR Congo"]     = {g:"Inglaterra fue primera del Grupo J con 9 pts. Kane doblete en J1, Bellingham decisivo. RD Congo llegó 2da de su grupo (empató con Portugal en J1 con gol de Wissa). Partido sin sorpresas esperadas.",go:"Harry Kane (Inglaterra) — el delantero más letal de Europa. Yoane Wissa (RD Congo) — el único con nivel para marcar.",fi:"Jude Bellingham (Inglaterra) — el jugador más completo. Si aparece, Inglaterra arrasa.",ap:"Inglaterra gana · Kane anota · Más de 2.5 goles. Cuota Inglaterra: 1.5x",pr:"Pred: Inglaterra 3-0"};
+ANAL["DR Congo_England"]     = ANAL["England_DR Congo"];
+ANAL["England_Congo DR"]     = ANAL["England_DR Congo"];
+ANAL["Congo DR_England"]     = ANAL["England_DR Congo"];
+ANAL["Argentina_Bosnia-Herzegovina"] = {g:"Argentina fue primera del Grupo L con 9 pts — Messi hat-trick en J1, 6 goles en la fase de grupos. Bosnia clasificó 2da. El partido más desequilibrado del día en papel.",go:"Lionel Messi (Argentina) — 6 goles, máximo goleador del torneo. Edin Džeko (Bosnia) — su último Mundial.",fi:"Lionel Messi (Argentina) — si anota el 7mo gol, iguala a Ronaldo como goleador histórico de Mundiales.",ap:"Argentina gana amplio · Messi anota · Más de 3 goles. Cuota Argentina: 1.4x",pr:"Pred: Argentina 4-0"};
+ANAL["Bosnia-Herzegovina_Argentina"] = ANAL["Argentina_Bosnia-Herzegovina"];
+ANAL["Spain_Korea Republic"] = {g:"España se recuperó tras el 0-0 vs Cabo Verde, ganó J2 y J3 para liderar el Grupo H. Corea del Sur clasificó como mejor tercero del Grupo A. España favorita con Pedri y Morata en forma.",go:"Pedri (España) — el creativo del equipo, en su mejor versión. Hwang In-beom (Corea) — el motor coreano.",fi:"Pedri (España) — si está libre, España controla el partido con facilidad.",ap:"España gana · Pedri con asistencia · Morata anota. Cuota España: 1.7x",pr:"Pred: España 2-0"};
+ANAL["Korea Republic_Spain"] = ANAL["Spain_Korea Republic"];
+ANAL["USA_Australia"]        = {g:"EE.UU. fue primero del Grupo G con 9 pts — Balogun con doblete en J1 es el goleador revelación. Australia clasificó 2da del Grupo H. Partido de alta intensidad en terreno favorito para EE.UU.",go:"Folarin Balogun (EE.UU.) — el goleador sorpresa del torneo. Nestory Irankunda (Australia) — el joven más explosivo.",fi:"Folarin Balogun (EE.UU.) — si sigue el ritmo, puede ser el goleador del torneo.",ap:"EE.UU. gana · Balogun anota · Más de 2 goles. Cuota EE.UU.: 1.8x",pr:"Pred: EE.UU. 3-1"};
+ANAL["Australia_USA"]        = ANAL["USA_Australia"];
+ANAL["Australia_United States"] = ANAL["USA_Australia"];
+ANAL["United States_Australia"] = ANAL["USA_Australia"];
+ANAL["Portugal_Colombia"]    = {g:"Portugal fue 2da del Grupo K (1-1 vs RD Congo). Colombia lideró el Grupo K con 7 pts. El partido más apasionante del Round of 32 — Luis Díaz vs Cristiano.",go:"Cristiano Ronaldo (Portugal) — necesita despertar, sin goles en la fase de grupos. Luis Díaz (Colombia) — el mejor latinoamericano del torneo.",fi:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia. Si aparece, Colombia gana.",ap:"Colombia favorita leve · Luis Díaz anota. Cuota Colombia: 2.2x",pr:"Pred: Colombia 2-1"};
+ANAL["Colombia_Portugal"]    = ANAL["Portugal_Colombia"];
+ANAL["Switzerland_Morocco"]  = {g:"Suiza lideró el Grupo B con 7 pts (4-1 a Bosnia, 2-1 a Canadá). Marruecos fue 2do del Grupo C con 4 pts. Partido competitivo — Marruecos demostró ser la mejor selección africana.",go:"Breel Embolo (Suiza) — el delantero referente. Achraf Hakimi (Marruecos) — banda derecha imparable.",fi:"Granit Xhaka (Suiza) — el motor del mediocampo. Si controla el partido, Suiza gana.",ap:"Suiza favorita por juego · Empate posible · Embolo anota. Cuota Suiza: 2.1x",pr:"Pred: Suiza 1-0"};
+ANAL["Morocco_Switzerland"]  = ANAL["Switzerland_Morocco"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
