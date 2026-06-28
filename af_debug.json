@@ -1,5 +1,5 @@
 {
-  "ts": "2026-06-28T15:06:46.052Z",
+  "ts": "2026-06-28T15:15:31.677Z",
   "finishedCount": 72,
   "toFetchCount": 5,
   "cacheSize": 10,
@@ -20,11 +20,80 @@
   "espnDates": [
     {
       "date": "2026-06-28",
-      "count": 1
+      "count": 7
     },
     {
       "date": "2026-06-27",
-      "count": 6
+      "count": 12
     }
-  ]
+  ],
+  "espnSampleStats": [
+    {
+      "team": "Jordan",
+      "stats": [
+        "foulsCommitted=13",
+        "yellowCards=3",
+        "redCards=0",
+        "offsides=1",
+        "wonCorners=2",
+        "saves=1",
+        "possessionPct=26.7",
+        "totalShots=5",
+        "shotsOnTarget=1",
+        "shotPct=0.2",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=0",
+        "accuratePasses=228",
+        "totalPasses=285",
+        "passPct=0.8",
+        "accurateCrosses=2",
+        "totalCrosses=7",
+        "crossPct=0.3",
+        "totalLongBalls=36",
+        "accurateLongBalls=14",
+        "longballPct=0.4",
+        "blockedShots=2",
+        "effectiveTackles=8",
+        "totalTackles=16",
+        "tacklePct=0.5",
+        "interceptions=19",
+        "effectiveClearance=13",
+        "totalClearance=13"
+      ]
+    },
+    {
+      "team": "Argentina",
+      "stats": [
+        "foulsCommitted=7",
+        "yellowCards=0",
+        "redCards=0",
+        "offsides=3",
+        "wonCorners=6",
+        "saves=0",
+        "possessionPct=73.3",
+        "totalShots=12",
+        "shotsOnTarget=4",
+        "shotPct=0.3",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=1",
+        "accuratePasses=737",
+        "totalPasses=801",
+        "passPct=0.9",
+        "accurateCrosses=3",
+        "totalCrosses=5",
+        "crossPct=0.6",
+        "totalLongBalls=25",
+        "accurateLongBalls=15",
+        "longballPct=0.6",
+        "blockedShots=1",
+        "effectiveTackles=5",
+        "totalTackles=14",
+        "tacklePct=0.4",
+        "interceptions=12",
+        "effectiveClearance=9",
+        "totalClearance=9"
+      ]
+    }
+  ],
+  "espnSamplePlays": []
 }
