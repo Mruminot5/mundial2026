@@ -829,10 +829,22 @@ async function main() {
 
   // DEBUG
   console.log("=== NOMBRES API ===");
-  todayAll.forEach(function(m){ 
+  todayAll.forEach(function(m){
     var anal = getAnal(m.homeTeam && m.homeTeam.name, m.awayTeam && m.awayTeam.name);
-    console.log("HOY: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO")); 
+    console.log("HOY: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO"));
   });
+  // DEBUG GOALS
+  if (finished.length > 0) {
+    var fm = finished[0];
+    console.log("=== GOALS DEBUG (ultimo partido) ===");
+    console.log("Match: " + (fm.homeTeam&&fm.homeTeam.name) + " vs " + (fm.awayTeam&&fm.awayTeam.name));
+    console.log("goals array length: " + (fm.goals ? fm.goals.length : "NULL"));
+    if (fm.goals && fm.goals.length > 0) {
+      fm.goals.slice(0,3).forEach(function(g){ console.log("  goal: " + JSON.stringify(g)); });
+    }
+    console.log("bookings length: " + (fm.bookings ? fm.bookings.length : "NULL"));
+    console.log("homeTeam.statistics: " + JSON.stringify(fm.homeTeam && fm.homeTeam.statistics));
+  }
   upcoming.slice(0,10).forEach(function(m){ 
     var hn = m.homeTeam && m.homeTeam.name;
     var an = m.awayTeam && m.awayTeam.name;
