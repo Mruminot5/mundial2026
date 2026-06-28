@@ -764,13 +764,40 @@ async function main() {
   finished.forEach(function(m){ if(m.matchday && !jornadas.includes(m.matchday)) jornadas.push(m.matchday); });
   jornadas.sort(function(a,b){return a-b;});
   var grupos = ["GROUP_A","GROUP_B","GROUP_C","GROUP_D","GROUP_E","GROUP_F","GROUP_G","GROUP_H","GROUP_I","GROUP_J","GROUP_K","GROUP_L"];
+  // ── Clasificar partidos eliminatorios ──
+  var STAGE_LABELS = {
+    "LAST_16":"16avos","ROUND_OF_16":"16avos",
+    "QUARTER_FINALS":"8vos","QUARTERFINAL":"8vos",
+    "SEMI_FINALS":"Semis","SEMIFINAL":"Semis",
+    "FINAL":"Final","3RD_PLACE":"3er Lugar"
+  };
+  var STAGE_IDS = {
+    "LAST_16":99,"ROUND_OF_16":99,
+    "QUARTER_FINALS":98,"QUARTERFINAL":98,
+    "SEMI_FINALS":97,"SEMIFINAL":97,
+    "FINAL":96,"3RD_PLACE":95
+  };
+  var knockoutFinished = finished.filter(function(m){ return grupos.indexOf(m.group) === -1; }).map(patchR32);
+  knockoutFinished.sort(function(a,b){return new Date(a.utcDate)-new Date(b.utcDate);});
+
+  // Agrupar por stage
+  var koStages = {}; // { stageId: {label, matches} }
+  knockoutFinished.forEach(function(m){
+    var st = (m.stage || "").toUpperCase().replace(/ /g,"_");
+    var sid = STAGE_IDS[st] || 99;
+    var lbl = STAGE_LABELS[st] || "16avos";
+    if (!koStages[sid]) koStages[sid] = {label:lbl, id:sid, matches:[]};
+    koStages[sid].matches.push(m);
+  });
+  var hasKO = knockoutFinished.length > 0;
+
   var jorBtns = jornadas.map(function(j,i){
-    return '<button class="jbtn' + (i===jornadas.length-1?" active":"") + '" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
+    return '<button class="jbtn' + (i===jornadas.length-1&&!hasKO?" active":"") + '" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
   }).join("");
   var jorBlocks = jornadas.map(function(j,ji){
     var pj = finished.filter(function(m){return m.matchday===j;});
     var grpsP = grupos.filter(function(g){return pj.some(function(m){return m.group===g;});});
-    return '<div id="j' + j + '" style="display:' + (ji===jornadas.length-1?"block":"none") + ';">'
+    return '<div id="j' + j + '" style="display:' + (ji===jornadas.length-1&&!hasKO?"block":"none") + ';">'
       + grpsP.map(function(g){
           return '<div class="grp-block"><div class="grp-hdr">' + g.replace("GROUP_","Grupo ") + " · J" + j + "</div>"
             + pj.filter(function(m){return m.group===g;}).map(function(m){return makeCard(m);}).join("")
@@ -778,6 +805,31 @@ async function main() {
         }).join("")
       + "</div>";
   }).join("");
+
+  // Botones y bloques de eliminatorias
+  var koBtns = "";
+  var koBlocks = "";
+  var koStageSorted = Object.keys(koStages).map(function(k){return koStages[k];}).sort(function(a,b){return b.id-a.id;}); // 99=16avos first
+  var isFirstKO = true;
+  koStageSorted.forEach(function(stage){
+    var isActive = isFirstKO && hasKO;
+    koBtns += '<button class="jbtn' + (isActive?" active":"") + '" onclick="showJornada(' + stage.id + ',this)">' + stage.label + '</button>';
+    var byDate = {};
+    stage.matches.forEach(function(m){
+      var d = clDateShort(m.utcDate);
+      if(!byDate[d]) byDate[d]=[];
+      byDate[d].push(m);
+    });
+    cardId = 5000 + stage.id;
+    koBlocks += '<div id="j' + stage.id + '" style="display:' + (isActive?"block":"none") + ';">'
+      + Object.keys(byDate).map(function(fecha){
+          return '<div class="grp-block"><div class="grp-hdr">🏆 ' + stage.label + ' · ' + fecha + '</div>'
+            + byDate[fecha].map(function(m){return makeCard(m);}).join("")
+            + '</div>';
+        }).join("")
+      + '</div>';
+    isFirstKO = false;
+  });
 
   // TABLAS
   // ── FIXTURE 16AVOS ──
@@ -1122,8 +1174,8 @@ async function main() {
     + '</div></div></div>'
     // RESULTADOS
     + '<div id="resultados" class="pane"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">'
-    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados por Grupo</h2><div>' + jorBtns + '</div></div>'
-    + jorBlocks + '</div>'
+    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados</h2><div>' + jorBtns + koBtns + '</div></div>'
+    + jorBlocks + koBlocks + '</div>'
     // TABLAS
     + '<div id="tablas" class="pane"><div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:14px;">' + grpBtns + '</div>' + tablaBlocks + fix16 + '</div>'
     // APUESTAS
