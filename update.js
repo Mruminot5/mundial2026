@@ -320,6 +320,10 @@ ANAL["Austria_Algeria"]              = ANAL["Algeria_Austria"];
 ANAL["Uzbekistan_DR Congo"]          = {g:"RD Congo con 1 pt vs Uzbekistán con 0 pts. Colombia lidera. Partido entre los dos de abajo del Grupo K.",go:"Yoane Wissa (RD Congo) — ya demostró nivel vs Portugal. Shomurodov (Uzbekistán).",fi:"Yoane Wissa (RD Congo) — el héroe de J1 contra Portugal.",ap:"RD Congo gana · Wissa anota. Cuota est: 2.1x",pr:"Pred: RD Congo 2-0"};
 ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
 
+// ── FASE ELIMINATORIA (Round of 32) ──
+ANAL["South Africa_Canada"]  = {g:"Sudáfrica llega como la gran sorpresa del Grupo A (2da), venció a Corea del Sur 1-0 en J3. Canadá clasificó 2da del Grupo B tras perder 1-2 con Suiza. Primer eliminatorio de la historia para ambas selecciones en WC 2026.",go:"Alphonso Davies (Canadá) — el más explosivo del torneo. Jonathan David busca el gol. Thapelo Maseko (Sudáfrica) — el héroe de J3.",fi:"Alphonso Davies (Canadá) — el más peligroso. Si tiene espacio, nadie lo para.",ap:"Canadá favorita · Davies anota · Más de 1.5 goles. Cuota Canadá: 2.0x",pr:"Pred: Canadá 2-1"};
+ANAL["Canada_South Africa"]  = ANAL["South Africa_Canada"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
