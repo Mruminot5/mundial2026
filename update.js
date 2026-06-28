@@ -1,15 +1,6 @@
 const https = require("https");
 const fs = require("fs");
-const API_KEY    = "8245823280194f62b10dfbbdb08216d5";
-const AF_KEY     = "3a797b44e702ad90b8946eedc5e4aa6b";
-const AF_HOST    = "v3.football.api-sports.io";
-const AF_LEAGUE  = 1;    // FIFA World Cup en API-Football
-const AF_SEASON  = 2026;
-const CACHE_FILE = "stats_cache.json";
-
-// Carga cache de estadísticas (se actualiza cada vez que hay partidos nuevos)
-var statsCache = {};
-try { statsCache = JSON.parse(fs.readFileSync(CACHE_FILE, "utf8")); } catch(e) {}
+const API_KEY = "8245823280194f62b10dfbbdb08216d5";
 
 function get(path) {
   return new Promise((resolve, reject) => {
@@ -22,20 +13,6 @@ function get(path) {
       res.on("data", c => raw += c);
       res.on("end", () => { try { resolve(JSON.parse(raw)); } catch(e) { reject(e); } });
     }).on("error", reject);
-  });
-}
-
-function getAF(path) {
-  return new Promise((resolve, reject) => {
-    https.get({
-      hostname: AF_HOST,
-      path: "/" + path,
-      headers: { "x-apisports-key": AF_KEY },
-    }, (res) => {
-      let raw = "";
-      res.on("data", c => raw += c);
-      res.on("end", () => { try { resolve(JSON.parse(raw)); } catch(e) { reject(e); } });
-    }).on("error", resolve.bind(null, {response:[]}));
   });
 }
 
@@ -265,222 +242,6 @@ ANAL["Algeria_Austria"]              = {g:"Austria con 3 pts vs Argelia con 0 pt
 ANAL["Austria_Algeria"]              = ANAL["Algeria_Austria"];
 ANAL["Uzbekistan_DR Congo"]          = {g:"RD Congo con 1 pt vs Uzbekistán con 0 pts. Colombia lidera. Partido entre los dos de abajo del Grupo K.",go:"Yoane Wissa (RD Congo) — ya demostró nivel vs Portugal. Shomurodov (Uzbekistán).",fi:"Yoane Wissa (RD Congo) — el héroe de J1 contra Portugal.",ap:"RD Congo gana · Wissa anota. Cuota est: 2.1x",pr:"Pred: RD Congo 2-0"};
 ANAL["DR Congo_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
-ANAL["Congo DR_Uzbekistan"]          = ANAL["Uzbekistan_DR Congo"];
-ANAL["Uzbekistan_Congo DR"]          = ANAL["Uzbekistan_DR Congo"];
-ANAL["Congo_Uzbekistan"]             = ANAL["Uzbekistan_DR Congo"];
-ANAL["Uzbekistan_Congo"]             = ANAL["Uzbekistan_DR Congo"];
-
-// ── J3 RESULTADOS FINALES (siempre al final para sobrescribir predicciones) ──
-// Group A - 24/25 Jun ✅
-ANAL["Czechia_Mexico"]               = {g:"México venció 2-0 a Rep. Checa y termina 1ero del Grupo A con 9 pts perfectos. Mateo Chávez anotó en su debut mundialista al 55min, Quiñones al 61min.",go:"Mateo Chávez (México) — gol en su primer partido mundialista. El goleador emotivo del día.",fi:"Mateo Chávez (México) — debut histórico. El ídolo del Azteca en su primera Copa del Mundo.",ap:"Partido terminado · México 1ero del Grupo A · 9 pts perfectos",pr:"✅ México 2-0"};
-ANAL["Mexico_Czechia"]               = ANAL["Czechia_Mexico"];
-ANAL["South Africa_South Korea"]     = {g:"Sudáfrica sorprendió y venció 1-0 a Corea del Sur. Maseko al 63min clasificó a las Bafana Bafana como 2das del Grupo A.",go:"Thapelo Maseko (Sudáfrica) — el gol que cambió todo al 63min.",fi:"Maseko (Sudáfrica) — figura sorpresa del torneo.",ap:"Partido terminado · Sudáfrica 2da del Grupo A · Corea eliminada",pr:"✅ Sudáfrica 1-0"};
-ANAL["Korea Republic_South Africa"]  = ANAL["South Africa_South Korea"];
-// Group B - 24/25 Jun ✅
-ANAL["Switzerland_Canada"]           = {g:"Suiza venció 2-1 a Canadá y se lleva el 1er lugar del Grupo B. Manzambi y Simons marcaron para Suiza, Promise David descontó.",go:"Johan Manzambi (Suiza) al 57min — el gol decisivo del partido.",fi:"Xavi Simons (Suiza) — el más creativo, fue determinante.",ap:"Partido terminado · Suiza 1era del Grupo B · Canadá 2da",pr:"✅ Suiza 2-1"};
-ANAL["Canada_Switzerland"]           = ANAL["Switzerland_Canada"];
-ANAL["Bosnia-Herzegovina_Qatar"]     = {g:"Bosnia-Herz. goleó 3-1 a Qatar y clasifica como uno de los mejores terceros. Mahmic con doblete fue el héroe.",go:"Mahmic (Bosnia) doblete. Qatar marcó un gol de honor.",fi:"Mahmic (Bosnia) — el héroe inesperado de la jornada.",ap:"Partido terminado · Bosnia clasifica como mejor 3ro",pr:"✅ Bosnia 3-1"};
-ANAL["Qatar_Bosnia-Herzegovina"]     = ANAL["Bosnia-Herzegovina_Qatar"];
-// Group C - 24/25 Jun ✅
-ANAL["Scotland_Brazil"]              = {g:"Brasil goleó 3-0 a Escocia y es campeón del Grupo C. Vinícius Jr doblete aplastante, Cunha cerró el marcador.",go:"Vinícius Jr (Brasil) doblete estelar. Matheus Cunha marcó el 3ro.",fi:"Vinícius Jr (Brasil) — figura indiscutida del Grupo C. Candidato a MVP del torneo.",ap:"Partido terminado · Brasil 1ero del Grupo C · 7 pts",pr:"✅ Brasil 3-0"};
-ANAL["Brazil_Scotland"]              = ANAL["Scotland_Brazil"];
-ANAL["Morocco_Haiti"]                = {g:"Marruecos goleó 4-2 a Haití pese al susto inicial. Hakimi, Saibari, Rahimi y Yassine marcaron para los leones del Atlas.",go:"Achraf Hakimi (Marruecos) abrió el marcador y lideró el ataque.",fi:"Achraf Hakimi (Marruecos) — el mejor africano del torneo.",ap:"Partido terminado · Marruecos 2do del Grupo C",pr:"✅ Marruecos 4-2"};
-ANAL["Haiti_Morocco"]                = ANAL["Morocco_Haiti"];
-// Group D - 25 Jun ✅
-ANAL["Turkey_United States"]         = {g:"SORPRESA: Turquía derrotó 3-2 a EE.UU. en un final de infarto. Kaan Ayhan marcó en el descuento y eliminó al anfitrión. EE.UU. queda fuera pese a sus 6 pts en J1 y J2.",go:"Kaan Ayhan (Turquía) — el gol agónico que cambió el torneo. Balogun anotó dos para EE.UU.",fi:"Kaan Ayhan (Turquía) — héroe inesperado. El gol más dramático del torneo hasta ahora.",ap:"Partido terminado · Turquía 3-2 EE.UU. · ELIMINACIÓN HISTÓRICA DEL ANFITRIÓN",pr:"✅ Turquía 3-2 (SORPRESA)"};
-ANAL["United States_Turkey"]         = ANAL["Turkey_United States"];
-ANAL["USA_Turkey"]                   = ANAL["Turkey_United States"];
-ANAL["Paraguay_Australia"]           = {g:"Paraguay y Australia empataron 0-0 en un partido sin goles. Ambos quedan eliminados del Grupo D. Un final decepcionante para ambos.",go:"Sin goles. Ambos equipos muy defensivos y sin ideas ofensivas.",fi:"Nadie destacó en este partido para olvidar.",ap:"Partido terminado · Empate 0-0 · Paraguay y Australia eliminados",pr:"✅ Empate 0-0"};
-ANAL["Australia_Paraguay"]           = ANAL["Paraguay_Australia"];
-// Group E - 25 Jun ✅
-ANAL["Ecuador_Germany"]              = {g:"SORPRESA MAYÚSCULA: Ecuador venció 2-1 a Alemania y la elimina del torneo. Valencia y Caicedo marcaron los goles históricos. Alemania cae con 7 pts, víctima del grupo de la muerte.",go:"Enner Valencia (Ecuador) gol determinante. Moisés Caicedo también anotó.",fi:"Moisés Caicedo (Ecuador) — el motor del equipo. Logró lo imposible contra la potencia germana.",ap:"Partido terminado · Ecuador 2-1 Alemania · La eliminación más impactante del torneo",pr:"✅ Ecuador 2-1 (SORPRESA HISTÓRICA)"};
-ANAL["Germany_Ecuador"]              = ANAL["Ecuador_Germany"];
-ANAL["Curaçao_Ivory Coast"]          = {g:"Costa de Marfil goleó 2-0 a Curazao y se clasifica a 16avos por primera vez en su historia. Amad Diallo lideró el ataque con autoridad.",go:"Amad Diallo (Costa de Marfil) — figura y goleador del partido.",fi:"Amad Diallo (Costa de Marfil) — el más talentoso. Confirmó su gran Mundial.",ap:"Partido terminado · Costa de Marfil clasifica a 16avos históricos",pr:"✅ Costa de Marfil 2-0"};
-ANAL["Ivory Coast_Curaçao"]          = ANAL["Curaçao_Ivory Coast"];
-ANAL["Curacao_Ivory Coast"]          = ANAL["Curaçao_Ivory Coast"];
-// Group F - 25 Jun ✅
-ANAL["Japan_Sweden"]                 = {g:"Japón y Suecia empataron 1-1 en un gran partido. Gyökeres mantuvo su racha, Kamada igualó para Japón. Ambos clasificados.",go:"Viktor Gyökeres (Suecia) — 4 goles en el torneo, el máximo goleador. Kamada igualó.",fi:"Viktor Gyökeres (Suecia) — el mejor delantero del torneo. Imparable.",ap:"Partido terminado · Empate 1-1 · Japón 1ero · Suecia 2da",pr:"✅ Empate 1-1"};
-ANAL["Sweden_Japan"]                 = ANAL["Japan_Sweden"];
-ANAL["Tunisia_Netherlands"]          = {g:"Países Bajos goleó 3-1 a Túnez y termina 1ero del Grupo F. Gakpo, Depay y otro anotaron. Túnez marcó el gol del honor.",go:"Cody Gakpo (Países Bajos) — el más incisivo del grupo en todo el torneo.",fi:"Cody Gakpo (Países Bajos) — en gran forma para los 16avos de final.",ap:"Partido terminado · Países Bajos 1era del Grupo F con 9 pts",pr:"✅ Países Bajos 3-1"};
-ANAL["Netherlands_Tunisia"]          = ANAL["Tunisia_Netherlands"];
-// Group G - 26 Jun ✅
-ANAL["Egypt_Iran"]                   = {g:"Egipto e Irán empataron 1-1. Salah finalmente marcó su primer gol del torneo. Un empate que clasifica a Egipto como mejor tercero.",go:"Mohamed Salah (Egipto) — el gol que desbloqueó su torneo. Por fin apareció el crack del Liverpool.",fi:"Mohamed Salah (Egipto) — el gol que todos esperaban. Listo para brillar en 16avos.",ap:"Partido terminado · Empate 1-1 · Egipto 3ro clasificado · Irán eliminado",pr:"✅ Empate 1-1"};
-ANAL["Iran_Egypt"]                   = ANAL["Egypt_Iran"];
-ANAL["New Zealand_Belgium"]          = {g:"Bélgica aplastó 5-1 a Nueva Zelanda en la mejor actuación belga del torneo. De Bruyne magistral con 3 asistencias. Bélgica se corona 1era del Grupo G.",go:"Kevin De Bruyne (Bélgica) — 3 asistencias, el director de orquesta. Lukaku con doblete.",fi:"Kevin De Bruyne (Bélgica) — uno de los mejores partidos de su carrera mundialista.",ap:"Partido terminado · Bélgica 5-1 · 1era del Grupo G con 7 pts",pr:"✅ Bélgica 5-1"};
-ANAL["Belgium_New Zealand"]          = ANAL["New Zealand_Belgium"];
-// Group H - 26 Jun ✅
-ANAL["Cape Verde Islands_Saudi Arabia"] = {g:"Cabo Verde y Arabia Saudita empataron 0-0. Con España ya clasificada, ambos equipos no tenían nada que perder pero tampoco supieron ganar.",go:"Sin goles. Un partido sin emoción entre dos equipos eliminados.",fi:"Nadie destacó. Un final de grupo sin alicientes.",ap:"Partido terminado · Empate 0-0 · Ambos eliminados del Grupo H",pr:"✅ Empate 0-0"};
-ANAL["Saudi Arabia_Cape Verde Islands"] = ANAL["Cape Verde Islands_Saudi Arabia"];
-ANAL["Uruguay_Spain"]                = {g:"España venció 1-0 a Uruguay y termina 1era del Grupo H. Pedri marcó el gol decisivo en la 2da mitad. España recupera su nivel tras el empate del inicio.",go:"Pedri (España) — el gol decisivo que da el liderato del grupo.",fi:"Pedri (España) — el mejor mediocampista del torneo hasta ahora. Listo para brillar en 16avos.",ap:"Partido terminado · España 1era del Grupo H · Uruguay 2do clasificado",pr:"✅ España 1-0"};
-ANAL["Spain_Uruguay"]                = ANAL["Uruguay_Spain"];
-// Group I - 26 Jun ✅
-ANAL["Norway_France"]                = {g:"Francia aplastó 4-1 a Noruega en el partido del año. Mbappé hat-trick histórico. Haaland anotó para Noruega pero no pudo evitar la paliza. El duelo más esperado del grupo se saldó con una exhibición francesa.",go:"Kylian Mbappé (Francia) hat-trick — ya es el máximo goleador del torneo con 5 goles. Haaland marcó pero quedó eclipsado.",fi:"Kylian Mbappé (Francia) — el mejor jugador del torneo. Hat-trick en el partido más difícil. Candidato indiscutible al Balón de Oro.",ap:"Partido terminado · Francia 4-1 · 1era del Grupo I con 9 pts · Noruega 2da clasificada",pr:"✅ Francia 4-1 (Mbappé hat-trick)"};
-ANAL["France_Norway"]                = ANAL["Norway_France"];
-ANAL["Senegal_Iraq"]                 = {g:"Senegal aplastó 5-0 a Iraq en su mejor partido del torneo. Sadio Mané se reivindicó con doblete tras un inicio decepcionante. Senegal clasifica como 2da del Grupo I.",go:"Sadio Mané (Senegal) doblete para reivindicarse tras J1 y J2 sin goles.",fi:"Sadio Mané (Senegal) — el héroe tardío que encontró su nivel justo a tiempo.",ap:"Partido terminado · Senegal 5-0 Iraq · Senegal 2da del Grupo I",pr:"✅ Senegal 5-0"};
-ANAL["Iraq_Senegal"]                 = ANAL["Senegal_Iraq"];
-
-// ── 16AVOS DE FINAL (Round of 32) ──────────────────────────────────────────
-// Match 73 · 28 Jun · Sudáfrica vs Canadá
-ANAL["South Africa_Canada"] = {
-  g:"16avos de final histórico: ambos disputan su primer partido de eliminatoria mundialista. Canadá llega como favorito claro con Alphonso Davies, Jonathan David (3 goles en el torneo) y Larin. Sudáfrica es un equipo rocoso que llegó a esta instancia como segundo del Grupo A gracias al gol de Maseko vs Corea del Sur. Los Bafana Bafana son sólidos en defensa pero Canadá tiene demasiada calidad ofensiva.",
-  go:"Jonathan David (Canadá) — ya lleva 3 goles en el torneo, el máximo goleador canadiense. Alphonso Davies imparable por la banda. Thapelo Maseko (Sudáfrica) — el héroe de J3.",
-  fi:"Alphonso Davies (Canadá) — si tiene espacio, ninguna defensa lo para. El jugador más peligroso del partido.",
-  ap:"Canadá gana · Jonathan David anota · Más de 1.5 goles. Cuota est: 1.65x",
-  pr:"Pred: Canadá 2-0"
-};
-ANAL["Canada_South Africa"] = ANAL["South Africa_Canada"];
-
-// Match 74 · 29 Jun · Alemania vs Paraguay
-ANAL["Germany_Paraguay"] = {
-  g:"Alemania llega como uno de los candidatos al título. Musiala y Wirtz forman el mejor mediocampo del torneo. Paraguay clasificó como mejor tercero del Grupo D con 4 puntos — venció a Turquía 1-0 y empató 0-0 con Australia. El único antecedente mundialista fue en 2002: Alemania eliminó a Paraguay 1-0 en el minuto 88 con Oliver Neuville. La historia favorece al equipo europeo.",
-  go:"Florian Wirtz (Alemania) — el creador, capaz de marcar y asistir en cualquier momento. Jamal Musiala (Alemania) — el más habilidoso del torneo. Havertz como referente del ataque.",
-  fi:"Florian Wirtz (Alemania) — junto a Musiala son el mejor dúo del torneo. Si Wirtz aparece, Paraguay no tiene respuesta.",
-  ap:"Alemania gana · Wirtz o Musiala anotan · Más de 2.5 goles. Cuota est: 1.55x",
-  pr:"Pred: Alemania 3-1"
-};
-ANAL["Paraguay_Germany"] = ANAL["Germany_Paraguay"];
-
-// Match 75 · 29 Jun · Brasil vs Japón
-ANAL["Brazil_Japan"] = {
-  g:"El partido más desequilibrado del día en papel pero Japón tiene historia de sorpresas. Brasil cerró el Grupo C como primero con 7 pts y Vinícius Jr en estado de gracia. Japón clasificó 2do del Grupo F con 5 pts, siendo el único en empatar a Países Bajos en el torneo (2-2). Kamada al 89min es su carta de presentación. Brasil tiene demasiada calidad individual pero Japón sorprendió a todos en Qatar 2022 y puede hacerlo de nuevo.",
-  go:"Vinícius Jr (Brasil) — figura indiscutida del torneo con doblete vs Escocia. Matheus Cunha (Brasil) también peligroso. Daichi Kamada (Japón) — el que empató al 89min vs Países Bajos.",
-  fi:"Vinícius Jr (Brasil) — el mejor atacante del torneo. Si sale al 100%, el partido no llega al 70min.",
-  ap:"Brasil gana · Vinícius Jr anota · Más de 2.5 goles. Cuota est: 1.75x",
-  pr:"Pred: Brasil 3-1"
-};
-ANAL["Japan_Brazil"] = ANAL["Brazil_Japan"];
-
-// Match 76 · 29 Jun · Países Bajos vs Marruecos
-ANAL["Netherlands_Morocco"] = {
-  g:"El partido más parejo de los 16avos del día. Países Bajos terminó 1ero del Grupo F (7 pts) con Gakpo y Xavi Simons en gran forma. Marruecos fue 2do del Grupo C (7 pts) con Hakimi, Saibari y la solidez defensiva que los llevó al semifinal de Qatar 2022. Los leones del Atlas son peligrosos en contra y pueden aguantar. Países Bajos tiene la posesión pero Marruecos el bloque bajo. Puede ir a prórroga.",
-  go:"Cody Gakpo (Países Bajos) — el más incisivo en todo el torneo, 3 goles. Xavi Simons (Países Bajos) — doblete en J2. Achraf Hakimi (Marruecos) — el mejor africano del torneo.",
-  fi:"Cody Gakpo (Países Bajos) — si encuentra espacios entre la defensa marroquí, puede decidir el partido.",
-  ap:"Partido muy parejo · Ambos marcan · Gakpo anota · Cuota gana Países Bajos: 2.1x",
-  pr:"Pred: Países Bajos 2-1"
-};
-ANAL["Morocco_Netherlands"] = ANAL["Netherlands_Morocco"];
-
-// ── R32: 30 Jun ──
-
-// Match 77 · 30 Jun · Costa de Marfil vs Noruega
-ANAL["Côte d'Ivoire_Norway"] = {
-  g:"Costa de Marfil clasificó 2da del Grupo A (6 pts) con Amad Diallo brillando. Noruega llegó 1era del Grupo I (7 pts) con Haaland devastador (5 goles en 3 partidos). El duelo entre la velocidad africana y el poder físico escandinavo. Haaland es la gran amenaza; la defensa marfileña tendrá que hacer el trabajo de su vida.",
-  go:"Erling Haaland (Noruega) — 5 goles en fase de grupos, goleador del torneo. Amad Diallo (Costa de Marfil) — 2 goles y extremo explosivo. Seko Fofana (Costa de Marfil) en el mediocampo.",
-  fi:"Erling Haaland (Noruega) — si recibe un solo buen pase, puede decidir el partido. Es el jugador más peligroso del torneo.",
-  ap:"Noruega gana · Haaland anota · Más de 2.5 goles. Cuota est: 1.75x",
-  pr:"Pred: Noruega 2-1"
-};
-ANAL["Norway_Côte d'Ivoire"] = ANAL["Côte d'Ivoire_Norway"];
-ANAL["Ivory Coast_Norway"]   = ANAL["Côte d'Ivoire_Norway"];
-ANAL["Norway_Ivory Coast"]   = ANAL["Côte d'Ivoire_Norway"];
-
-// Match 78 · 30 Jun · Francia vs Suecia
-ANAL["France_Sweden"] = {
-  g:"Francia terminó 1era del Grupo I (7 pts) con Mbappé en estado de gracia (3 goles). Suecia fue 2da del Grupo E (7 pts) con Gyökeres goleador (3 goles). El choque de dos delanteros sublimes — Mbappé vs Gyökeres. Francia tiene más calidad en todas las líneas, pero Suecia es físicamente muy fuerte y con Isak y Gyökeres puede hacer daño.",
-  go:"Kylian Mbappé (Francia) — 3 goles en fase de grupos, máxima figura. Viktor Gyökeres (Suecia) — el goleador más en forma de Europa. Alexander Isak (Suecia) como segundo punta.",
-  fi:"Kylian Mbappé (Francia) — si aparece como en J1 vs Senegal, partido terminado en el primer tiempo.",
-  ap:"Francia gana · Mbappé anota · Más de 2.5 goles. Cuota est: 1.65x",
-  pr:"Pred: Francia 2-1"
-};
-ANAL["Sweden_France"] = ANAL["France_Sweden"];
-
-// Match 79 · 30 Jun · México vs Ecuador
-ANAL["Mexico_Ecuador"] = {
-  g:"México terminó 1ero del Grupo A (6 pts) con Jiménez y Quiñones. Ecuador clasificó como mejor tercero del Grupo B (3 pts) tras un torneo muy irregular (0-0 vs Curazao, derrota ante Alemania). Es el choque más claro favorito de los 16avos para México. El Tri en casa (USA/México/Canadá) tiene un apoyo increíble; Ecuador llega sin confianza.",
-  go:"Raúl Jiménez (México) — el referente ofensivo, 1 gol. Edson Álvarez (México) en el mediocampo. Moisés Caicedo (Ecuador) — el único capaz de cambiar el partido.",
-  fi:"Moisés Caicedo (Ecuador) — si no aparece, Ecuador no tiene ataque. Es literalmente su única esperanza.",
-  ap:"México gana · Jiménez anota · Menos de 3.5 goles. Cuota est: 1.85x",
-  pr:"Pred: México 2-0"
-};
-ANAL["Ecuador_Mexico"] = ANAL["Mexico_Ecuador"];
-
-// ── R32: 1 Jul ──
-
-// Match 80 · 1 Jul · Inglaterra vs Congo DR
-ANAL["England_DR Congo"] = {
-  g:"Inglaterra terminó 2da del Grupo J (6 pts) con Kane doblete en J1. Congo DR sorprendió al ganar el Grupo K con 7 pts, incluyendo 3-1 a Uzbekistán en J3. Los Leopardos son rápidos en contra con Wissa y Banzuzi. Inglaterra tiene la calidad pero a veces se complica — Kane necesita aparecer desde el inicio.",
-  go:"Harry Kane (Inglaterra) — doblete vs Croacia en J1, el más lethal en el área. Bukayo Saka (Inglaterra) en banda. Yoane Wissa (Congo DR) — el que marcó ante Portugal en J1, siempre peligroso.",
-  fi:"Harry Kane (Inglaterra) — si recibe bien, marca. Es el jugador más decididor del partido.",
-  ap:"Inglaterra gana · Kane anota · Más de 2 goles. Cuota est: 1.70x",
-  pr:"Pred: Inglaterra 2-0"
-};
-ANAL["DR Congo_England"] = ANAL["England_DR Congo"];
-
-// Match 81 · 1 Jul · Bélgica vs Senegal
-ANAL["Belgium_Senegal"] = {
-  g:"Bélgica decepcionó en grupos (empate 1-1 vs Egipto en J1) pero reaccionó para clasificar 1era del Grupo G. Senegal fue 2do del Grupo I (6 pts) con la remontada épica de Mané (5-0 a Iraq en J3). Bélgica tiene la calidad generacional — De Bruyne, Lukaku, Doku — pero a veces no la traduce en juego. Senegal defensivamente sólido.",
-  go:"Kevin De Bruyne (Bélgica) — el cerebro del equipo, capaz de decidir con un pase. Romelu Lukaku (Bélgica) referente. Sadio Mané (Senegal) — resucitó con doblete en J3.",
-  fi:"Kevin De Bruyne (Bélgica) — si tiene un día de los suyos, Bélgica arrasa. El más talentoso del partido.",
-  ap:"Bélgica gana · De Bruyne asiste · Más de 2 goles. Cuota est: 1.80x",
-  pr:"Pred: Bélgica 2-1"
-};
-ANAL["Senegal_Belgium"] = ANAL["Belgium_Senegal"];
-
-// Match 82 · 1 Jul · EE.UU. vs Bosnia-Herzegovina
-ANAL["USA_Bosnia and Herzegovina"] = {
-  g:"EE.UU. goleó 4-1 a Paraguay en J1 (Balogun doblete) y clasifica 1ero del Grupo B (7 pts) con ventaja de local. Bosnia clasificó como mejor tercero del Grupo C (4 pts) tras un J1 ajustado vs Canadá (1-1) y reaccionar luego. EE.UU. en casa tiene el estadio completo; será el partido más ruidoso del torneo.",
-  go:"Folarin Balogun (EE.UU.) — doblete en J1, el goleador más explosivo. Christian Pulisic (EE.UU.) en banda. Anel Ahmedhodzic (Bosnia) liderazgo defensivo.",
-  fi:"Folarin Balogun (EE.UU.) — el jugador más en forma del equipo. Si repite nivel del J1, partido resuelto en el primer tiempo.",
-  ap:"EE.UU. gana · Balogun anota · Más de 2.5 goles. Cuota est: 1.75x",
-  pr:"Pred: EE.UU. 3-1"
-};
-ANAL["Bosnia and Herzegovina_USA"] = ANAL["USA_Bosnia and Herzegovina"];
-ANAL["USA_Bosnia"] = ANAL["USA_Bosnia and Herzegovina"];
-ANAL["Bosnia_USA"] = ANAL["USA_Bosnia and Herzegovina"];
-
-// ── R32: 2 Jul ──
-
-// Match 83 · 2 Jul · España vs Austria
-ANAL["Spain_Austria"] = {
-  g:"España decepcionó con el 0-0 inicial vs Cabo Verde pero reaccionó para clasificar 1era del Grupo L. Austria terminó 2da del Grupo M (6 pts) con Arnautovic y Schmid efectivos. España tiene la posesión pero le falta un delantero; Austria es ordenada y peligrosa en contraataque. Pedri y Yamal son las cartas ofensivas españolas.",
-  go:"Pedri (España) — el creativo más en forma, asistencias y goles. Lamine Yamal (España) — 17 años, el más desequilibrante. Marko Arnautovic (Austria) — peligroso de penal y en área.",
-  fi:"Lamine Yamal (España) — si tiene espacio por la banda, Austria no lo puede parar. El jugador más emocionante del torneo.",
-  ap:"España gana · Yamal o Pedri anotan · Más de 2 goles. Cuota est: 1.75x",
-  pr:"Pred: España 2-0"
-};
-ANAL["Austria_Spain"] = ANAL["Spain_Austria"];
-
-// Match 84 · 2 Jul · Portugal vs Croacia
-ANAL["Portugal_Croatia"] = {
-  g:"Portugal empató con Colombia (0-0) en J3 y clasifica como 2do del Grupo K. Croacia fue 2da del Grupo L (6 pts) con la remontada 2-1 a Ghana en J3 y Modric magistral. Es el partido más atractivo del día — Cristiano vs Modric, dos leyendas que ya van tarde en sus carreras mundialistas. Portugal tiene más velocidad; Croacia tiene la experiencia de Qatar 2022 (3er lugar).",
-  go:"Cristiano Ronaldo (Portugal) — todavía con hambre de goles, capaz de marcar en momentos clave. Bruno Fernandes (Portugal) — el más creativo. Luka Modric (Croacia) — el maestro del mediocampo.",
-  fi:"Bruno Fernandes (Portugal) — si aparece como vs Uzbekistán (J2), Portugal domina. El verdadero motor del equipo.",
-  ap:"Portugal gana · Bruno Fernandes asiste · Ambos marcan. Cuota est: 2.0x",
-  pr:"Pred: Portugal 2-1"
-};
-ANAL["Croatia_Portugal"] = ANAL["Portugal_Croatia"];
-
-// ── R32: 3 Jul ──
-
-// Match 85 · 3 Jul · Australia vs Egipto
-ANAL["Australia_Egypt"] = {
-  g:"Australia fue 2da del Grupo D (4 pts) con Irankunda como revelación del torneo. Egipto clasificó como mejor tercero del Grupo G (2 pts) con Salah finalmente anotando en J3 (1-1 vs Irán). Es el partido más abierto de los 16avos — ambos equipos pueden ganar. Australia peligrosa en transiciones rápidas; Egipto depende totalmente de Salah.",
-  go:"Nestory Irankunda (Australia) — 19 años, el jugador más explosivo del torneo. Jamie Maclaren (Australia) como referente. Mohamed Salah (Egipto) — despertó en J3, puede brillar en eliminatorias.",
-  fi:"Mohamed Salah (Egipto) — si encuentra su mejor versión como en J3, Egipto puede sorprender. Es el jugador de nivel más alto del partido.",
-  ap:"Australia gana por la mínima · Irankunda imparable. Cuota est: 2.1x",
-  pr:"Pred: Australia 1-0"
-};
-ANAL["Egypt_Australia"] = ANAL["Australia_Egypt"];
-
-// Match 86 · 3 Jul · Argentina vs Cabo Verde
-ANAL["Argentina_Cabo Verde"] = {
-  g:"Argentina arrasó en la fase de grupos con Messi hat-trick vs Argelia (J1) y 2-0 a Austria. Cabo Verde fue 2do del Grupo L (4 pts) con un torneo sorprendente. Sin embargo, la diferencia de nivel es abismal — Argentina tiene el mejor jugador de todos los tiempos y jugadores del Real Madrid, PSG y Manchester City. El partido más desequilibrado de los 16avos.",
-  go:"Lionel Messi (Argentina) — hat-trick en J1, el mejor jugador de todos los tiempos en su último Mundial. Lautaro Martínez (Argentina) — el goleador del Inter de Milán. Ângelo (Cabo Verde) su mejor jugador.",
-  fi:"Lionel Messi (Argentina) — en su último Mundial, motivado como nunca. Si está al 100%, nadie lo para.",
-  ap:"Argentina gana amplio · Messi anota · Más de 3 goles. Cuota est: 1.40x",
-  pr:"Pred: Argentina 4-0"
-};
-ANAL["Cabo Verde_Argentina"] = ANAL["Argentina_Cabo Verde"];
-
-// Match 87 · 3 Jul · Colombia vs Ghana
-ANAL["Colombia_Ghana"] = {
-  g:"Colombia clasificó 1era del Grupo K (7 pts) con Luis Díaz brillando. Ghana fue 2da del Grupo J (4 pts) con el gol agónico al 94min vs Panamá y luego 2-1 a Croacia. Es el duelo más físico de los 16avos — ambos equipos son rápidos y directos. Colombia tiene más calidad técnica; Ghana el factor sorpresa.",
-  go:"Luis Díaz (Colombia) — el extremo del Liverpool en estado de gracia, imparable. James Rodríguez (Colombia) si tiene espacio. Mohammed Kudus (Ghana) — el más desequilibrante africano.",
-  fi:"Luis Díaz (Colombia) — el jugador más en forma del torneo junto a Haaland. Si aparece, Colombia gana cómodo.",
-  ap:"Colombia gana · Luis Díaz anota · Más de 2 goles. Cuota est: 1.85x",
-  pr:"Pred: Colombia 2-1"
-};
-ANAL["Ghana_Colombia"] = ANAL["Colombia_Ghana"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -502,8 +263,7 @@ function getAnal(home, away) {
     "IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
     "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde",
     "Cape Verde":"Cabo Verde","South Korea":"Korea Republic","United States":"USA",
-    "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast",
-    "Congo DR":"DR Congo","Republic of Congo":"DR Congo","Democratic Republic of Congo":"DR Congo"
+    "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast"
   };
   var h2 = fixes[home] || fixes[h] || home;
   var a2 = fixes[away] || fixes[a] || away;
@@ -585,178 +345,58 @@ function makeCard(m) {
     scoreHTML = '<span style="font-size:12px;color:#4ade80;font-weight:700;">' + hora + "</span>";
   }
 
-  // ── HT / FT scores ──
-  var htH = m.score && m.score.halfTime ? m.score.halfTime.home : null;
-  var htA = m.score && m.score.halfTime ? m.score.halfTime.away : null;
-
-  // ── Datos de API-Football (cache) ──
-  var afCache   = statsCache[String(m.id)] || {};
-  var afEvents  = afCache.events  || [];
-  var afStats   = afCache.stats   || [];
-
-  // Goles y tarjetas desde eventos
-  var goalItemsL = [], goalItemsA = [];
-  var cardItems  = [];
-  afEvents.forEach(function(ev) {
-    var elapsed = ev.time && ev.time.elapsed != null ? ev.time.elapsed : "";
-    var extra   = ev.time && ev.time.extra ? "+" + ev.time.extra : "";
-    var minStr  = elapsed + extra + "'";
-    var isHome  = ev.team && ev.team.name && hName &&
-                  ev.team.name.toLowerCase() === hName.toLowerCase();
-    var pName   = ev.player && ev.player.name ? ev.player.name : "?";
-
-    if (ev.type === "Goal") {
-      var typeTag = ev.detail === "Own Goal" ? " <span style='color:#f87171;font-size:9px;'>(AG)</span>"
-                 : ev.detail === "Penalty"   ? " <span style='color:#fbbf24;font-size:9px;'>(P)</span>" : "";
-      var row = '<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
-        + '<span style="color:#fbbf24;font-weight:700;font-size:10px;min-width:28px;">' + minStr + '</span>'
-        + '<span style="font-size:11px;">⚽</span>'
-        + '<span style="font-size:11px;color:#e2e8f0;">' + pName + '</span>' + typeTag
-        + '</div>';
-      if (isHome) goalItemsL.push(row); else goalItemsA.push(row);
-    } else if (ev.type === "Card") {
-      var isRed = ev.detail === "Red Card" || ev.detail === "Red Card (Second Yellow)";
-      var em = isRed ? "🟥" : "🟨";
-      var teamLabel = isHome ? hN : aN;
-      cardItems.push('<div style="display:flex;align-items:center;gap:5px;padding:2px 0;">'
-        + '<span>' + em + '</span>'
-        + '<span style="font-size:10px;color:#94a3b8;min-width:26px;">' + minStr + '</span>'
-        + '<span style="font-size:11px;color:#e2e8f0;">' + pName + '</span>'
-        + '<span style="font-size:9px;color:#64748b;margin-left:2px;">(' + teamLabel + ')</span>'
-        + '</div>');
-    }
+  // Goles
+  var golesL = [], golesA = [];
+  (m.goals || []).forEach(function(g) {
+    var gs = (g.scorer && g.scorer.name) || "";
+    var gm = g.minute ? g.minute + "min" : "";
+    var gt = g.type === "OWN_GOAL" ? " (OG)" : g.type === "PENALTY" ? " (p)" : "";
+    var b = '<span class="badge">⚽ ' + gs + " " + gm + gt + "</span>";
+    if (g.team && g.team.name === hName) golesL.push(b); else golesA.push(b);
   });
 
-  // Estadísticas
-  var hStMap = {}, aStMap = {};
-  if (afStats.length >= 2) {
-    (afStats[0].statistics || []).forEach(function(s){ hStMap[s.type] = s.value; });
-    (afStats[1].statistics || []).forEach(function(s){ aStMap[s.type] = s.value; });
-  }
-  var ST_DEFS = [
-    {k:"Total Shots",       lb:"Remates"},
-    {k:"Shots on Goal",     lb:"Remates al arco"},
-    {k:"Ball Possession",   lb:"Posesión",       pct:true},
-    {k:"Total passes",      lb:"Pases"},
-    {k:"Passes %",          lb:"Precisión pases", pct:true},
-    {k:"Fouls",             lb:"Faltas",          inv:true},
-    {k:"Yellow Cards",      lb:"Tarjetas Amarillas", inv:true},
-    {k:"Red Cards",         lb:"Tarjetas Rojas",  inv:true},
-    {k:"Offsides",          lb:"Fuera de juego",  inv:true},
-    {k:"Corner Kicks",      lb:"Córners"}
-  ];
-  var hasStatsData = ST_DEFS.some(function(d){ return hStMap[d.k] != null || aStMap[d.k] != null; });
+  // Tarjetas
+  var tarjL = [], tarjA = [];
+  (m.bookings || []).forEach(function(b) {
+    var isR = b.card === "RED_CARD" || b.card === "YELLOW_RED_CARD";
+    var em = isR ? "🟥" : "🟨";
+    var co = isR ? "#f87171" : "#fbbf24";
+    var bg = isR ? "#1a0808" : "#1a1500";
+    var bo = isR ? "#3a1010" : "#3a3000";
+    var pn = (b.player && b.player.name) || "";
+    var pm = b.minute ? b.minute + "min" : "";
+    var badge = '<span style="font-size:10px;background:' + bg + ';color:' + co + ';border:1px solid ' + bo + ';border-radius:4px;padding:1px 6px;">' + em + " " + pn + " " + pm + "</span>";
+    if (b.team && b.team.name === hName) tarjL.push(badge); else tarjA.push(badge);
+  });
 
-  // ── Helper: bloque de sección ──
-  function secBox(color, title, inner) {
-    return '<div style="margin-bottom:7px;background:rgba(0,0,0,0.18);border-radius:8px;overflow:hidden;">'
-      + '<div style="padding:4px 9px;background:rgba(0,0,0,0.25);font-size:9px;font-weight:800;color:' + color + ';text-transform:uppercase;letter-spacing:0.5px;">' + title + '</div>'
-      + '<div style="padding:6px 9px;">' + inner + '</div>'
-      + '</div>';
-  }
-
-  // ── Stats HTML ──
+  // Stats HTML
   var statsHTML = "";
-  var hasEvents = goalItemsL.length || goalItemsA.length || cardItems.length;
-
-  if (done) {
-    // 📊 Marcador por tiempo
-    var marcHTML = "";
-    if (htH !== null && htA !== null && hG !== null) {
-      var marcInner = '<div style="display:flex;align-items:center;justify-content:center;gap:20px;">'
-        + '<div style="text-align:center;">'
-        + '<div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">1er Tiempo</div>'
-        + '<div style="font-size:20px;font-weight:900;color:#60a5fa;">' + htH + ' – ' + htA + '</div>'
-        + '</div><div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>'
-        + '<div style="text-align:center;">'
-        + '<div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">Final</div>'
-        + '<div style="font-size:20px;font-weight:900;color:#4ade80;">' + hG + ' – ' + aG + '</div>'
-        + '</div></div>';
-      marcHTML = secBox("#60a5fa", "📊 Marcador", marcInner);
-    }
-
-    // ⚽ Goles (API-Football si hay cache, ANAL.go como fallback)
-    var golesHTML = "";
-    if (hasEvents) {
-      var gRowsHTML = '<div style="display:flex;gap:4px;">'
-        + '<div style="flex:1;border-right:1px solid rgba(255,255,255,0.06);padding-right:6px;">'
-        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + hF + ' ' + hN + '</div>'
-        + (goalItemsL.length ? goalItemsL.join("") : '<div style="font-size:10px;color:#475569;padding:2px 0;">–</div>')
-        + '</div>'
-        + '<div style="flex:1;padding-left:6px;">'
-        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + aF + ' ' + aN + '</div>'
-        + (goalItemsA.length ? goalItemsA.join("") : '<div style="font-size:10px;color:#475569;padding:2px 0;">–</div>')
-        + '</div></div>';
-      golesHTML = secBox("#4ade80", "⚽ Goles", gRowsHTML);
-    } else if (anal && anal.go) {
-      golesHTML = secBox("#fbbf24", "⚽ Goleadores", '<span style="font-size:11px;color:#cbd5e1;line-height:1.7;">' + anal.go + '</span>');
-    }
-
-    // 🟨 Tarjetas
-    var tarjHTML = cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "";
-
-    // 📈 Estadísticas (tabla comparativa estilo imagen)
-    var statTableHTML = "";
-    if (hasStatsData) {
-      var PILL = "background:#c026d3;color:#fff;padding:1px 9px;border-radius:20px;font-weight:800;font-size:12px;display:inline-block;min-width:28px;text-align:center;";
-      var PLAIN = "font-size:12px;color:#cbd5e1;padding:1px 9px;display:inline-block;min-width:28px;text-align:center;";
-      var stHeader = '<div style="display:flex;gap:6px;padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.08);">'
-        + '<div style="flex:1;text-align:right;font-size:10px;font-weight:700;color:#e2e8f0;">' + hF + ' ' + hN + '</div>'
-        + '<div style="flex:2;"></div>'
-        + '<div style="flex:1;text-align:left;font-size:10px;font-weight:700;color:#e2e8f0;">' + aF + ' ' + aN + '</div>'
-        + '</div>';
-      var stRows = ST_DEFS.filter(function(d){ return hStMap[d.k] != null || aStMap[d.k] != null; }).map(function(d) {
-        var hRaw = hStMap[d.k] != null ? hStMap[d.k] : 0;
-        var aRaw = aStMap[d.k] != null ? aStMap[d.k] : 0;
-        // Limpiar valores porcentaje (pueden venir como "74%" o 74)
-        var hv = parseFloat(String(hRaw).replace("%","")) || 0;
-        var av = parseFloat(String(aRaw).replace("%","")) || 0;
-        var hvStr = d.pct ? hv + "%" : String(hRaw || 0);
-        var avStr = d.pct ? av + "%" : String(aRaw || 0);
-        var hBetter = d.inv ? hv < av : hv > av;
-        var aBetter = d.inv ? av < hv : av > hv;
-        var total = hv + av;
-        var hPct = total > 0 ? Math.round(hv / total * 100) : 50;
-        return '<div style="padding:3px 0;">'
-          + '<div style="display:flex;align-items:center;gap:6px;">'
-          + '<div style="flex:1;text-align:right;"><span style="' + (hBetter ? PILL : PLAIN) + '">' + hvStr + '</span></div>'
-          + '<div style="flex:2;text-align:center;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.3px;">' + d.lb + '</div>'
-          + '<div style="flex:1;text-align:left;"><span style="' + (aBetter ? PILL : PLAIN) + '">' + avStr + '</span></div>'
-          + '</div>'
-          + '<div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin:3px 0;">'
-          + '<div style="height:3px;width:' + hPct + '%;background:#7c3aed;border-radius:2px;"></div>'
-          + '</div></div>';
-      }).join('<div style="height:1px;background:rgba(255,255,255,0.04);"></div>');
-      statTableHTML = secBox("#c084fc", "📈 Estadísticas", stHeader + stRows);
-    }
-
-    statsHTML = marcHTML + golesHTML + tarjHTML + statTableHTML;
+  if (done && !golesL.length && !golesA.length && !tarjL.length && !tarjA.length) {
+    statsHTML = '<div style="font-size:10px;color:#64748b;margin-bottom:6px;">ℹ️ Detalles de goles disponibles en la pestaña de Resultados del partido</div>';
+  } else if ((done || live) && (golesL.length || golesA.length || tarjL.length || tarjA.length)) {
+    var lCol = '<div style="flex:1;">'
+      + (golesL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;">' + golesL.join("") + "</div>" : "")
+      + (tarjL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;">' + tarjL.join("") + "</div>" : "")
+      + "</div>";
+    var rCol = '<div style="flex:1;text-align:right;">'
+      + (golesA.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;margin-bottom:4px;">' + golesA.join("") + "</div>" : "")
+      + (tarjA.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;">' + tarjA.join("") + "</div>" : "")
+      + "</div>";
+    statsHTML = '<div style="display:flex;gap:8px;margin-bottom:8px;padding:8px;background:rgba(0,0,0,0.2);border-radius:7px;">' + lCol + rCol + "</div>";
   }
 
-  // ── Análisis HTML ──
-  var betLink = '<a style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a6b1a,#0f4a0f);border:2px solid #4ade80;border-radius:10px;padding:10px;color:#fff;font-weight:800;font-size:13px;text-decoration:none;margin-top:6px;" href="https://www.jugabet.cl" target="_blank">🎰 Apostar en Jugabet Chile</a>';
+  // Análisis HTML
   var analHTML = "";
   if (anal) {
-    if (done) {
-      // Partido terminado → mostrar highlights + figura
-      analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">'
-        + (anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "")
-        + secBox("#4ade80","🎬 Resumen del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + '</span>')
-        + secBox("#60a5fa","⭐ Figura del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + '</span>')
-        + betLink
-        + "</div>";
-    } else {
-      // Próximo / en vivo → mostrar análisis completo + predicción
-      var predHTML = anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;margin-bottom:6px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "";
-      analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">'
-        + predHTML
-        + '<div style="border-left:3px solid #4ade80;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px;">🏆 Análisis</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + "</div></div>"
-        + '<div style="border-left:3px solid #fbbf24;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:2px;">⚽ Goleadores a seguir</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + "</div></div>"
-        + '<div style="border-left:3px solid #60a5fa;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:2px;">⭐ Figura clave</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + "</div></div>"
-        + '<div style="border-left:3px solid #c084fc;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#c084fc;font-weight:700;margin-bottom:2px;">💰 Apuesta / Info</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.ap + "</div></div>"
-        + betLink
-        + "</div>";
-    }
+    var predHTML = anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;margin-bottom:6px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "";
+    analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">'
+      + predHTML
+      + '<div style="border-left:3px solid #4ade80;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px;">🏆 Análisis del partido</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + "</div></div>"
+      + '<div style="border-left:3px solid #fbbf24;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:2px;">⚽ Goleadores destacados</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + "</div></div>"
+      + '<div style="border-left:3px solid #60a5fa;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:2px;">⭐ Figura del partido</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + "</div></div>"
+      + '<div style="border-left:3px solid #c084fc;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#c084fc;font-weight:700;margin-bottom:2px;">💰 Apuesta / Info</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.ap + "</div></div>"
+      + '<a style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a6b1a,#0f4a0f);border:2px solid #4ade80;border-radius:10px;padding:10px;color:#fff;font-weight:800;font-size:13px;text-decoration:none;margin-top:2px;" href="https://www.jugabet.cl" target="_blank">🎰 Apostar en Jugabet Chile</a>'
+      + "</div>";
   }
 
   // HTML de la tarjeta — estructura simple y robusta
@@ -816,100 +456,22 @@ async function main() {
   var upcoming  = matches.filter(function(m){ return m.status === "SCHEDULED" || m.status === "TIMED"; }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var todayAll  = matches.filter(function(m){ return isToday(m.utcDate); }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
 
-  // ── API-Football: fetch events + stats para partidos sin cache ──
-  var toFetch = finished.slice(0, 10).filter(function(m) {
-    var c = statsCache[String(m.id)];
-    return !c || (!c.notFound && !c.events); // refetch si no hay datos
+  // DEBUG
+  console.log("=== NOMBRES API ===");
+  todayAll.forEach(function(m){ 
+    var anal = getAnal(m.homeTeam && m.homeTeam.name, m.awayTeam && m.awayTeam.name);
+    console.log("HOY: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO")); 
   });
-
-  if (toFetch.length > 0) {
-    // Agrupar por fecha UTC para minimizar requests a API-Football
-    var dateGroups = {};
-    toFetch.forEach(function(m) {
-      var d = m.utcDate.substring(0, 10);
-      if (!dateGroups[d]) dateGroups[d] = [];
-      dateGroups[d].push(m);
-    });
-
-    for (var afDate of Object.keys(dateGroups)) {
-      try {
-        var afRes = await getAF("fixtures?league=" + AF_LEAGUE + "&season=" + AF_SEASON + "&date=" + afDate);
-        var afFixtures = afRes.response || [];
-        console.log("AF fixtures " + afDate + ": " + afFixtures.length + " encontrados");
-
-        for (var fdm of dateGroups[afDate]) {
-          var hScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null;
-          var aScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null;
-          // Buscar partido por score (suficiente para WC donde no hay 2 partidos con mismo resultado el mismo día)
-          var afMatch = afFixtures.find(function(f) {
-            return f.fixture.status.short === "FT" &&
-                   hScore !== null && aScore !== null &&
-                   f.goals.home === hScore && f.goals.away === aScore;
-          });
-          if (!afMatch) {
-            console.log("AF: no match for " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name));
-            statsCache[String(fdm.id)] = {notFound: true};
-            continue;
-          }
-          var afId = afMatch.fixture.id;
-          console.log("AF: fetching events+stats for fixture " + afId + " (" + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name) + ")");
-          var evRes  = await getAF("fixtures/events?fixture=" + afId);
-          var stRes  = await getAF("fixtures/statistics?fixture=" + afId);
-          statsCache[String(fdm.id)] = {
-            afId:   afId,
-            events: evRes.response  || [],
-            stats:  stRes.response  || []
-          };
-        }
-      } catch(e) {
-        console.log("AF error for " + afDate + ": " + e.message);
-      }
-    }
-    // Guardar cache actualizado
-    try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
-    console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
-  } else {
-    console.log("AF: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
-  }
-
-  // ── PARCHE R32: sustituir nombres null del API ──
-  var R32_TEAMS = [
-    {d:"2026-06-28T19:00:00Z",h:"South Africa",a:"Canada"},
-    {d:"2026-06-29T17:00:00Z",h:"Brazil",a:"Japan"},
-    {d:"2026-06-29T20:30:00Z",h:"Germany",a:"Paraguay"},
-    {d:"2026-06-30T01:00:00Z",h:"Netherlands",a:"Morocco"},
-    {d:"2026-06-30T17:00:00Z",h:"Côte d'Ivoire",a:"Norway"},
-    {d:"2026-06-30T21:00:00Z",h:"France",a:"Sweden"},
-    {d:"2026-07-01T01:00:00Z",h:"Mexico",a:"Ecuador"},
-    {d:"2026-07-01T16:00:00Z",h:"England",a:"DR Congo"},
-    {d:"2026-07-01T20:00:00Z",h:"Belgium",a:"Senegal"},
-    {d:"2026-07-02T00:00:00Z",h:"USA",a:"Bosnia and Herzegovina"},
-    {d:"2026-07-02T19:00:00Z",h:"Spain",a:"Austria"},
-    {d:"2026-07-02T23:00:00Z",h:"Portugal",a:"Croatia"},
-    {d:"2026-07-03T02:00:00Z",h:"Switzerland",a:null},
-    {d:"2026-07-03T18:00:00Z",h:"Australia",a:"Egypt"},
-    {d:"2026-07-03T22:00:00Z",h:"Argentina",a:"Cabo Verde"},
-    {d:"2026-07-04T01:30:00Z",h:"Colombia",a:"Ghana"},
-  ];
-  function patchR32(m) {
-    var needH = !m.homeTeam || !m.homeTeam.name;
-    var needA = !m.awayTeam || !m.awayTeam.name;
-    if (!needH && !needA) return m;
-    var mt = new Date(m.utcDate).getTime();
-    for (var ri = 0; ri < R32_TEAMS.length; ri++) {
-      var rt = new Date(R32_TEAMS[ri].d).getTime();
-      if (Math.abs(mt - rt) <= 90 * 60000) { // dentro de ±90 min
-        if (!m.homeTeam) m.homeTeam = {};
-        if (!m.awayTeam) m.awayTeam = {};
-        if (needH && R32_TEAMS[ri].h) m.homeTeam.name = R32_TEAMS[ri].h;
-        if (needA && R32_TEAMS[ri].a) m.awayTeam.name = R32_TEAMS[ri].a;
-        return m;
-      }
-    }
-    return m;
-  }
-  upcoming  = upcoming.map(patchR32);
-  todayAll  = todayAll.map(patchR32);
+  upcoming.slice(0,10).forEach(function(m){ 
+    var hn = m.homeTeam && m.homeTeam.name;
+    var an = m.awayTeam && m.awayTeam.name;
+    var anal = getAnal(hn, an);
+    var k1 = hn+"_"+an;
+    var k2 = an+"_"+hn;
+    var directK1 = ANAL[k1] ? "direct" : "no";
+    var directK2 = ANAL[k2] ? "direct" : "no";
+    console.log("PROX: " + hn + " vs " + an + " => k1(" + directK1 + ") k2(" + directK2 + ") anal:" + (anal?"SI":"NO")); 
+  });
 
   var totalGoals = finished.reduce(function(s,m){ var sc=m.score&&m.score.fullTime; return s+(sc&&sc.home||0)+(sc&&sc.away||0); },0);
   var nowCL  = new Date().toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"});
@@ -940,40 +502,13 @@ async function main() {
   finished.forEach(function(m){ if(m.matchday && !jornadas.includes(m.matchday)) jornadas.push(m.matchday); });
   jornadas.sort(function(a,b){return a-b;});
   var grupos = ["GROUP_A","GROUP_B","GROUP_C","GROUP_D","GROUP_E","GROUP_F","GROUP_G","GROUP_H","GROUP_I","GROUP_J","GROUP_K","GROUP_L"];
-  // ── Clasificar partidos eliminatorios ──
-  var STAGE_LABELS = {
-    "LAST_16":"16avos","ROUND_OF_16":"16avos",
-    "QUARTER_FINALS":"8vos","QUARTERFINAL":"8vos",
-    "SEMI_FINALS":"Semis","SEMIFINAL":"Semis",
-    "FINAL":"Final","3RD_PLACE":"3er Lugar"
-  };
-  var STAGE_IDS = {
-    "LAST_16":99,"ROUND_OF_16":99,
-    "QUARTER_FINALS":98,"QUARTERFINAL":98,
-    "SEMI_FINALS":97,"SEMIFINAL":97,
-    "FINAL":96,"3RD_PLACE":95
-  };
-  var knockoutFinished = finished.filter(function(m){ return grupos.indexOf(m.group) === -1; }).map(patchR32);
-  knockoutFinished.sort(function(a,b){return new Date(a.utcDate)-new Date(b.utcDate);});
-
-  // Agrupar por stage
-  var koStages = {}; // { stageId: {label, matches} }
-  knockoutFinished.forEach(function(m){
-    var st = (m.stage || "").toUpperCase().replace(/ /g,"_");
-    var sid = STAGE_IDS[st] || 99;
-    var lbl = STAGE_LABELS[st] || "16avos";
-    if (!koStages[sid]) koStages[sid] = {label:lbl, id:sid, matches:[]};
-    koStages[sid].matches.push(m);
-  });
-  var hasKO = knockoutFinished.length > 0;
-
   var jorBtns = jornadas.map(function(j,i){
-    return '<button class="jbtn' + (i===jornadas.length-1&&!hasKO?" active":"") + '" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
+    return '<button class="jbtn' + (i===jornadas.length-1?" active":"") + '" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
   }).join("");
   var jorBlocks = jornadas.map(function(j,ji){
     var pj = finished.filter(function(m){return m.matchday===j;});
     var grpsP = grupos.filter(function(g){return pj.some(function(m){return m.group===g;});});
-    return '<div id="j' + j + '" style="display:' + (ji===jornadas.length-1&&!hasKO?"block":"none") + ';">'
+    return '<div id="j' + j + '" style="display:' + (ji===jornadas.length-1?"block":"none") + ';">'
       + grpsP.map(function(g){
           return '<div class="grp-block"><div class="grp-hdr">' + g.replace("GROUP_","Grupo ") + " · J" + j + "</div>"
             + pj.filter(function(m){return m.group===g;}).map(function(m){return makeCard(m);}).join("")
@@ -982,34 +517,9 @@ async function main() {
       + "</div>";
   }).join("");
 
-  // Botones y bloques de eliminatorias
-  var koBtns = "";
-  var koBlocks = "";
-  var koStageSorted = Object.keys(koStages).map(function(k){return koStages[k];}).sort(function(a,b){return b.id-a.id;}); // 99=16avos first
-  var isFirstKO = true;
-  koStageSorted.forEach(function(stage){
-    var isActive = isFirstKO && hasKO;
-    koBtns += '<button class="jbtn' + (isActive?" active":"") + '" onclick="showJornada(' + stage.id + ',this)">' + stage.label + '</button>';
-    var byDate = {};
-    stage.matches.forEach(function(m){
-      var d = clDateShort(m.utcDate);
-      if(!byDate[d]) byDate[d]=[];
-      byDate[d].push(m);
-    });
-    cardId = 5000 + stage.id;
-    koBlocks += '<div id="j' + stage.id + '" style="display:' + (isActive?"block":"none") + ';">'
-      + Object.keys(byDate).map(function(fecha){
-          return '<div class="grp-block"><div class="grp-hdr">🏆 ' + stage.label + ' · ' + fecha + '</div>'
-            + byDate[fecha].map(function(m){return makeCard(m);}).join("")
-            + '</div>';
-        }).join("")
-      + '</div>';
-    isFirstKO = false;
-  });
-
   // TABLAS
   // ── FIXTURE 16AVOS ──
-  var fixture16HTML = '<div id="t16avos" style="display:none;">   <div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">     <div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">       <div style="font-size:14px;font-weight:800;color:#fff;">🏆 16avos de Final</div>       <div style="font-size:10px;color:#4ade80;">28 Jun – 3 Jul · Hora Chile</div>     </div>     <div style="overflow-x:auto;">       <table style="width:100%;border-collapse:collapse;font-size:12px;">         <thead><tr>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:left;">Hora</th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:right;">Local</th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:center;"></th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:left;">Visitante</th>         </tr></thead>         <tbody><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 28 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">16:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇿🇦 Sudáfrica</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇨🇦 Canadá</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 29 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">14:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇧🇷 Brasil</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇯🇵 Japón</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 NRG Stadium, Houston &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:30</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇩🇪 Alemania</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇵🇾 Paraguay</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇳🇱 Países Bajos</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇲🇦 Marruecos</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Levi\'s Stadium, San José &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇮 Costa de Marfil</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇳🇴 Noruega</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Rose Bowl, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 30 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇫🇷 Francia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇸🇪 Suecia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 MetLife Stadium, Nueva York &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇲🇽 México</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇪🇨 Ecuador</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Arrowhead Stadium, Kansas City &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇨🇩 Congo DR</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 1 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇧🇪 Bélgica</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇸🇳 Senegal</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Estadio BBVA, Monterrey &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇪🇸 España</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇦🇹 Austria</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Hard Rock Stadium, Miami &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇺🇸 EE.UU.</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇧🇦 Bosnia-Herz.</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 2 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇦🇺 Australia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇪🇬 Egipto</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 NRG Stadium, Houston &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇭 Suiza</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🏳️ TBD 3°</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 MetLife Stadium, Nueva York &nbsp; <span style="font-size:9px;background:#1a2744;color:#94a3b8;border-radius:3px;padding:1px 5px;">⏳ Pendiente</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 3 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇦🇷 Argentina</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇨🇻 Cabo Verde</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Hard Rock Stadium, Miami &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇵🇹 Portugal</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇭🇷 Croacia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">22:30</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇴 Colombia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇬🇭 Ghana</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr></tbody>       </table>     </div>     <div style="padding:10px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b;">       ✓ 24 equipos clasificados directamente (12 primeros + 12 segundos) + 8 mejores terceros     </div>   </div> </div>';
+  var fixture16HTML = '<div id="t16avos" style="display:none;">   <div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">     <div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">       <div style="font-size:14px;font-weight:800;color:#fff;">🏆 16avos de Final</div>       <div style="font-size:10px;color:#4ade80;">28 Jun – 3 Jul · Hora Chile</div>     </div>     <div style="overflow-x:auto;">       <table style="width:100%;border-collapse:collapse;font-size:12px;">         <thead><tr>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:left;">Hora</th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:right;">Local</th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:center;"></th>           <th style="padding:7px 8px;color:#64748b;font-size:10px;text-transform:uppercase;background:#0b1120;text-align:left;">Visitante</th>         </tr></thead>         <tbody><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 28 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">16:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇿🇦 Sudáfrica</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇨🇦 Canadá</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇧🇷 Brasil</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇯🇵 Japón</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 NRG Stadium, Houston &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 29 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇩🇪 Alemania</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇵🇾 Paraguay</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇳🇱 Países Bajos</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇲🇦 Marruecos</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Levi\'s Stadium, San José &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇮 Costa de Marfil</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇳🇴 Noruega</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Rose Bowl, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 30 jun</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇫🇷 Francia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇸🇪 Suecia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 MetLife Stadium, Nueva York &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇲🇽 México</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Arrowhead Stadium, Kansas City &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇨🇻 Cabo Verde</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 1 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇪🇬 Egipto</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇰🇷 Corea del Sur</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Estadio BBVA, Monterrey &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇪🇸 España</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇦🇹 Austria</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Hard Rock Stadium, Miami &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇺🇸 EE.UU.</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇧🇦 Bosnia-Herz.</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 2 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇦🇺 Australia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇮🇷 Irán</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 NRG Stadium, Houston &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇭 Suiza</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇩🇿 Argelia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 MetLife Stadium, Nueva York &nbsp; <span style="font-size:9px;background:#1a2744;color:#94a3b8;border-radius:3px;padding:1px 5px;">⏳ Pendiente</span></td> </tr><tr style="background:#0d2a18;">   <td colspan="4" style="padding:8px 10px;font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:1px;">📅 3 jul</td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">13:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇦🇷 Argentina</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇺🇾 Uruguay</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 Hard Rock Stadium, Miami &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">17:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇵🇹 Portugal</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇬🇭 Ghana</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 SoFi Stadium, Los Ángeles &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr><tr>   <td style="padding:9px 8px;font-size:11px;color:#60a5fa;font-weight:700;">20:00</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;text-align:right;">🇨🇴 Colombia</td>   <td style="padding:9px 8px;font-size:11px;color:#fbbf24;font-weight:800;text-align:center;">VS</td>   <td style="padding:9px 8px;font-size:12px;font-weight:600;">🇭🇷 Croacia</td> </tr> <tr style="background:rgba(0,0,0,0.2);">   <td colspan="4" style="padding:2px 8px 8px;font-size:10px;color:#64748b;">🏟 AT&T Stadium, Dallas &nbsp; <span style="font-size:9px;background:#166534;color:#4ade80;border-radius:3px;padding:1px 5px;">✅ Confirmado</span></td> </tr></tbody>       </table>     </div>     <div style="padding:10px 13px;border-top:1px solid #1e2d45;font-size:10px;color:#64748b;">       ✓ 24 equipos clasificados directamente (12 primeros + 12 segundos) + 8 mejores terceros     </div>   </div> </div>';
 
   var grpBtns = standings.map(function(s,i){
     return '<button class="gbtn' + (i===0?" active":"") + '" onclick="showGrp(\'t' + s.group.replace("GROUP_","") + '\',this)">' + s.group.replace("GROUP_","G ") + "</button>";
@@ -1029,11 +539,7 @@ async function main() {
     "🇦🇷 <b>Argentina pleno</b> — 3 victorias, 9 pts. Messi en modo histórico. Favoritísimo.",
     "🇿🇦 <b>Sudáfrica sorpresa</b> — Eliminó a Corea del Sur. Los Bafana Bafana clasificaron.",
     "🇰🇷 <b>Corea del Sur fuera</b> — Perdió ante Sudáfrica. Eliminada en la fase de grupos.",
-    "🇵🇹 <b>Portugal empató con Colombia</b> — Ambos clasifican al 16avos de final. Portugal vs Croacia · Colombia vs Ghana.",
-    "🇨🇩 <b>Congo DR pasa</b> — 3-1 a Uzbekistán en J3. Los Leopardos en 16avos vs Inglaterra.",
-    "🏴󠁧󠁢󠁥󠁮󠁧󠁿 <b>Inglaterra 2-0 a Panamá</b> — Sólidos. Enfrenta Congo DR el 1 de julio.",
-    "🇭🇷 <b>Croacia 2-1 a Ghana</b> — Avanza como 2° del Grupo L. Enfrenta Portugal el 2 jul.",
-    "🏆 Fase de grupos terminada · 16avos de final arrancan el 28 Jun."
+    "🏆 Fase de grupos terminada · 16avos de final arrancan el 29 Jun."
   ]);
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + " completada</div>"
@@ -1100,23 +606,23 @@ async function main() {
   // ── BRACKET SVG 16AVOS ──
   var BL=[
     {a:"🇿🇦 Sudáfrica",b:"🇨🇦 Canadá",t:"28/6 16:00"},
-    {a:"🇩🇪 Alemania",b:"🇵🇾 Paraguay",t:"29/6 17:30"},
-    {a:"🇨🇮 C. Marfil",b:"🇳🇴 Noruega",t:"30/6 14:00"},
-    {a:"🇲🇽 México",b:"🇪🇨 Ecuador",t:"30/6 22:00"},
-    {a:"🇧🇪 Bélgica",b:"🇸🇳 Senegal",t:"1/7 17:00"},
-    {a:"🇺🇸 EE.UU.",b:"🇧🇦 Bosnia",t:"1/7 21:00"},
-    {a:"🇨🇭 Suiza",b:"🏳️ 3° TBD",t:"2/7 23:00"},
-    {a:"🇦🇷 Argentina",b:"🇨🇻 Cabo Verde",t:"3/7 19:00"}
+    {a:"🇩🇪 Alemania",b:"🇵🇾 Paraguay",t:"29/6 13:00"},
+    {a:"🇨🇮 C. Marfil",b:"🇳🇴 Noruega",t:"29/6 20:00"},
+    {a:"🇲🇽 México",b:"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escocia",t:"30/6 17:00"},
+    {a:"🇪🇬 Egipto",b:"🇰🇷 Corea Sur",t:"1/7 13:00"},
+    {a:"🇺🇸 EE.UU.",b:"🇧🇦 Bosnia",t:"1/7 20:00"},
+    {a:"🇨🇭 Suiza",b:"🇩🇿 Argelia",t:"2/7 17:00"},
+    {a:"🇦🇷 Argentina",b:"🇺🇾 Uruguay",t:"3/7 13:00"}
   ];
   var BR=[
-    {a:"🇧🇷 Brasil",b:"🇯🇵 Japón",t:"29/6 14:00"},
-    {a:"🇳🇱 Países Bajos",b:"🇲🇦 Marruecos",t:"29/6 22:00"},
-    {a:"🇫🇷 Francia",b:"🇸🇪 Suecia",t:"30/6 18:00"},
-    {a:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",b:"🇨🇩 Congo DR",t:"1/7 13:00"},
-    {a:"🇪🇸 España",b:"🇦🇹 Austria",t:"2/7 16:00"},
-    {a:"🇦🇺 Australia",b:"🇪🇬 Egipto",t:"3/7 15:00"},
-    {a:"🇵🇹 Portugal",b:"🇭🇷 Croacia",t:"2/7 20:00"},
-    {a:"🇨🇴 Colombia",b:"🇬🇭 Ghana",t:"3/7 22:30"}
+    {a:"🇧🇷 Brasil",b:"🇯🇵 Japón",t:"28/6 20:00"},
+    {a:"🇳🇱 Países Bajos",b:"🇲🇦 Marruecos",t:"29/6 17:00"},
+    {a:"🇫🇷 Francia",b:"🇸🇪 Suecia",t:"30/6 13:00"},
+    {a:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",b:"🇨🇻 Cabo Verde",t:"30/6 20:00"},
+    {a:"🇪🇸 España",b:"🇦🇹 Austria",t:"1/7 17:00"},
+    {a:"🇦🇺 Australia",b:"🇮🇷 Irán",t:"2/7 13:00"},
+    {a:"🇵🇹 Portugal",b:"🇬🇭 Ghana",t:"3/7 17:00"},
+    {a:"🇨🇴 Colombia",b:"🇭🇷 Croacia",t:"3/7 20:00"}
   ];
 
   // Constantes de layout
@@ -1350,8 +856,8 @@ async function main() {
     + '</div></div></div>'
     // RESULTADOS
     + '<div id="resultados" class="pane"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">'
-    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados</h2><div>' + jorBtns + koBtns + '</div></div>'
-    + jorBlocks + koBlocks + '</div>'
+    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados por Grupo</h2><div>' + jorBtns + '</div></div>'
+    + jorBlocks + '</div>'
     // TABLAS
     + '<div id="tablas" class="pane"><div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:14px;">' + grpBtns + '</div>' + tablaBlocks + fix16 + '</div>'
     // APUESTAS
