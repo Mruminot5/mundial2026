@@ -337,6 +337,128 @@ ANAL["Netherlands_Morocco"] = {
 };
 ANAL["Morocco_Netherlands"] = ANAL["Netherlands_Morocco"];
 
+// ── R32: 30 Jun ──
+
+// Match 77 · 30 Jun · Costa de Marfil vs Noruega
+ANAL["Côte d'Ivoire_Norway"] = {
+  g:"Costa de Marfil clasificó 2da del Grupo A (6 pts) con Amad Diallo brillando. Noruega llegó 1era del Grupo I (7 pts) con Haaland devastador (5 goles en 3 partidos). El duelo entre la velocidad africana y el poder físico escandinavo. Haaland es la gran amenaza; la defensa marfileña tendrá que hacer el trabajo de su vida.",
+  go:"Erling Haaland (Noruega) — 5 goles en fase de grupos, goleador del torneo. Amad Diallo (Costa de Marfil) — 2 goles y extremo explosivo. Seko Fofana (Costa de Marfil) en el mediocampo.",
+  fi:"Erling Haaland (Noruega) — si recibe un solo buen pase, puede decidir el partido. Es el jugador más peligroso del torneo.",
+  ap:"Noruega gana · Haaland anota · Más de 2.5 goles. Cuota est: 1.75x",
+  pr:"Pred: Noruega 2-1"
+};
+ANAL["Norway_Côte d'Ivoire"] = ANAL["Côte d'Ivoire_Norway"];
+ANAL["Ivory Coast_Norway"]   = ANAL["Côte d'Ivoire_Norway"];
+ANAL["Norway_Ivory Coast"]   = ANAL["Côte d'Ivoire_Norway"];
+
+// Match 78 · 30 Jun · Francia vs Suecia
+ANAL["France_Sweden"] = {
+  g:"Francia terminó 1era del Grupo I (7 pts) con Mbappé en estado de gracia (3 goles). Suecia fue 2da del Grupo E (7 pts) con Gyökeres goleador (3 goles). El choque de dos delanteros sublimes — Mbappé vs Gyökeres. Francia tiene más calidad en todas las líneas, pero Suecia es físicamente muy fuerte y con Isak y Gyökeres puede hacer daño.",
+  go:"Kylian Mbappé (Francia) — 3 goles en fase de grupos, máxima figura. Viktor Gyökeres (Suecia) — el goleador más en forma de Europa. Alexander Isak (Suecia) como segundo punta.",
+  fi:"Kylian Mbappé (Francia) — si aparece como en J1 vs Senegal, partido terminado en el primer tiempo.",
+  ap:"Francia gana · Mbappé anota · Más de 2.5 goles. Cuota est: 1.65x",
+  pr:"Pred: Francia 2-1"
+};
+ANAL["Sweden_France"] = ANAL["France_Sweden"];
+
+// Match 79 · 30 Jun · México vs Ecuador
+ANAL["Mexico_Ecuador"] = {
+  g:"México terminó 1ero del Grupo A (6 pts) con Jiménez y Quiñones. Ecuador clasificó como mejor tercero del Grupo B (3 pts) tras un torneo muy irregular (0-0 vs Curazao, derrota ante Alemania). Es el choque más claro favorito de los 16avos para México. El Tri en casa (USA/México/Canadá) tiene un apoyo increíble; Ecuador llega sin confianza.",
+  go:"Raúl Jiménez (México) — el referente ofensivo, 1 gol. Edson Álvarez (México) en el mediocampo. Moisés Caicedo (Ecuador) — el único capaz de cambiar el partido.",
+  fi:"Moisés Caicedo (Ecuador) — si no aparece, Ecuador no tiene ataque. Es literalmente su única esperanza.",
+  ap:"México gana · Jiménez anota · Menos de 3.5 goles. Cuota est: 1.85x",
+  pr:"Pred: México 2-0"
+};
+ANAL["Ecuador_Mexico"] = ANAL["Mexico_Ecuador"];
+
+// ── R32: 1 Jul ──
+
+// Match 80 · 1 Jul · Inglaterra vs Congo DR
+ANAL["England_DR Congo"] = {
+  g:"Inglaterra terminó 2da del Grupo J (6 pts) con Kane doblete en J1. Congo DR sorprendió al ganar el Grupo K con 7 pts, incluyendo 3-1 a Uzbekistán en J3. Los Leopardos son rápidos en contra con Wissa y Banzuzi. Inglaterra tiene la calidad pero a veces se complica — Kane necesita aparecer desde el inicio.",
+  go:"Harry Kane (Inglaterra) — doblete vs Croacia en J1, el más lethal en el área. Bukayo Saka (Inglaterra) en banda. Yoane Wissa (Congo DR) — el que marcó ante Portugal en J1, siempre peligroso.",
+  fi:"Harry Kane (Inglaterra) — si recibe bien, marca. Es el jugador más decididor del partido.",
+  ap:"Inglaterra gana · Kane anota · Más de 2 goles. Cuota est: 1.70x",
+  pr:"Pred: Inglaterra 2-0"
+};
+ANAL["DR Congo_England"] = ANAL["England_DR Congo"];
+
+// Match 81 · 1 Jul · Bélgica vs Senegal
+ANAL["Belgium_Senegal"] = {
+  g:"Bélgica decepcionó en grupos (empate 1-1 vs Egipto en J1) pero reaccionó para clasificar 1era del Grupo G. Senegal fue 2do del Grupo I (6 pts) con la remontada épica de Mané (5-0 a Iraq en J3). Bélgica tiene la calidad generacional — De Bruyne, Lukaku, Doku — pero a veces no la traduce en juego. Senegal defensivamente sólido.",
+  go:"Kevin De Bruyne (Bélgica) — el cerebro del equipo, capaz de decidir con un pase. Romelu Lukaku (Bélgica) referente. Sadio Mané (Senegal) — resucitó con doblete en J3.",
+  fi:"Kevin De Bruyne (Bélgica) — si tiene un día de los suyos, Bélgica arrasa. El más talentoso del partido.",
+  ap:"Bélgica gana · De Bruyne asiste · Más de 2 goles. Cuota est: 1.80x",
+  pr:"Pred: Bélgica 2-1"
+};
+ANAL["Senegal_Belgium"] = ANAL["Belgium_Senegal"];
+
+// Match 82 · 1 Jul · EE.UU. vs Bosnia-Herzegovina
+ANAL["USA_Bosnia and Herzegovina"] = {
+  g:"EE.UU. goleó 4-1 a Paraguay en J1 (Balogun doblete) y clasifica 1ero del Grupo B (7 pts) con ventaja de local. Bosnia clasificó como mejor tercero del Grupo C (4 pts) tras un J1 ajustado vs Canadá (1-1) y reaccionar luego. EE.UU. en casa tiene el estadio completo; será el partido más ruidoso del torneo.",
+  go:"Folarin Balogun (EE.UU.) — doblete en J1, el goleador más explosivo. Christian Pulisic (EE.UU.) en banda. Anel Ahmedhodzic (Bosnia) liderazgo defensivo.",
+  fi:"Folarin Balogun (EE.UU.) — el jugador más en forma del equipo. Si repite nivel del J1, partido resuelto en el primer tiempo.",
+  ap:"EE.UU. gana · Balogun anota · Más de 2.5 goles. Cuota est: 1.75x",
+  pr:"Pred: EE.UU. 3-1"
+};
+ANAL["Bosnia and Herzegovina_USA"] = ANAL["USA_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia"] = ANAL["USA_Bosnia and Herzegovina"];
+ANAL["Bosnia_USA"] = ANAL["USA_Bosnia and Herzegovina"];
+
+// ── R32: 2 Jul ──
+
+// Match 83 · 2 Jul · España vs Austria
+ANAL["Spain_Austria"] = {
+  g:"España decepcionó con el 0-0 inicial vs Cabo Verde pero reaccionó para clasificar 1era del Grupo L. Austria terminó 2da del Grupo M (6 pts) con Arnautovic y Schmid efectivos. España tiene la posesión pero le falta un delantero; Austria es ordenada y peligrosa en contraataque. Pedri y Yamal son las cartas ofensivas españolas.",
+  go:"Pedri (España) — el creativo más en forma, asistencias y goles. Lamine Yamal (España) — 17 años, el más desequilibrante. Marko Arnautovic (Austria) — peligroso de penal y en área.",
+  fi:"Lamine Yamal (España) — si tiene espacio por la banda, Austria no lo puede parar. El jugador más emocionante del torneo.",
+  ap:"España gana · Yamal o Pedri anotan · Más de 2 goles. Cuota est: 1.75x",
+  pr:"Pred: España 2-0"
+};
+ANAL["Austria_Spain"] = ANAL["Spain_Austria"];
+
+// Match 84 · 2 Jul · Portugal vs Croacia
+ANAL["Portugal_Croatia"] = {
+  g:"Portugal empató con Colombia (0-0) en J3 y clasifica como 2do del Grupo K. Croacia fue 2da del Grupo L (6 pts) con la remontada 2-1 a Ghana en J3 y Modric magistral. Es el partido más atractivo del día — Cristiano vs Modric, dos leyendas que ya van tarde en sus carreras mundialistas. Portugal tiene más velocidad; Croacia tiene la experiencia de Qatar 2022 (3er lugar).",
+  go:"Cristiano Ronaldo (Portugal) — todavía con hambre de goles, capaz de marcar en momentos clave. Bruno Fernandes (Portugal) — el más creativo. Luka Modric (Croacia) — el maestro del mediocampo.",
+  fi:"Bruno Fernandes (Portugal) — si aparece como vs Uzbekistán (J2), Portugal domina. El verdadero motor del equipo.",
+  ap:"Portugal gana · Bruno Fernandes asiste · Ambos marcan. Cuota est: 2.0x",
+  pr:"Pred: Portugal 2-1"
+};
+ANAL["Croatia_Portugal"] = ANAL["Portugal_Croatia"];
+
+// ── R32: 3 Jul ──
+
+// Match 85 · 3 Jul · Australia vs Egipto
+ANAL["Australia_Egypt"] = {
+  g:"Australia fue 2da del Grupo D (4 pts) con Irankunda como revelación del torneo. Egipto clasificó como mejor tercero del Grupo G (2 pts) con Salah finalmente anotando en J3 (1-1 vs Irán). Es el partido más abierto de los 16avos — ambos equipos pueden ganar. Australia peligrosa en transiciones rápidas; Egipto depende totalmente de Salah.",
+  go:"Nestory Irankunda (Australia) — 19 años, el jugador más explosivo del torneo. Jamie Maclaren (Australia) como referente. Mohamed Salah (Egipto) — despertó en J3, puede brillar en eliminatorias.",
+  fi:"Mohamed Salah (Egipto) — si encuentra su mejor versión como en J3, Egipto puede sorprender. Es el jugador de nivel más alto del partido.",
+  ap:"Australia gana por la mínima · Irankunda imparable. Cuota est: 2.1x",
+  pr:"Pred: Australia 1-0"
+};
+ANAL["Egypt_Australia"] = ANAL["Australia_Egypt"];
+
+// Match 86 · 3 Jul · Argentina vs Cabo Verde
+ANAL["Argentina_Cabo Verde"] = {
+  g:"Argentina arrasó en la fase de grupos con Messi hat-trick vs Argelia (J1) y 2-0 a Austria. Cabo Verde fue 2do del Grupo L (4 pts) con un torneo sorprendente. Sin embargo, la diferencia de nivel es abismal — Argentina tiene el mejor jugador de todos los tiempos y jugadores del Real Madrid, PSG y Manchester City. El partido más desequilibrado de los 16avos.",
+  go:"Lionel Messi (Argentina) — hat-trick en J1, el mejor jugador de todos los tiempos en su último Mundial. Lautaro Martínez (Argentina) — el goleador del Inter de Milán. Ângelo (Cabo Verde) su mejor jugador.",
+  fi:"Lionel Messi (Argentina) — en su último Mundial, motivado como nunca. Si está al 100%, nadie lo para.",
+  ap:"Argentina gana amplio · Messi anota · Más de 3 goles. Cuota est: 1.40x",
+  pr:"Pred: Argentina 4-0"
+};
+ANAL["Cabo Verde_Argentina"] = ANAL["Argentina_Cabo Verde"];
+
+// Match 87 · 3 Jul · Colombia vs Ghana
+ANAL["Colombia_Ghana"] = {
+  g:"Colombia clasificó 1era del Grupo K (7 pts) con Luis Díaz brillando. Ghana fue 2da del Grupo J (4 pts) con el gol agónico al 94min vs Panamá y luego 2-1 a Croacia. Es el duelo más físico de los 16avos — ambos equipos son rápidos y directos. Colombia tiene más calidad técnica; Ghana el factor sorpresa.",
+  go:"Luis Díaz (Colombia) — el extremo del Liverpool en estado de gracia, imparable. James Rodríguez (Colombia) si tiene espacio. Mohammed Kudus (Ghana) — el más desequilibrante africano.",
+  fi:"Luis Díaz (Colombia) — el jugador más en forma del torneo junto a Haaland. Si aparece, Colombia gana cómodo.",
+  ap:"Colombia gana · Luis Díaz anota · Más de 2 goles. Cuota est: 1.85x",
+  pr:"Pred: Colombia 2-1"
+};
+ANAL["Ghana_Colombia"] = ANAL["Colombia_Ghana"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
