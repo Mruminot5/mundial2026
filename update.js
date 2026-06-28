@@ -1,10 +1,6 @@
 const https = require("https");
 const fs = require("fs");
 const API_KEY    = "8245823280194f62b10dfbbdb08216d5";
-const AF_KEY     = "3a797b44e702ad90b8946eedc5e4aa6b";
-const AF_HOST    = "v3.football.api-sports.io";
-var AF_LEAGUE    = 1;    // FIFA World Cup en API-Football (se detecta automáticamente)
-const AF_SEASON  = 2026;
 const CACHE_FILE = "stats_cache.json";
 
 // Carga cache de estadísticas (se actualiza cada vez que hay partidos nuevos)
@@ -25,18 +21,72 @@ function get(path) {
   });
 }
 
-function getAF(path) {
-  return new Promise((resolve, reject) => {
+function getESPN(path) {
+  return new Promise(function(resolve) {
     https.get({
-      hostname: AF_HOST,
-      path: "/" + path,
-      headers: { "x-apisports-key": AF_KEY },
-    }, (res) => {
-      let raw = "";
-      res.on("data", c => raw += c);
-      res.on("end", () => { try { resolve(JSON.parse(raw)); } catch(e) { reject(e); } });
-    }).on("error", resolve.bind(null, {response:[]}));
+      hostname: "site.api.espn.com",
+      path: "/apis/site/v2/sports/soccer/fifa.world/" + path,
+      headers: { "User-Agent": "Mozilla/5.0 (compatible)" }
+    }, function(res) {
+      var raw = "";
+      res.on("data", function(c) { raw += c; });
+      res.on("end", function() { try { resolve(JSON.parse(raw)); } catch(e) { resolve({}); } });
+    }).on("error", function() { resolve({}); });
   });
+}
+
+// Mapea estadísticas ESPN → formato cache
+function mapESPNStats(summary, homeTeam, awayTeam) {
+  var teams = (summary.boxscore && summary.boxscore.teams) || [];
+  if (teams.length < 2) return [];
+  return teams.map(function(t) {
+    var sm = {};
+    (t.statistics || []).forEach(function(s) { sm[s.name] = s.displayValue !== undefined ? s.displayValue : String(s.value || 0); });
+    return {
+      team: { name: t.team && t.team.displayName || "" },
+      statistics: [
+        { type: "Total Shots",     value: sm.totalShots || sm.shots || "0" },
+        { type: "Shots on Goal",   value: sm.shotsOnTarget || "0" },
+        { type: "Ball Possession", value: sm.possessionPct || sm.possession || "0%" },
+        { type: "Total passes",    value: sm.totalPasses || sm.passingAttempts || "0" },
+        { type: "Passes %",        value: sm.passingAccuracy || sm.passPct || "0%" },
+        { type: "Fouls",           value: sm.foulsCommitted || sm.fouls || "0" },
+        { type: "Yellow Cards",    value: sm.yellowCards || "0" },
+        { type: "Red Cards",       value: sm.redCards || "0" },
+        { type: "Offsides",        value: sm.offsides || "0" },
+        { type: "Corner Kicks",    value: sm.cornerKicks || "0" }
+      ]
+    };
+  });
+}
+
+// Mapea eventos ESPN → formato cache (goles + tarjetas)
+function mapESPNEvents(summary) {
+  var events = [];
+  // Goles desde scoringPlays
+  (summary.scoringPlays || []).forEach(function(p) {
+    var min = p.clock && p.clock.displayValue ? parseInt(p.clock.displayValue) : 0;
+    events.push({
+      time:   { elapsed: min },
+      type:   { detail: "Normal Goal" },
+      player: { name: (p.participants && p.participants[0] && p.participants[0].athlete && p.participants[0].athlete.displayName) || "" },
+      team:   { name: (p.team && p.team.displayName) || "" }
+    });
+  });
+  // Tarjetas desde plays (type.id 57=amarilla, 58=roja)
+  (summary.plays || []).forEach(function(p) {
+    var tid = p.type && p.type.id;
+    if (tid == 57 || tid == 58) {
+      var min = p.clock && p.clock.displayValue ? parseInt(p.clock.displayValue) : 0;
+      events.push({
+        time:   { elapsed: min },
+        type:   { detail: tid == 57 ? "Yellow Card" : "Red Card" },
+        player: { name: (p.participants && p.participants[0] && p.participants[0].athlete && p.participants[0].athlete.displayName) || "" },
+        team:   { name: (p.team && p.team.displayName) || "" }
+      });
+    }
+  });
+  return events;
 }
 
 // Nombres y banderas — clave: nombre exacto que devuelve la API
@@ -593,41 +643,7 @@ async function main() {
   try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) {}
 
   if (toFetch.length > 0) {
-
-    // Verificar que la API funciona
-    try {
-      var statusRes = await getAF("status");
-      console.log("AF status: " + JSON.stringify(statusRes).substring(0, 300));
-      afDebug.status = statusRes;
-    } catch(e) { console.log("AF status error: " + e.message); afDebug.statusError = e.message; }
-
-    // Detectar league ID correcto para WC 2026
-    try {
-      var lgRes = await getAF("leagues?name=World%20Cup&season=" + AF_SEASON);
-      console.log("AF raw leagues resp: errors=" + JSON.stringify(lgRes.errors) + " results=" + lgRes.results);
-      afDebug.leaguesSearch = lgRes;
-      var lgList = lgRes.response || [];
-      console.log("AF leagues World Cup 2026: " + JSON.stringify(lgList.map(function(l){ return {id:l.league.id, name:l.league.name}; })));
-      if (lgList.length > 0) {
-        AF_LEAGUE = lgList[0].league.id;
-        console.log("AF_LEAGUE detectado: " + AF_LEAGUE);
-      } else {
-        // Intentar con id=1 directamente
-        var lgCheck = await getAF("leagues?id=1&season=" + AF_SEASON);
-        console.log("AF league id=1: " + JSON.stringify((lgCheck.response||[]).map(function(l){return {id:l.league.id, name:l.league.name};})));
-        afDebug.leagueId1 = lgCheck;
-        // Intentar buscar fixtures recientes directamente (sin filtro de league)
-        var lastRes = await getAF("fixtures?last=5");
-        var lastFix = lastRes.response || [];
-        console.log("AF last 5 fixtures: " + JSON.stringify(lastFix.map(function(f){return {id:f.fixture.id, league:f.league.id, name:f.league.name, home:f.teams.home.name, away:f.teams.away.name};})));
-        afDebug.last5 = lastFix.map(function(f){return {id:f.fixture.id, league:f.league.id, name:f.league.name, home:f.teams.home.name, away:f.teams.away.name};});
-      }
-    } catch(e) {
-      console.log("AF league detection error: " + e.message);
-      afDebug.leagueError = e.message;
-    }
-
-    // Agrupar por fecha UTC para minimizar requests a API-Football
+    // Agrupar por fecha UTC
     var dateGroups = {};
     toFetch.forEach(function(m) {
       var d = m.utcDate.substring(0, 10);
@@ -635,44 +651,69 @@ async function main() {
       dateGroups[d].push(m);
     });
 
-    for (var afDate of Object.keys(dateGroups)) {
-      try {
-        var afRes = await getAF("fixtures?league=" + AF_LEAGUE + "&season=" + AF_SEASON + "&date=" + afDate);
-        var afFixtures = afRes.response || [];
-        console.log("AF fixtures " + afDate + ": " + afFixtures.length + " encontrados");
+    afDebug.espnDates = [];
+    var rawSampleSaved = false;
 
-        for (var fdm of dateGroups[afDate]) {
+    for (var espnDate of Object.keys(dateGroups)) {
+      try {
+        var espnDateStr = espnDate.replace(/-/g, ""); // "2026-06-15" → "20260615"
+        var sbRes = await getESPN("scoreboard?dates=" + espnDateStr);
+        var espnEvents = sbRes.events || [];
+        console.log("ESPN " + espnDate + ": " + espnEvents.length + " partidos");
+        afDebug.espnDates.push({ date: espnDate, count: espnEvents.length });
+
+        for (var fdm of dateGroups[espnDate]) {
           var hScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null;
           var aScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null;
-          var afMatch = afFixtures.find(function(f) {
-            return f.fixture.status.short === "FT" &&
-                   hScore !== null && aScore !== null &&
-                   f.goals.home === hScore && f.goals.away === aScore;
+
+          // Buscar partido ESPN por marcador
+          var espnMatch = espnEvents.find(function(e) {
+            var comp = e.competitions && e.competitions[0];
+            if (!comp || !comp.status || !comp.status.type || !comp.status.type.completed) return false;
+            var home = (comp.competitors || []).find(function(c){ return c.homeAway === "home"; });
+            var away = (comp.competitors || []).find(function(c){ return c.homeAway === "away"; });
+            return home && away &&
+                   parseInt(home.score) === hScore &&
+                   parseInt(away.score) === aScore;
           });
-          if (!afMatch) {
-            console.log("AF: no match for " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name));
-            statsCache[String(fdm.id)] = {notFound: true};
+
+          if (!espnMatch) {
+            console.log("ESPN: no match for " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name) + " (" + hScore + "-" + aScore + ")");
+            statsCache[String(fdm.id)] = { notFound: true };
             continue;
           }
-          var afId = afMatch.fixture.id;
-          console.log("AF: fetching events+stats for fixture " + afId + " (" + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name) + ")");
-          var evRes  = await getAF("fixtures/events?fixture=" + afId);
-          var stRes  = await getAF("fixtures/statistics?fixture=" + afId);
+
+          console.log("ESPN: match found: " + espnMatch.name + " id=" + espnMatch.id);
+          var summary = await getESPN("summary?event=" + espnMatch.id);
+
+          // Guardar un sample del response ESPN la primera vez (para debug)
+          if (!rawSampleSaved) {
+            afDebug.espnSampleStats = (summary.boxscore && summary.boxscore.teams || []).map(function(t){
+              return { team: t.team && t.team.displayName, stats: (t.statistics||[]).map(function(s){ return s.name + "=" + s.displayValue; }) };
+            });
+            afDebug.espnSamplePlays = (summary.scoringPlays || []).slice(0, 3).map(function(p){
+              return { type: p.type && p.type.text, clock: p.clock && p.clock.displayValue, text: p.text };
+            });
+            rawSampleSaved = true;
+          }
+
           statsCache[String(fdm.id)] = {
-            afId:   afId,
-            events: evRes.response  || [],
-            stats:  stRes.response  || []
+            espnId: espnMatch.id,
+            events: mapESPNEvents(summary),
+            stats:  mapESPNStats(summary)
           };
         }
       } catch(e) {
-        console.log("AF error for " + afDate + ": " + e.message);
+        console.log("ESPN error for " + espnDate + ": " + e.message);
+        afDebug.espnError = e.message;
       }
     }
-    try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) { console.log("Debug write error: " + e.message); }
+
+    try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) {}
     try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
     console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
   } else {
-    console.log("AF: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
+    console.log("ESPN: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
   }
 
   // DEBUG
