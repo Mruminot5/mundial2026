@@ -582,10 +582,20 @@ async function main() {
   });
 
   if (toFetch.length > 0) {
+    var afDebug = { ts: new Date().toISOString() };
+
+    // Verificar que la API funciona
+    try {
+      var statusRes = await getAF("status");
+      console.log("AF status: " + JSON.stringify(statusRes).substring(0, 300));
+      afDebug.status = statusRes;
+    } catch(e) { console.log("AF status error: " + e.message); afDebug.statusError = e.message; }
+
     // Detectar league ID correcto para WC 2026
     try {
       var lgRes = await getAF("leagues?name=World%20Cup&season=" + AF_SEASON);
       console.log("AF raw leagues resp: errors=" + JSON.stringify(lgRes.errors) + " results=" + lgRes.results);
+      afDebug.leaguesSearch = lgRes;
       var lgList = lgRes.response || [];
       console.log("AF leagues World Cup 2026: " + JSON.stringify(lgList.map(function(l){ return {id:l.league.id, name:l.league.name}; })));
       if (lgList.length > 0) {
@@ -595,13 +605,16 @@ async function main() {
         // Intentar con id=1 directamente
         var lgCheck = await getAF("leagues?id=1&season=" + AF_SEASON);
         console.log("AF league id=1: " + JSON.stringify((lgCheck.response||[]).map(function(l){return {id:l.league.id, name:l.league.name};})));
+        afDebug.leagueId1 = lgCheck;
         // Intentar buscar fixtures recientes directamente (sin filtro de league)
         var lastRes = await getAF("fixtures?last=5");
         var lastFix = lastRes.response || [];
         console.log("AF last 5 fixtures: " + JSON.stringify(lastFix.map(function(f){return {id:f.fixture.id, league:f.league.id, name:f.league.name, home:f.teams.home.name, away:f.teams.away.name};})));
+        afDebug.last5 = lastFix.map(function(f){return {id:f.fixture.id, league:f.league.id, name:f.league.name, home:f.teams.home.name, away:f.teams.away.name};});
       }
     } catch(e) {
       console.log("AF league detection error: " + e.message);
+      afDebug.leagueError = e.message;
     }
 
     // Agrupar por fecha UTC para minimizar requests a API-Football
@@ -646,6 +659,7 @@ async function main() {
       }
     }
     try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
+    try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) { console.log("Debug write error: " + e.message); }
     console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
   } else {
     console.log("AF: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
