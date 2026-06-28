@@ -1,7 +1,7 @@
 {
-  "ts": "2026-06-28T15:53:31.596Z",
+  "ts": "2026-06-28T15:54:48.733Z",
   "finishedCount": 72,
-  "toFetchCount": 0,
+  "toFetchCount": 62,
   "cacheSize": 10,
   "firstFinishedIds": [
     537401,
@@ -10,5 +10,147 @@
     537408,
     537413
   ],
-  "toFetchIds": []
+  "toFetchCount2": 62,
+  "toFetchSample": [
+    537395,
+    537396,
+    537349,
+    537350,
+    537361
+  ],
+  "espnDates": [
+    {
+      "date": "2026-06-26",
+      "count": 24
+    },
+    {
+      "date": "2026-06-25",
+      "count": 22
+    },
+    {
+      "date": "2026-06-24",
+      "count": 20
+    },
+    {
+      "date": "2026-06-23",
+      "count": 19
+    },
+    {
+      "date": "2026-06-22",
+      "count": 16
+    },
+    {
+      "date": "2026-06-21",
+      "count": 16
+    },
+    {
+      "date": "2026-06-20",
+      "count": 16
+    },
+    {
+      "date": "2026-06-19",
+      "count": 16
+    },
+    {
+      "date": "2026-06-18",
+      "count": 16
+    },
+    {
+      "date": "2026-06-17",
+      "count": 16
+    },
+    {
+      "date": "2026-06-16",
+      "count": 17
+    },
+    {
+      "date": "2026-06-15",
+      "count": 15
+    },
+    {
+      "date": "2026-06-14",
+      "count": 14
+    },
+    {
+      "date": "2026-06-13",
+      "count": 12
+    },
+    {
+      "date": "2026-06-12",
+      "count": 7
+    },
+    {
+      "date": "2026-06-11",
+      "count": 4
+    }
+  ],
+  "espnSampleStats": [
+    {
+      "team": "Norway",
+      "stats": [
+        "foulsCommitted=9",
+        "yellowCards=1",
+        "redCards=0",
+        "offsides=1",
+        "wonCorners=4",
+        "saves=5",
+        "possessionPct=43.3",
+        "totalShots=10",
+        "shotsOnTarget=4",
+        "shotPct=0.4",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=1",
+        "accuratePasses=343",
+        "totalPasses=421",
+        "passPct=0.8",
+        "accurateCrosses=3",
+        "totalCrosses=9",
+        "crossPct=0.3",
+        "totalLongBalls=40",
+        "accurateLongBalls=18",
+        "longballPct=0.5",
+        "blockedShots=3",
+        "effectiveTackles=11",
+        "totalTackles=17",
+        "tacklePct=0.6",
+        "interceptions=13",
+        "effectiveClearance=16",
+        "totalClearance=16"
+      ]
+    },
+    {
+      "team": "France",
+      "stats": [
+        "foulsCommitted=11",
+        "yellowCards=1",
+        "redCards=0",
+        "offsides=2",
+        "wonCorners=5",
+        "saves=3",
+        "possessionPct=56.7",
+        "totalShots=18",
+        "shotsOnTarget=9",
+        "shotPct=0.5",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=0",
+        "accuratePasses=480",
+        "totalPasses=555",
+        "passPct=0.9",
+        "accurateCrosses=3",
+        "totalCrosses=10",
+        "crossPct=0.3",
+        "totalLongBalls=53",
+        "accurateLongBalls=28",
+        "longballPct=0.5",
+        "blockedShots=3",
+        "effectiveTackles=12",
+        "totalTackles=17",
+        "tacklePct=0.7",
+        "interceptions=11",
+        "effectiveClearance=19",
+        "totalClearance=19"
+      ]
+    }
+  ],
+  "espnSamplePlays": []
 }
