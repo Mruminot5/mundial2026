@@ -585,17 +585,20 @@ async function main() {
     // Detectar league ID correcto para WC 2026
     try {
       var lgRes = await getAF("leagues?name=World%20Cup&season=" + AF_SEASON);
+      console.log("AF raw leagues resp: errors=" + JSON.stringify(lgRes.errors) + " results=" + lgRes.results);
       var lgList = lgRes.response || [];
       console.log("AF leagues World Cup 2026: " + JSON.stringify(lgList.map(function(l){ return {id:l.league.id, name:l.league.name}; })));
       if (lgList.length > 0) {
         AF_LEAGUE = lgList[0].league.id;
         console.log("AF_LEAGUE detectado: " + AF_LEAGUE);
       } else {
-        var lgRes2 = await getAF("leagues?type=cup&season=" + AF_SEASON);
-        var lgList2 = lgRes2.response || [];
-        console.log("AF ligas tipo cup 2026 (" + lgList2.length + "): " + JSON.stringify(lgList2.slice(0,15).map(function(l){ return {id:l.league.id, name:l.league.name}; })));
-        var wcLg = lgList2.find(function(l){ return l.league.name && l.league.name.toLowerCase().includes("world cup"); });
-        if (wcLg) { AF_LEAGUE = wcLg.league.id; console.log("AF_LEAGUE via fallback: " + AF_LEAGUE); }
+        // Intentar con id=1 directamente
+        var lgCheck = await getAF("leagues?id=1&season=" + AF_SEASON);
+        console.log("AF league id=1: " + JSON.stringify((lgCheck.response||[]).map(function(l){return {id:l.league.id, name:l.league.name};})));
+        // Intentar buscar fixtures recientes directamente (sin filtro de league)
+        var lastRes = await getAF("fixtures?last=5");
+        var lastFix = lastRes.response || [];
+        console.log("AF last 5 fixtures: " + JSON.stringify(lastFix.map(function(f){return {id:f.fixture.id, league:f.league.id, name:f.league.name, home:f.teams.home.name, away:f.teams.away.name};})));
       }
     } catch(e) {
       console.log("AF league detection error: " + e.message);
