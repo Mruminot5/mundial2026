@@ -581,8 +581,18 @@ async function main() {
     return !c || c.notFound || !c.events; // reintenta notFound (era bug de league ID)
   });
 
+  // Siempre escribir debug (se commitea via git add af_debug.json)
+  var afDebug = {
+    ts: new Date().toISOString(),
+    finishedCount: finished.length,
+    toFetchCount: toFetch.length,
+    cacheSize: Object.keys(statsCache).length,
+    firstFinishedIds: finished.slice(0, 5).map(function(m){ return m.id; }),
+    toFetchIds: toFetch.map(function(m){ return m.id; })
+  };
+  try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) {}
+
   if (toFetch.length > 0) {
-    var afDebug = { ts: new Date().toISOString() };
 
     // Verificar que la API funciona
     try {
@@ -658,7 +668,7 @@ async function main() {
         console.log("AF error for " + afDate + ": " + e.message);
       }
     }
-    statsCache["__debug__"] = afDebug;
+    try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) { console.log("Debug write error: " + e.message); }
     try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
     console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
   } else {
