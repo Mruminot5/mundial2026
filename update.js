@@ -663,9 +663,9 @@ async function main() {
   var todayAll  = matches.filter(function(m){ return isToday(m.utcDate); }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
 
   // ── API-Football: fetch events + stats para partidos sin cache ──
-  var toFetch = finished.slice(0, 10).filter(function(m) {
+  var toFetch = finished.filter(function(m) {
     var c = statsCache[String(m.id)];
-    return !c || c.notFound || !c.events; // reintenta notFound (era bug de league ID)
+    return !c || c.notFound || !c.events; // incluye todos los partidos sin cache
   });
 
   // Siempre escribir debug (se commitea via git add af_debug.json)
@@ -675,7 +675,8 @@ async function main() {
     toFetchCount: toFetch.length,
     cacheSize: Object.keys(statsCache).length,
     firstFinishedIds: finished.slice(0, 5).map(function(m){ return m.id; }),
-    toFetchIds: toFetch.map(function(m){ return m.id; })
+    toFetchCount2: toFetch.length,
+    toFetchSample: toFetch.slice(0, 5).map(function(m){ return m.id; })
   };
   try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) {}
 
