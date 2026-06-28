@@ -562,64 +562,135 @@ function makeCard(m) {
     scoreHTML = '<span style="font-size:12px;color:#4ade80;font-weight:700;">' + hora + "</span>";
   }
 
-  // Goles
-  var golesL = [], golesA = [];
+  // ── Goles (formato lista) ──
+  var goalItemsL = [], goalItemsA = [];
   (m.goals || []).forEach(function(g) {
-    var gs = (g.scorer && g.scorer.name) || "";
-    var gm = g.minute ? g.minute + "min" : "";
-    var gt = g.type === "OWN_GOAL" ? " (OG)" : g.type === "PENALTY" ? " (p)" : "";
-    var b = '<span class="badge">⚽ ' + gs + " " + gm + gt + "</span>";
-    if (g.team && g.team.name === hName) golesL.push(b); else golesA.push(b);
+    var gs = (g.scorer && g.scorer.name) || "?";
+    var gm = (g.minute != null ? g.minute : "") + (g.extra ? "+" + g.extra : "") + "'";
+    var gt = g.type === "OWN_GOAL" ? " <span style='color:#f87171;font-size:9px;'>(AG)</span>"
+           : g.type === "PENALTY"  ? " <span style='color:#fbbf24;font-size:9px;'>(P)</span>" : "";
+    var row = '<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
+      + '<span style="color:#fbbf24;font-weight:700;font-size:10px;min-width:26px;">' + gm + '</span>'
+      + '<span style="font-size:11px;">⚽</span>'
+      + '<span style="font-size:11px;color:#e2e8f0;">' + gs + '</span>' + gt
+      + '</div>';
+    if (g.team && g.team.name === hName) goalItemsL.push(row); else goalItemsA.push(row);
   });
 
-  // Tarjetas
-  var tarjL = [], tarjA = [];
+  // ── Tarjetas (formato lista) ──
+  var cardItems = [];
   (m.bookings || []).forEach(function(b) {
     var isR = b.card === "RED_CARD" || b.card === "YELLOW_RED_CARD";
     var em = isR ? "🟥" : "🟨";
-    var co = isR ? "#f87171" : "#fbbf24";
-    var bg = isR ? "#1a0808" : "#1a1500";
-    var bo = isR ? "#3a1010" : "#3a3000";
-    var pn = (b.player && b.player.name) || "";
-    var pm = b.minute ? b.minute + "min" : "";
-    var badge = '<span style="font-size:10px;background:' + bg + ';color:' + co + ';border:1px solid ' + bo + ';border-radius:4px;padding:1px 6px;">' + em + " " + pn + " " + pm + "</span>";
-    if (b.team && b.team.name === hName) tarjL.push(badge); else tarjA.push(badge);
+    var pn = (b.player && b.player.name) || "?";
+    var pm = (b.minute != null ? b.minute : "") + "'";
+    var tm = (b.team && b.team.name === hName) ? hN : aN;
+    cardItems.push('<div style="display:flex;align-items:center;gap:5px;padding:2px 0;">'
+      + '<span>' + em + '</span>'
+      + '<span style="font-size:10px;color:#94a3b8;min-width:24px;">' + pm + '</span>'
+      + '<span style="font-size:11px;color:#e2e8f0;">' + pn + '</span>'
+      + '<span style="font-size:9px;color:#64748b;margin-left:2px;">(' + tm + ')</span>'
+      + '</div>');
   });
 
-  // Stats HTML
-  var statsHTML = "";
-  if (done && !golesL.length && !golesA.length && !tarjL.length && !tarjA.length) {
-    // La API gratuita no devuelve eventos — mostrar goleadores del ANAL si existen
-    if (anal && anal.go) {
-      statsHTML = '<div style="display:flex;align-items:flex-start;gap:6px;margin-bottom:6px;padding:7px 10px;background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);border-radius:7px;">'
-        + '<span style="font-size:11px;">⚽</span>'
-        + '<span style="font-size:11px;color:#cbd5e1;line-height:1.5;">' + anal.go + '</span>'
-        + '</div>';
-    }
-  } else if ((done || live) && (golesL.length || golesA.length || tarjL.length || tarjA.length)) {
-    var lCol = '<div style="flex:1;">'
-      + (golesL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;">' + golesL.join("") + "</div>" : "")
-      + (tarjL.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;">' + tarjL.join("") + "</div>" : "")
-      + "</div>";
-    var rCol = '<div style="flex:1;text-align:right;">'
-      + (golesA.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;margin-bottom:4px;">' + golesA.join("") + "</div>" : "")
-      + (tarjA.length ? '<div style="display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end;">' + tarjA.join("") + "</div>" : "")
-      + "</div>";
-    statsHTML = '<div style="display:flex;gap:8px;margin-bottom:8px;padding:8px;background:rgba(0,0,0,0.2);border-radius:7px;">' + lCol + rCol + "</div>";
+  // ── HT score ──
+  var htH = m.score && m.score.halfTime ? m.score.halfTime.home : null;
+  var htA = m.score && m.score.halfTime ? m.score.halfTime.away : null;
+
+  // ── Helper: bloque de sección ──
+  function secBox(color, title, inner) {
+    return '<div style="margin-bottom:7px;background:rgba(0,0,0,0.18);border-radius:8px;overflow:hidden;">'
+      + '<div style="padding:4px 9px;background:rgba(0,0,0,0.25);font-size:9px;font-weight:800;color:' + color + ';text-transform:uppercase;letter-spacing:0.5px;">' + title + '</div>'
+      + '<div style="padding:6px 9px;">' + inner + '</div>'
+      + '</div>';
   }
 
-  // Análisis HTML
+  // ── Stats HTML ──
+  var statsHTML = "";
+  var hasEvents = goalItemsL.length || goalItemsA.length || cardItems.length;
+
+  if (done && hasEvents) {
+    // ⚽ Goles: dos columnas (local | visitante)
+    var golesHTML = "";
+    if (goalItemsL.length || goalItemsA.length) {
+      var maxG = Math.max(goalItemsL.length, goalItemsA.length);
+      var gRowsHTML = '<div style="display:flex;gap:4px;">'
+        + '<div style="flex:1;border-right:1px solid rgba(255,255,255,0.06);padding-right:6px;">'
+        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + hF + ' ' + hN + '</div>'
+        + (goalItemsL.length ? goalItemsL.join("") : '<div style="font-size:10px;color:#475569;padding:3px 0;">–</div>')
+        + '</div>'
+        + '<div style="flex:1;padding-left:6px;">'
+        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + aF + ' ' + aN + '</div>'
+        + (goalItemsA.length ? goalItemsA.join("") : '<div style="font-size:10px;color:#475569;padding:3px 0;">–</div>')
+        + '</div>'
+        + '</div>';
+      golesHTML = secBox("#4ade80", "⚽ Goles", gRowsHTML);
+    }
+
+    // 🟨🟥 Tarjetas
+    var tarjHTML = "";
+    if (cardItems.length) {
+      tarjHTML = secBox("#fbbf24", "🟨 Tarjetas", cardItems.join(""));
+    }
+
+    // 📊 Marcador por tiempo
+    var marcHTML = "";
+    if (htH !== null && htA !== null && hG !== null) {
+      var inner = '<div style="display:flex;gap:16px;">'
+        + '<div style="text-align:center;">'
+        + '<div style="font-size:9px;color:#64748b;margin-bottom:2px;">1er Tiempo</div>'
+        + '<div style="font-size:14px;font-weight:800;color:#60a5fa;">' + htH + ' – ' + htA + '</div>'
+        + '</div>'
+        + '<div style="text-align:center;">'
+        + '<div style="font-size:9px;color:#64748b;margin-bottom:2px;">Final</div>'
+        + '<div style="font-size:14px;font-weight:800;color:#4ade80;">' + hG + ' – ' + aG + '</div>'
+        + '</div>'
+        + '</div>';
+      marcHTML = secBox("#60a5fa", "📊 Marcador", inner);
+    }
+
+    statsHTML = golesHTML + tarjHTML + marcHTML;
+
+  } else if (done && !hasEvents && anal && anal.go) {
+    // Sin datos del API — usar ANAL.go como goleadores
+    statsHTML = secBox("#fbbf24", "⚽ Goleadores", '<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + '</span>');
+  } else if (live && hasEvents) {
+    // En vivo: misma estructura resumida
+    var liveGolesHTML = "";
+    if (goalItemsL.length || goalItemsA.length) {
+      liveGolesHTML = '<div style="display:flex;gap:4px;">'
+        + '<div style="flex:1;">' + goalItemsL.join("") + '</div>'
+        + '<div style="flex:1;">' + goalItemsA.join("") + '</div>'
+        + '</div>';
+    }
+    statsHTML = secBox("#4ade80", "⚽ Goles en vivo", liveGolesHTML || '—')
+      + (cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "");
+  }
+
+  // ── Análisis HTML ──
+  var betLink = '<a style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a6b1a,#0f4a0f);border:2px solid #4ade80;border-radius:10px;padding:10px;color:#fff;font-weight:800;font-size:13px;text-decoration:none;margin-top:6px;" href="https://www.jugabet.cl" target="_blank">🎰 Apostar en Jugabet Chile</a>';
   var analHTML = "";
   if (anal) {
-    var predHTML = anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;margin-bottom:6px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "";
-    analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">'
-      + predHTML
-      + '<div style="border-left:3px solid #4ade80;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px;">🏆 Análisis del partido</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + "</div></div>"
-      + '<div style="border-left:3px solid #fbbf24;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:2px;">⚽ Goleadores destacados</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + "</div></div>"
-      + '<div style="border-left:3px solid #60a5fa;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:2px;">⭐ Figura del partido</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + "</div></div>"
-      + '<div style="border-left:3px solid #c084fc;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#c084fc;font-weight:700;margin-bottom:2px;">💰 Apuesta / Info</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.ap + "</div></div>"
-      + '<a style="display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#1a6b1a,#0f4a0f);border:2px solid #4ade80;border-radius:10px;padding:10px;color:#fff;font-weight:800;font-size:13px;text-decoration:none;margin-top:2px;" href="https://www.jugabet.cl" target="_blank">🎰 Apostar en Jugabet Chile</a>'
-      + "</div>";
+    if (done) {
+      // Partido terminado → mostrar highlights + figura
+      analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">'
+        + (anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "")
+        + secBox("#4ade80","🎬 Resumen del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + '</span>')
+        + secBox("#60a5fa","⭐ Figura del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + '</span>')
+        + betLink
+        + "</div>";
+    } else {
+      // Próximo / en vivo → mostrar análisis completo + predicción
+      var predHTML = anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;margin-bottom:6px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "";
+      analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">'
+        + predHTML
+        + '<div style="border-left:3px solid #4ade80;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#4ade80;font-weight:700;margin-bottom:2px;">🏆 Análisis</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + "</div></div>"
+        + '<div style="border-left:3px solid #fbbf24;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#fbbf24;font-weight:700;margin-bottom:2px;">⚽ Goleadores a seguir</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.go + "</div></div>"
+        + '<div style="border-left:3px solid #60a5fa;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#60a5fa;font-weight:700;margin-bottom:2px;">⭐ Figura clave</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + "</div></div>"
+        + '<div style="border-left:3px solid #c084fc;border-radius:7px;padding:7px 10px;background:rgba(0,0,0,.25);"><div style="font-size:10px;color:#c084fc;font-weight:700;margin-bottom:2px;">💰 Apuesta / Info</div><div style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.ap + "</div></div>"
+        + betLink
+        + "</div>";
+    }
   }
 
   // HTML de la tarjeta — estructura simple y robusta
