@@ -848,8 +848,10 @@ async function main() {
       // Debug primer partido
       if (detailResults[0]) {
         var d0 = detailResults[0];
-        console.log("Goals en " + (recentFinished[0].homeTeam&&recentFinished[0].homeTeam.name) + " vs " + (recentFinished[0].awayTeam&&recentFinished[0].awayTeam.name) + ": " + (d0.goals ? d0.goals.length : "null"));
-        if (d0.goals && d0.goals.length > 0) console.log("  1er gol: " + JSON.stringify(d0.goals[0]));
+        console.log("Keys en respuesta individual: " + Object.keys(d0).join(", "));
+        console.log("goals: " + JSON.stringify(d0.goals));
+        console.log("score: " + JSON.stringify(d0.score));
+        if (d0.homeTeam) console.log("homeTeam keys: " + Object.keys(d0.homeTeam).join(", "));
       }
     } catch(e) {
       console.log("Error fetching match details: " + e.message);
