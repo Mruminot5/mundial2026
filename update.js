@@ -827,33 +827,40 @@ async function main() {
   var upcoming  = matches.filter(function(m){ return m.status === "SCHEDULED" || m.status === "TIMED"; }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var todayAll  = matches.filter(function(m){ return isToday(m.utcDate); }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
 
-  // DEBUG
+  // ── Fetch detalles individuales para últimos 8 partidos terminados ──
+  // El endpoint /competitions/WC/matches NO devuelve goals/bookings en tier gratuito.
+  // Se necesita /matches/{id} por partido para obtener esos datos.
+  var recentFinished = finished.slice(0, 8);
+  if (recentFinished.length > 0) {
+    try {
+      var detailResults = await Promise.all(
+        recentFinished.map(function(m) { return get("matches/" + m.id).catch(function(){ return null; }); })
+      );
+      detailResults.forEach(function(detail, i) {
+        if (!detail) return;
+        var orig = recentFinished[i];
+        if (detail.goals)    orig.goals    = detail.goals;
+        if (detail.bookings) orig.bookings = detail.bookings;
+        if (detail.homeTeam && detail.homeTeam.statistics) orig.homeTeam.statistics = detail.homeTeam.statistics;
+        if (detail.awayTeam && detail.awayTeam.statistics) orig.awayTeam.statistics = detail.awayTeam.statistics;
+      });
+      console.log("Detalles cargados: " + detailResults.filter(Boolean).length + "/" + recentFinished.length);
+      // Debug primer partido
+      if (detailResults[0]) {
+        var d0 = detailResults[0];
+        console.log("Goals en " + (recentFinished[0].homeTeam&&recentFinished[0].homeTeam.name) + " vs " + (recentFinished[0].awayTeam&&recentFinished[0].awayTeam.name) + ": " + (d0.goals ? d0.goals.length : "null"));
+        if (d0.goals && d0.goals.length > 0) console.log("  1er gol: " + JSON.stringify(d0.goals[0]));
+      }
+    } catch(e) {
+      console.log("Error fetching match details: " + e.message);
+    }
+  }
+
+  // DEBUG nombres
   console.log("=== NOMBRES API ===");
   todayAll.forEach(function(m){
     var anal = getAnal(m.homeTeam && m.homeTeam.name, m.awayTeam && m.awayTeam.name);
     console.log("HOY: " + (m.homeTeam&&m.homeTeam.name) + " vs " + (m.awayTeam&&m.awayTeam.name) + " => anal:" + (anal?"SI":"NO"));
-  });
-  // DEBUG GOALS
-  if (finished.length > 0) {
-    var fm = finished[0];
-    console.log("=== GOALS DEBUG (ultimo partido) ===");
-    console.log("Match: " + (fm.homeTeam&&fm.homeTeam.name) + " vs " + (fm.awayTeam&&fm.awayTeam.name));
-    console.log("goals array length: " + (fm.goals ? fm.goals.length : "NULL"));
-    if (fm.goals && fm.goals.length > 0) {
-      fm.goals.slice(0,3).forEach(function(g){ console.log("  goal: " + JSON.stringify(g)); });
-    }
-    console.log("bookings length: " + (fm.bookings ? fm.bookings.length : "NULL"));
-    console.log("homeTeam.statistics: " + JSON.stringify(fm.homeTeam && fm.homeTeam.statistics));
-  }
-  upcoming.slice(0,10).forEach(function(m){ 
-    var hn = m.homeTeam && m.homeTeam.name;
-    var an = m.awayTeam && m.awayTeam.name;
-    var anal = getAnal(hn, an);
-    var k1 = hn+"_"+an;
-    var k2 = an+"_"+hn;
-    var directK1 = ANAL[k1] ? "direct" : "no";
-    var directK2 = ANAL[k2] ? "direct" : "no";
-    console.log("PROX: " + hn + " vs " + an + " => k1(" + directK1 + ") k2(" + directK2 + ") anal:" + (anal?"SI":"NO")); 
   });
 
   // ── PARCHE R32: sustituir nombres null del API ──
