@@ -1,6 +1,15 @@
 const https = require("https");
 const fs = require("fs");
-const API_KEY = "8245823280194f62b10dfbbdb08216d5";
+const API_KEY    = "8245823280194f62b10dfbbdb08216d5";
+const AF_KEY     = "3a797b44e702ad90b8946eedc5e4aa6b";
+const AF_HOST    = "v3.football.api-sports.io";
+const AF_LEAGUE  = 1;    // FIFA World Cup en API-Football
+const AF_SEASON  = 2026;
+const CACHE_FILE = "stats_cache.json";
+
+// Carga cache de estadísticas (se actualiza cada vez que hay partidos nuevos)
+var statsCache = {};
+try { statsCache = JSON.parse(fs.readFileSync(CACHE_FILE, "utf8")); } catch(e) {}
 
 function get(path) {
   return new Promise((resolve, reject) => {
@@ -13,6 +22,20 @@ function get(path) {
       res.on("data", c => raw += c);
       res.on("end", () => { try { resolve(JSON.parse(raw)); } catch(e) { reject(e); } });
     }).on("error", reject);
+  });
+}
+
+function getAF(path) {
+  return new Promise((resolve, reject) => {
+    https.get({
+      hostname: AF_HOST,
+      path: "/" + path,
+      headers: { "x-apisports-key": AF_KEY },
+    }, (res) => {
+      let raw = "";
+      res.on("data", c => raw += c);
+      res.on("end", () => { try { resolve(JSON.parse(raw)); } catch(e) { reject(e); } });
+    }).on("error", resolve.bind(null, {response:[]}));
   });
 }
 
@@ -566,6 +589,64 @@ function makeCard(m) {
   var htH = m.score && m.score.halfTime ? m.score.halfTime.home : null;
   var htA = m.score && m.score.halfTime ? m.score.halfTime.away : null;
 
+  // ── Datos de API-Football (cache) ──
+  var afCache   = statsCache[String(m.id)] || {};
+  var afEvents  = afCache.events  || [];
+  var afStats   = afCache.stats   || [];
+
+  // Goles y tarjetas desde eventos
+  var goalItemsL = [], goalItemsA = [];
+  var cardItems  = [];
+  afEvents.forEach(function(ev) {
+    var elapsed = ev.time && ev.time.elapsed != null ? ev.time.elapsed : "";
+    var extra   = ev.time && ev.time.extra ? "+" + ev.time.extra : "";
+    var minStr  = elapsed + extra + "'";
+    var isHome  = ev.team && ev.team.name && hName &&
+                  ev.team.name.toLowerCase() === hName.toLowerCase();
+    var pName   = ev.player && ev.player.name ? ev.player.name : "?";
+
+    if (ev.type === "Goal") {
+      var typeTag = ev.detail === "Own Goal" ? " <span style='color:#f87171;font-size:9px;'>(AG)</span>"
+                 : ev.detail === "Penalty"   ? " <span style='color:#fbbf24;font-size:9px;'>(P)</span>" : "";
+      var row = '<div style="display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
+        + '<span style="color:#fbbf24;font-weight:700;font-size:10px;min-width:28px;">' + minStr + '</span>'
+        + '<span style="font-size:11px;">⚽</span>'
+        + '<span style="font-size:11px;color:#e2e8f0;">' + pName + '</span>' + typeTag
+        + '</div>';
+      if (isHome) goalItemsL.push(row); else goalItemsA.push(row);
+    } else if (ev.type === "Card") {
+      var isRed = ev.detail === "Red Card" || ev.detail === "Red Card (Second Yellow)";
+      var em = isRed ? "🟥" : "🟨";
+      var teamLabel = isHome ? hN : aN;
+      cardItems.push('<div style="display:flex;align-items:center;gap:5px;padding:2px 0;">'
+        + '<span>' + em + '</span>'
+        + '<span style="font-size:10px;color:#94a3b8;min-width:26px;">' + minStr + '</span>'
+        + '<span style="font-size:11px;color:#e2e8f0;">' + pName + '</span>'
+        + '<span style="font-size:9px;color:#64748b;margin-left:2px;">(' + teamLabel + ')</span>'
+        + '</div>');
+    }
+  });
+
+  // Estadísticas
+  var hStMap = {}, aStMap = {};
+  if (afStats.length >= 2) {
+    (afStats[0].statistics || []).forEach(function(s){ hStMap[s.type] = s.value; });
+    (afStats[1].statistics || []).forEach(function(s){ aStMap[s.type] = s.value; });
+  }
+  var ST_DEFS = [
+    {k:"Total Shots",       lb:"Remates"},
+    {k:"Shots on Goal",     lb:"Remates al arco"},
+    {k:"Ball Possession",   lb:"Posesión",       pct:true},
+    {k:"Total passes",      lb:"Pases"},
+    {k:"Passes %",          lb:"Precisión pases", pct:true},
+    {k:"Fouls",             lb:"Faltas",          inv:true},
+    {k:"Yellow Cards",      lb:"Tarjetas Amarillas", inv:true},
+    {k:"Red Cards",         lb:"Tarjetas Rojas",  inv:true},
+    {k:"Offsides",          lb:"Fuera de juego",  inv:true},
+    {k:"Corner Kicks",      lb:"Córners"}
+  ];
+  var hasStatsData = ST_DEFS.some(function(d){ return hStMap[d.k] != null || aStMap[d.k] != null; });
+
   // ── Helper: bloque de sección ──
   function secBox(color, title, inner) {
     return '<div style="margin-bottom:7px;background:rgba(0,0,0,0.18);border-radius:8px;overflow:hidden;">'
@@ -575,33 +656,81 @@ function makeCard(m) {
   }
 
   // ── Stats HTML ──
-  // Nota: la API gratuita no retorna goals/bookings/statistics.
-  // Solo disponemos de score (HT/FT) y datos del ANAL manual.
   var statsHTML = "";
+  var hasEvents = goalItemsL.length || goalItemsA.length || cardItems.length;
 
   if (done) {
-    // 📊 Marcador por tiempo (siempre disponible)
+    // 📊 Marcador por tiempo
     var marcHTML = "";
     if (htH !== null && htA !== null && hG !== null) {
       var marcInner = '<div style="display:flex;align-items:center;justify-content:center;gap:20px;">'
         + '<div style="text-align:center;">'
         + '<div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">1er Tiempo</div>'
         + '<div style="font-size:20px;font-weight:900;color:#60a5fa;">' + htH + ' – ' + htA + '</div>'
-        + '</div>'
-        + '<div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>'
+        + '</div><div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>'
         + '<div style="text-align:center;">'
         + '<div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">Final</div>'
         + '<div style="font-size:20px;font-weight:900;color:#4ade80;">' + hG + ' – ' + aG + '</div>'
-        + '</div>'
-        + '</div>';
+        + '</div></div>';
       marcHTML = secBox("#60a5fa", "📊 Marcador", marcInner);
     }
-    // ⚽ Goleadores del ANAL
+
+    // ⚽ Goles (API-Football si hay cache, ANAL.go como fallback)
     var golesHTML = "";
-    if (anal && anal.go) {
+    if (hasEvents) {
+      var gRowsHTML = '<div style="display:flex;gap:4px;">'
+        + '<div style="flex:1;border-right:1px solid rgba(255,255,255,0.06);padding-right:6px;">'
+        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + hF + ' ' + hN + '</div>'
+        + (goalItemsL.length ? goalItemsL.join("") : '<div style="font-size:10px;color:#475569;padding:2px 0;">–</div>')
+        + '</div>'
+        + '<div style="flex:1;padding-left:6px;">'
+        + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:3px;">' + aF + ' ' + aN + '</div>'
+        + (goalItemsA.length ? goalItemsA.join("") : '<div style="font-size:10px;color:#475569;padding:2px 0;">–</div>')
+        + '</div></div>';
+      golesHTML = secBox("#4ade80", "⚽ Goles", gRowsHTML);
+    } else if (anal && anal.go) {
       golesHTML = secBox("#fbbf24", "⚽ Goleadores", '<span style="font-size:11px;color:#cbd5e1;line-height:1.7;">' + anal.go + '</span>');
     }
-    statsHTML = marcHTML + golesHTML;
+
+    // 🟨 Tarjetas
+    var tarjHTML = cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "";
+
+    // 📈 Estadísticas (tabla comparativa estilo imagen)
+    var statTableHTML = "";
+    if (hasStatsData) {
+      var PILL = "background:#c026d3;color:#fff;padding:1px 9px;border-radius:20px;font-weight:800;font-size:12px;display:inline-block;min-width:28px;text-align:center;";
+      var PLAIN = "font-size:12px;color:#cbd5e1;padding:1px 9px;display:inline-block;min-width:28px;text-align:center;";
+      var stHeader = '<div style="display:flex;gap:6px;padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.08);">'
+        + '<div style="flex:1;text-align:right;font-size:10px;font-weight:700;color:#e2e8f0;">' + hF + ' ' + hN + '</div>'
+        + '<div style="flex:2;"></div>'
+        + '<div style="flex:1;text-align:left;font-size:10px;font-weight:700;color:#e2e8f0;">' + aF + ' ' + aN + '</div>'
+        + '</div>';
+      var stRows = ST_DEFS.filter(function(d){ return hStMap[d.k] != null || aStMap[d.k] != null; }).map(function(d) {
+        var hRaw = hStMap[d.k] != null ? hStMap[d.k] : 0;
+        var aRaw = aStMap[d.k] != null ? aStMap[d.k] : 0;
+        // Limpiar valores porcentaje (pueden venir como "74%" o 74)
+        var hv = parseFloat(String(hRaw).replace("%","")) || 0;
+        var av = parseFloat(String(aRaw).replace("%","")) || 0;
+        var hvStr = d.pct ? hv + "%" : String(hRaw || 0);
+        var avStr = d.pct ? av + "%" : String(aRaw || 0);
+        var hBetter = d.inv ? hv < av : hv > av;
+        var aBetter = d.inv ? av < hv : av > hv;
+        var total = hv + av;
+        var hPct = total > 0 ? Math.round(hv / total * 100) : 50;
+        return '<div style="padding:3px 0;">'
+          + '<div style="display:flex;align-items:center;gap:6px;">'
+          + '<div style="flex:1;text-align:right;"><span style="' + (hBetter ? PILL : PLAIN) + '">' + hvStr + '</span></div>'
+          + '<div style="flex:2;text-align:center;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.3px;">' + d.lb + '</div>'
+          + '<div style="flex:1;text-align:left;"><span style="' + (aBetter ? PILL : PLAIN) + '">' + avStr + '</span></div>'
+          + '</div>'
+          + '<div style="height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin:3px 0;">'
+          + '<div style="height:3px;width:' + hPct + '%;background:#7c3aed;border-radius:2px;"></div>'
+          + '</div></div>';
+      }).join('<div style="height:1px;background:rgba(255,255,255,0.04);"></div>');
+      statTableHTML = secBox("#c084fc", "📈 Estadísticas", stHeader + stRows);
+    }
+
+    statsHTML = marcHTML + golesHTML + tarjHTML + statTableHTML;
   }
 
   // ── Análisis HTML ──
@@ -687,8 +816,61 @@ async function main() {
   var upcoming  = matches.filter(function(m){ return m.status === "SCHEDULED" || m.status === "TIMED"; }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var todayAll  = matches.filter(function(m){ return isToday(m.utcDate); }).sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
 
-  // Nota: API gratuita no incluye goals/bookings/statistics en ningún endpoint.
-  // Solo disponemos de score (HT/FT) y los datos del ANAL manual.
+  // ── API-Football: fetch events + stats para partidos sin cache ──
+  var toFetch = finished.slice(0, 10).filter(function(m) {
+    var c = statsCache[String(m.id)];
+    return !c || (!c.notFound && !c.events); // refetch si no hay datos
+  });
+
+  if (toFetch.length > 0) {
+    // Agrupar por fecha UTC para minimizar requests a API-Football
+    var dateGroups = {};
+    toFetch.forEach(function(m) {
+      var d = m.utcDate.substring(0, 10);
+      if (!dateGroups[d]) dateGroups[d] = [];
+      dateGroups[d].push(m);
+    });
+
+    for (var afDate of Object.keys(dateGroups)) {
+      try {
+        var afRes = await getAF("fixtures?league=" + AF_LEAGUE + "&season=" + AF_SEASON + "&date=" + afDate);
+        var afFixtures = afRes.response || [];
+        console.log("AF fixtures " + afDate + ": " + afFixtures.length + " encontrados");
+
+        for (var fdm of dateGroups[afDate]) {
+          var hScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null;
+          var aScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null;
+          // Buscar partido por score (suficiente para WC donde no hay 2 partidos con mismo resultado el mismo día)
+          var afMatch = afFixtures.find(function(f) {
+            return f.fixture.status.short === "FT" &&
+                   hScore !== null && aScore !== null &&
+                   f.goals.home === hScore && f.goals.away === aScore;
+          });
+          if (!afMatch) {
+            console.log("AF: no match for " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name));
+            statsCache[String(fdm.id)] = {notFound: true};
+            continue;
+          }
+          var afId = afMatch.fixture.id;
+          console.log("AF: fetching events+stats for fixture " + afId + " (" + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name) + ")");
+          var evRes  = await getAF("fixtures/events?fixture=" + afId);
+          var stRes  = await getAF("fixtures/statistics?fixture=" + afId);
+          statsCache[String(fdm.id)] = {
+            afId:   afId,
+            events: evRes.response  || [],
+            stats:  stRes.response  || []
+          };
+        }
+      } catch(e) {
+        console.log("AF error for " + afDate + ": " + e.message);
+      }
+    }
+    // Guardar cache actualizado
+    try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
+    console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
+  } else {
+    console.log("AF: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
+  }
 
   // ── PARCHE R32: sustituir nombres null del API ──
   var R32_TEAMS = [
