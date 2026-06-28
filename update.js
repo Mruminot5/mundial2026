@@ -658,8 +658,8 @@ async function main() {
         console.log("AF error for " + afDate + ": " + e.message);
       }
     }
+    statsCache["__debug__"] = afDebug;
     try { fs.writeFileSync(CACHE_FILE, JSON.stringify(statsCache)); } catch(e) { console.log("Cache write error: " + e.message); }
-    try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) { console.log("Debug write error: " + e.message); }
     console.log("Cache guardado. Partidos cacheados: " + Object.keys(statsCache).length);
   } else {
     console.log("AF: todos los partidos recientes ya están en cache (" + Object.keys(statsCache).length + " entradas)");
