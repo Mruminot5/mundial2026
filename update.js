@@ -867,13 +867,14 @@ async function main() {
   finished.forEach(function(m){ if(m.matchday && !jornadas.includes(m.matchday)) jornadas.push(m.matchday); });
   jornadas.sort(function(a,b){return a-b;});
   var grupos = ["GROUP_A","GROUP_B","GROUP_C","GROUP_D","GROUP_E","GROUP_F","GROUP_G","GROUP_H","GROUP_I","GROUP_J","GROUP_K","GROUP_L"];
-  var jorBtns = jornadas.map(function(j,i){
-    return '<button class="jbtn' + (i===jornadas.length-1?" active":"") + '" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
+  var jorBtns = jornadas.map(function(j){
+    return '<button class="jbtn" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
   }).join("");
-  var jorBlocks = jornadas.map(function(j,ji){
+  var resAllBtns = '<button class="jbtn active" onclick="showR16(this)">🏆 16avos</button>' + jorBtns;
+  var jorBlocks = jornadas.map(function(j){
     var pj = finished.filter(function(m){return m.matchday===j;});
     var grpsP = grupos.filter(function(g){return pj.some(function(m){return m.group===g;});});
-    return '<div id="j' + j + '" style="display:' + (ji===jornadas.length-1?"block":"none") + ';">'
+    return '<div id="j' + j + '" style="display:none;">'
       + grpsP.map(function(g){
           return '<div class="grp-block"><div class="grp-hdr">' + g.replace("GROUP_","Grupo ") + " · J" + j + "</div>"
             + pj.filter(function(m){return m.group===g;}).map(function(m){return makeCard(m);}).join("")
@@ -881,6 +882,39 @@ async function main() {
         }).join("")
       + "</div>";
   }).join("");
+
+  // RESULTADOS 16AVOS (hardcoded)
+  var r16Row = function(fecha,flag1,eq1,g1,g2,flag2,eq2,pen,estadio){
+    var score = (g1!==null&&g2!==null) ? ('<span style="font-size:16px;font-weight:900;color:#4ade80;letter-spacing:2px;padding:0 8px;">' + g1 + ' - ' + g2 + (pen?'<span style="font-size:9px;color:#fbbf24;margin-left:4px;">'+pen+'</span>':'') + '</span>') : '<span style="font-size:10px;color:#fbbf24;background:#1a2000;border:1px solid #3a4000;border-radius:4px;padding:2px 7px;">Pendiente</span>';
+    return '<tr style="border-top:1px solid #1e2d45;"><td style="padding:9px 8px 2px;font-size:10px;color:#4ade80;font-weight:700;" colspan="3">' + fecha + '</td></tr>'
+      + '<tr><td style="padding:2px 8px 9px;font-size:12px;font-weight:700;text-align:right;width:38%;">' + flag1 + ' ' + eq1 + '</td>'
+      + '<td style="padding:2px 8px 9px;text-align:center;white-space:nowrap;">' + score + '</td>'
+      + '<td style="padding:2px 8px 9px;font-size:12px;font-weight:700;width:38%;">' + flag2 + ' ' + eq2 + '</td></tr>'
+      + '<tr><td colspan="3" style="padding:0 8px 9px;font-size:10px;color:#475569;">🏟 ' + estadio + '</td></tr>';
+  };
+  var resultados16HTML = '<div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">'
+    + '<div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">'
+    + '<div style="font-size:14px;font-weight:800;color:#fff;">🏆 Resultados 16avos</div>'
+    + '<div style="font-size:10px;color:#4ade80;">28 Jun – 3 Jul</div></div>'
+    + '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:300px;">'
+    + '<tbody>'
+    + r16Row('📅 28 jun · 16:00','🇿🇦','Sudáfrica',0,1,'🇨🇦','Canadá',null,'SoFi Stadium, Los Ángeles')
+    + r16Row('📅 29 jun · 13:00','🇧🇷','Brasil',null,null,'🇯🇵','Japón',null,'NRG Stadium, Houston')
+    + r16Row('📅 29 jun · 16:30','🇩🇪','Alemania',null,null,'🇵🇾','Paraguay',null,'AT&T Stadium, Dallas')
+    + r16Row('📅 29 jun · 21:00','🇳🇱','Países Bajos',null,null,'🇲🇦','Marruecos',null,'Levi\'s Stadium, San José')
+    + r16Row('📅 30 jun · 13:00','🇨🇮','C. Marfil',null,null,'🇳🇴','Noruega',null,'Rose Bowl, Los Ángeles')
+    + r16Row('📅 30 jun · 17:00','🇫🇷','Francia',null,null,'🇸🇪','Suecia',null,'MetLife Stadium, Nueva York')
+    + r16Row('📅 30 jun · 21:00','🇲🇽','México',null,null,'🇪🇨','Ecuador',null,'Arrowhead Stadium, Kansas City')
+    + r16Row('📅 1 jul · 12:00','🏴󠁧󠁢󠁥󠁮󠁧󠁿','Inglaterra',null,null,'🇨🇩','Congo DR',null,'Mercedes-Benz Stadium, Atlanta')
+    + r16Row('📅 1 jul · 16:00','🇧🇪','Bélgica',null,null,'🇸🇳','Senegal',null,'Lumen Field, Seattle')
+    + r16Row('📅 1 jul · 20:00','🇺🇸','EE.UU.',null,null,'🇧🇦','Bosnia',null,'SoFi Stadium, Los Ángeles')
+    + r16Row('📅 2 jul · 15:00','🇪🇸','España',null,null,'🇦🇹','Austria',null,'Hard Rock Stadium, Miami')
+    + r16Row('📅 2 jul · 19:00','🇵🇹','Portugal',null,null,'🇭🇷','Croacia',null,'SoFi Stadium, Los Ángeles')
+    + r16Row('📅 2 jul · 23:00','🇨🇭','Suiza',null,null,'🇩🇿','Argelia',null,'MetLife Stadium, Nueva York')
+    + r16Row('📅 3 jul · 14:00','🇦🇺','Australia',null,null,'🇪🇬','Egipto',null,'NRG Stadium, Houston')
+    + r16Row('📅 3 jul · 18:00','🇦🇷','Argentina',null,null,'🇨🇻','Cabo Verde',null,'Hard Rock Stadium, Miami')
+    + r16Row('📅 3 jul · 21:30','🇨🇴','Colombia',null,null,'🇬🇭','Ghana',null,'AT&T Stadium, Dallas')
+    + '</tbody></table></div></div>';
 
   // TABLAS
   // ── FIXTURE 16AVOS ──
@@ -962,7 +996,8 @@ async function main() {
   // JS — toggleCard usa id del wrapper
   var js = 'function showTab(id,btn){document.querySelectorAll(".pane").forEach(function(p){p.classList.remove("active");});document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");});document.getElementById(id).classList.add("active");btn.classList.add("active");}'
     + 'function toggleCard(cid){var det=document.getElementById(cid);var wrap=document.getElementById("wrap"+cid);if(!det||!wrap)return;var isOpen=det.style.display!=="none";det.style.display=isOpen?"none":"block";wrap.classList.toggle("open",!isOpen);var arr=wrap.querySelector(".arr");if(arr)arr.textContent=isOpen?"▼":"▲";}'
-    + 'function showJornada(j,btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var el=document.getElementById("j"+j);if(el)el.style.display="block";}'
+    + 'function showJornada(j,btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");var r16=document.getElementById("r16");if(r16)r16.style.display="none";document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var el=document.getElementById("j"+j);if(el)el.style.display="block";}'
+    + 'function showR16(btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var r16=document.getElementById("r16");if(r16)r16.style.display="block";}'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}';
 
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
@@ -970,7 +1005,7 @@ async function main() {
 
   // ── BRACKET SVG 16AVOS ──
   var BL=[
-    {a:"🇿🇦 Sudáfrica",b:"🇨🇦 Canadá",t:"28/6 16:00"},
+    {a:"🇿🇦 Sudáfrica",b:"🇨🇦 Canadá ✅",t:"FT 0-1"},
     {a:"🇩🇪 Alemania",b:"🇵🇾 Paraguay",t:"29/6 16:30"},
     {a:"🇨🇮 C. Marfil",b:"🇳🇴 Noruega",t:"30/6 13:00"},
     {a:"🇲🇽 México",b:"🇪🇨 Ecuador",t:"30/6 21:00"},
@@ -1221,7 +1256,8 @@ async function main() {
     + '</div></div></div>'
     // RESULTADOS
     + '<div id="resultados" class="pane"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">'
-    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados por Grupo</h2><div>' + jorBtns + '</div></div>'
+    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados</h2><div>' + resAllBtns + '</div></div>'
+    + '<div id="r16" style="display:block;">' + resultados16HTML + '</div>'
     + jorBlocks + '</div>'
     // TABLAS
     + '<div id="tablas" class="pane"><div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:14px;">' + grpBtns + '</div>' + tablaBlocks + fix16 + '</div>'
