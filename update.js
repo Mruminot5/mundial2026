@@ -470,11 +470,15 @@ function makeCard(m) {
     else if (m.score.winner === "AWAY_TEAM") { hG = 0; aG = 1; }
     else if (m.score.winner === "DRAW") { hG = 0; aG = 0; }
   }
+  var penH = m.score && m.score.penalties ? m.score.penalties.home : null;
+  var penA = m.score && m.score.penalties ? m.score.penalties.away : null;
+  var hasPen = penH !== null && penA !== null;
   var scoreHTML = "";
   if (done || live) {
     if (hG !== null && aG !== null) {
       var cls = sc(hG, aG);
-      scoreHTML = '<span class="score ' + cls + '">' + hG + " \u2013 " + aG + "</span>";
+      var penTag = hasPen ? '<div style="font-size:9px;color:#fbbf24;font-weight:800;margin-top:1px;">Pen: ' + penH + ' \u2013 ' + penA + '</div>' : '';
+      scoreHTML = '<div style="text-align:center;"><span class="score ' + cls + '">' + hG + " \u2013 " + aG + "</span>" + penTag + "</div>";
     } else {
       scoreHTML = '<span style="font-size:11px;color:#4ade80;font-weight:700;">Final</span>';
     }
@@ -561,8 +565,12 @@ function makeCard(m) {
         + '<div style="text-align:center;"><div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">1er Tiempo</div>'
         + '<div style="font-size:20px;font-weight:900;color:#60a5fa;">' + htH + ' – ' + htA + '</div></div>'
         + '<div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>'
-        + '<div style="text-align:center;"><div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">Final</div>'
-        + '<div style="font-size:20px;font-weight:900;color:#4ade80;">' + hG + ' – ' + aG + '</div></div></div>';
+        + '<div style="text-align:center;"><div style="font-size:9px;color:#64748b;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;">' + (hasPen ? '90 min' : 'Final') + '</div>'
+        + '<div style="font-size:20px;font-weight:900;color:#4ade80;">' + hG + ' – ' + aG + '</div></div>'
+        + (hasPen ? '<div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>'
+          + '<div style="text-align:center;"><div style="font-size:9px;color:#fbbf24;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;font-weight:700;">Penales</div>'
+          + '<div style="font-size:20px;font-weight:900;color:#fbbf24;">' + penH + ' – ' + penA + '</div></div>' : '')
+        + '</div>';
       marcHTML = secBox("#60a5fa", "📊 Marcador", marcInner);
     }
     var golesHTML = "";
@@ -1017,41 +1025,114 @@ async function main() {
   var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
-  // ── BRACKET SVG 16AVOS ──
-  // BL8/BR8: equipos conocidos en 8vos (ganadores de 16avos). null = pendiente
-  var BL8=[
-    {a:"🇨🇦 Canadá",b:"Gana ALE/PAR"},  // Winner BL[0] vs Winner BL[1]
-    {a:null,b:null},                       // Winner BL[2] vs Winner BL[3]
-    {a:null,b:null},                       // Winner BL[4] vs Winner BL[5]
-    {a:null,b:null}                        // Winner BL[6] vs Winner BL[7]
+  // ── BRACKET SVG 16AVOS — dinámico desde API ──
+  // Mapa: nombre API → {flag, nombre en español}
+  var TM = {
+    "South Africa":{f:"🇿🇦",n:"Sudáfrica"},"Canada":{f:"🇨🇦",n:"Canadá"},
+    "Germany":{f:"🇩🇪",n:"Alemania"},"Paraguay":{f:"🇵🇾",n:"Paraguay"},
+    "Côte d'Ivoire":{f:"🇨🇮",n:"C. Marfil"},"Ivory Coast":{f:"🇨🇮",n:"C. Marfil"},
+    "Norway":{f:"🇳🇴",n:"Noruega"},"Mexico":{f:"🇲🇽",n:"México"},
+    "Ecuador":{f:"🇪🇨",n:"Ecuador"},"England":{f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",n:"Inglaterra"},
+    "DR Congo":{f:"🇨🇩",n:"Congo DR"},"Democratic Republic of Congo":{f:"🇨🇩",n:"Congo DR"},
+    "Congo DR":{f:"🇨🇩",n:"Congo DR"},
+    "United States":{f:"🇺🇸",n:"EE.UU."},"USA":{f:"🇺🇸",n:"EE.UU."},
+    "Bosnia and Herzegovina":{f:"🇧🇦",n:"Bosnia"},"Bosnia-Herzegovina":{f:"🇧🇦",n:"Bosnia"},
+    "Switzerland":{f:"🇨🇭",n:"Suiza"},"Algeria":{f:"🇩🇿",n:"Argelia"},
+    "Argentina":{f:"🇦🇷",n:"Argentina"},"Cape Verde":{f:"🇨🇻",n:"Cabo Verde"},
+    "Brazil":{f:"🇧🇷",n:"Brasil"},"Japan":{f:"🇯🇵",n:"Japón"},
+    "Netherlands":{f:"🇳🇱",n:"Países Bajos"},"Morocco":{f:"🇲🇦",n:"Marruecos"},
+    "France":{f:"🇫🇷",n:"Francia"},"Sweden":{f:"🇸🇪",n:"Suecia"},
+    "Belgium":{f:"🇧🇪",n:"Bélgica"},"Senegal":{f:"🇸🇳",n:"Senegal"},
+    "Spain":{f:"🇪🇸",n:"España"},"Austria":{f:"🇦🇹",n:"Austria"},
+    "Portugal":{f:"🇵🇹",n:"Portugal"},"Croatia":{f:"🇭🇷",n:"Croacia"},
+    "Australia":{f:"🇦🇺",n:"Australia"},"Egypt":{f:"🇪🇬",n:"Egipto"},
+    "Colombia":{f:"🇨🇴",n:"Colombia"},"Ghana":{f:"🇬🇭",n:"Ghana"}
+  };
+  function td(apiName){ var t=TM[apiName]; return t ? t.f+" "+t.n : apiName; }
+  function tn(apiName){ var t=TM[apiName]; return t ? t.n : apiName; }
+
+  // Emparejamientos de 16avos: orden = posición en BL/BR bracket
+  var BLpairs=[
+    {h:"South Africa",a:"Canada",t:"28/6 16:00"},
+    {h:"Germany",a:"Paraguay",t:"29/6 16:30"},
+    {h:"Côte d'Ivoire",a:"Norway",t:"30/6 13:00"},
+    {h:"Mexico",a:"Ecuador",t:"30/6 21:00"},
+    {h:"England",a:"DR Congo",t:"1/7 12:00"},
+    {h:"United States",a:"Bosnia and Herzegovina",t:"1/7 20:00"},
+    {h:"Switzerland",a:"Algeria",t:"2/7 23:00"},
+    {h:"Argentina",a:"Cape Verde",t:"3/7 18:00"}
   ];
-  var BR8=[
-    {a:null,b:null},
-    {a:null,b:null},
-    {a:null,b:null},
-    {a:null,b:null}
+  var BRpairs=[
+    {h:"Brazil",a:"Japan",t:"29/6 13:00"},
+    {h:"Netherlands",a:"Morocco",t:"29/6 21:00"},
+    {h:"France",a:"Sweden",t:"30/6 17:00"},
+    {h:"Belgium",a:"Senegal",t:"1/7 16:00"},
+    {h:"Spain",a:"Austria",t:"2/7 15:00"},
+    {h:"Portugal",a:"Croatia",t:"2/7 19:00"},
+    {h:"Australia",a:"Egypt",t:"3/7 14:00"},
+    {h:"Colombia",a:"Ghana",t:"3/7 21:30"}
   ];
 
-  var BL=[
-    {a:"🇿🇦 Sudáfrica",b:"🇨🇦 Canadá ✅",t:"FT 0-1"},
-    {a:"🇩🇪 Alemania",b:"🇵🇾 Paraguay",t:"29/6 16:30"},
-    {a:"🇨🇮 C. Marfil",b:"🇳🇴 Noruega",t:"30/6 13:00"},
-    {a:"🇲🇽 México",b:"🇪🇨 Ecuador",t:"30/6 21:00"},
-    {a:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra",b:"🇨🇩 Congo DR",t:"1/7 12:00"},
-    {a:"🇺🇸 EE.UU.",b:"🇧🇦 Bosnia",t:"1/7 20:00"},
-    {a:"🇨🇭 Suiza",b:"🇩🇿 Argelia",t:"2/7 23:00"},
-    {a:"🇦🇷 Argentina",b:"🇨🇻 Cabo Verde",t:"3/7 18:00"}
-  ];
-  var BR=[
-    {a:"🇧🇷 Brasil",b:"🇯🇵 Japón",t:"29/6 13:00"},
-    {a:"🇳🇱 Países Bajos",b:"🇲🇦 Marruecos",t:"29/6 21:00"},
-    {a:"🇫🇷 Francia",b:"🇸🇪 Suecia",t:"30/6 17:00"},
-    {a:"🇧🇪 Bélgica",b:"🇸🇳 Senegal",t:"1/7 16:00"},
-    {a:"🇪🇸 España",b:"🇦🇹 Austria",t:"2/7 15:00"},
-    {a:"🇵🇹 Portugal",b:"🇭🇷 Croacia",t:"2/7 19:00"},
-    {a:"🇦🇺 Australia",b:"🇪🇬 Egipto",t:"3/7 14:00"},
-    {a:"🇨🇴 Colombia",b:"🇬🇭 Ghana",t:"3/7 21:30"}
-  ];
+  // Busca el partido KO en el array de la API
+  function findKO(p){
+    return finishedKO.find(function(m){
+      var hn=m.homeTeam&&m.homeTeam.name||""; var an=m.awayTeam&&m.awayTeam.name||"";
+      var ph=Object.keys(TM).filter(function(k){return TM[k].n===tn(p.h)||k===p.h;});
+      var pa=Object.keys(TM).filter(function(k){return TM[k].n===tn(p.a)||k===p.a;});
+      return (ph.indexOf(hn)>=0&&pa.indexOf(an)>=0)||(ph.indexOf(an)>=0&&pa.indexOf(hn)>=0);
+    });
+  }
+  // Obtiene ganador de un partido KO (devuelve nombre API)
+  function koWinner(m,p){
+    if(!m||m.status!=="FINISHED") return null;
+    var hg=m.score&&m.score.fullTime?m.score.fullTime.home:null;
+    var ag=m.score&&m.score.fullTime?m.score.fullTime.away:null;
+    var w=m.score&&m.score.winner;
+    var hn=m.homeTeam&&m.homeTeam.name||""; var an=m.awayTeam&&m.awayTeam.name||"";
+    // Detecta si home/away está invertido respecto al bracket
+    var flipped=(Object.keys(TM).filter(function(k){return k===p.a;}).indexOf(hn)>=0);
+    if(w==="HOME_TEAM") return flipped?p.a:p.h;
+    if(w==="AWAY_TEAM") return flipped?p.h:p.a;
+    if(hg!==null&&ag!==null){ if(hg>ag) return flipped?p.a:p.h; if(ag>hg) return flipped?p.h:p.a; }
+    return null;
+  }
+  // Construye entrada de bracket para 16avos
+  function buildSlot(p){
+    var m=findKO(p);
+    if(m&&m.status==="FINISHED"){
+      var hg=m.score&&m.score.fullTime?m.score.fullTime.home:null;
+      var ag=m.score&&m.score.fullTime?m.score.fullTime.away:null;
+      var ph=m.score&&m.score.penalties?m.score.penalties.home:null;
+      var pa=m.score&&m.score.penalties?m.score.penalties.away:null;
+      var w=koWinner(m,p);
+      var flipped=(m.homeTeam&&m.homeTeam.name||"")!==p.h&&Object.keys(TM).filter(function(k){return k===p.a;}).indexOf(m.homeTeam&&m.homeTeam.name||"")>=0;
+      var ga=flipped?ag:hg, gb=flipped?hg:ag;
+      var gpa=flipped?pa:ph, gpb=flipped?ph:pa;
+      var scoreStr=(ga!==null?ga:"?")+"-"+(gb!==null?gb:"?");
+      var penStr=(gpa!==null&&gpb!==null)?" pen "+gpa+"-"+gpb:"";
+      return {
+        a:td(p.h)+(w===p.h?" ✅":""),
+        b:td(p.a)+(w===p.a?" ✅":""),
+        t:"FT "+scoreStr+penStr
+      };
+    }
+    return {a:td(p.h),b:td(p.a),t:p.t};
+  }
+  // Construye entrada de 8vos (par de 16avos)
+  function build8Slot(pairs,i,j){
+    var w1=koWinner(findKO(pairs[i]),pairs[i]);
+    var w2=koWinner(findKO(pairs[j]),pairs[j]);
+    if(!w1&&!w2) return {a:null,b:null};
+    return {
+      a: w1 ? td(w1) : "Gana "+tn(pairs[i].h)+"/"+tn(pairs[i].a),
+      b: w2 ? td(w2) : "Gana "+tn(pairs[j].h)+"/"+tn(pairs[j].a)
+    };
+  }
+
+  var BL=BLpairs.map(buildSlot);
+  var BR=BRpairs.map(buildSlot);
+  var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
+  var BR8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
 
   // Constantes de layout
   var CH=26, CG=2, MG=10;
