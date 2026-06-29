@@ -1,15 +1,23 @@
 {
-  "ts": "2026-06-29T22:18:54.014Z",
-  "finishedCount": 74,
-  "toFetchCount": 0,
+  "ts": "2026-06-29T23:42:57.402Z",
+  "finishedCount": 75,
+  "toFetchCount": 1,
   "cacheSize": 74,
   "firstFinishedIds": [
+    537415,
     537423,
     537417,
     537401,
-    537402,
-    537407
+    537402
   ],
-  "toFetchCount2": 0,
-  "toFetchSample": []
+  "toFetchCount2": 1,
+  "toFetchSample": [
+    537415
+  ],
+  "espnDates": [
+    {
+      "date": "2026-06-29",
+      "count": 13
+    }
+  ]
 }
