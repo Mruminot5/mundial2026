@@ -883,38 +883,49 @@ async function main() {
       + "</div>";
   }).join("");
 
-  // RESULTADOS 16AVOS (hardcoded)
-  var r16Row = function(fecha,flag1,eq1,g1,g2,flag2,eq2,pen,estadio){
-    var score = (g1!==null&&g2!==null) ? ('<span style="font-size:16px;font-weight:900;color:#4ade80;letter-spacing:2px;padding:0 8px;">' + g1 + ' - ' + g2 + (pen?'<span style="font-size:9px;color:#fbbf24;margin-left:4px;">'+pen+'</span>':'') + '</span>') : '<span style="font-size:10px;color:#fbbf24;background:#1a2000;border:1px solid #3a4000;border-radius:4px;padding:2px 7px;">Pendiente</span>';
-    return '<tr style="border-top:1px solid #1e2d45;"><td style="padding:9px 8px 2px;font-size:10px;color:#4ade80;font-weight:700;" colspan="3">' + fecha + '</td></tr>'
-      + '<tr><td style="padding:2px 8px 9px;font-size:12px;font-weight:700;text-align:right;width:38%;">' + flag1 + ' ' + eq1 + '</td>'
-      + '<td style="padding:2px 8px 9px;text-align:center;white-space:nowrap;">' + score + '</td>'
-      + '<td style="padding:2px 8px 9px;font-size:12px;font-weight:700;width:38%;">' + flag2 + ' ' + eq2 + '</td></tr>'
-      + '<tr><td colspan="3" style="padding:0 8px 9px;font-size:10px;color:#475569;">🏟 ' + estadio + '</td></tr>';
-  };
-  var resultados16HTML = '<div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">'
-    + '<div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">'
-    + '<div style="font-size:14px;font-weight:800;color:#fff;">🏆 Resultados 16avos</div>'
-    + '<div style="font-size:10px;color:#4ade80;">28 Jun – 3 Jul</div></div>'
-    + '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:300px;">'
-    + '<tbody>'
-    + r16Row('📅 28 jun · 16:00','🇿🇦','Sudáfrica',0,1,'🇨🇦','Canadá',null,'SoFi Stadium, Los Ángeles')
-    + r16Row('📅 29 jun · 13:00','🇧🇷','Brasil',null,null,'🇯🇵','Japón',null,'NRG Stadium, Houston')
-    + r16Row('📅 29 jun · 16:30','🇩🇪','Alemania',null,null,'🇵🇾','Paraguay',null,'AT&T Stadium, Dallas')
-    + r16Row('📅 29 jun · 21:00','🇳🇱','Países Bajos',null,null,'🇲🇦','Marruecos',null,'Levi\'s Stadium, San José')
-    + r16Row('📅 30 jun · 13:00','🇨🇮','C. Marfil',null,null,'🇳🇴','Noruega',null,'Rose Bowl, Los Ángeles')
-    + r16Row('📅 30 jun · 17:00','🇫🇷','Francia',null,null,'🇸🇪','Suecia',null,'MetLife Stadium, Nueva York')
-    + r16Row('📅 30 jun · 21:00','🇲🇽','México',null,null,'🇪🇨','Ecuador',null,'Arrowhead Stadium, Kansas City')
-    + r16Row('📅 1 jul · 12:00','🏴󠁧󠁢󠁥󠁮󠁧󠁿','Inglaterra',null,null,'🇨🇩','Congo DR',null,'Mercedes-Benz Stadium, Atlanta')
-    + r16Row('📅 1 jul · 16:00','🇧🇪','Bélgica',null,null,'🇸🇳','Senegal',null,'Lumen Field, Seattle')
-    + r16Row('📅 1 jul · 20:00','🇺🇸','EE.UU.',null,null,'🇧🇦','Bosnia',null,'SoFi Stadium, Los Ángeles')
-    + r16Row('📅 2 jul · 15:00','🇪🇸','España',null,null,'🇦🇹','Austria',null,'Hard Rock Stadium, Miami')
-    + r16Row('📅 2 jul · 19:00','🇵🇹','Portugal',null,null,'🇭🇷','Croacia',null,'SoFi Stadium, Los Ángeles')
-    + r16Row('📅 2 jul · 23:00','🇨🇭','Suiza',null,null,'🇩🇿','Argelia',null,'MetLife Stadium, Nueva York')
-    + r16Row('📅 3 jul · 14:00','🇦🇺','Australia',null,null,'🇪🇬','Egipto',null,'NRG Stadium, Houston')
-    + r16Row('📅 3 jul · 18:00','🇦🇷','Argentina',null,null,'🇨🇻','Cabo Verde',null,'Hard Rock Stadium, Miami')
-    + r16Row('📅 3 jul · 21:30','🇨🇴','Colombia',null,null,'🇬🇭','Ghana',null,'AT&T Stadium, Dallas')
-    + '</tbody></table></div></div>';
+  // RESULTADOS 16AVOS — usar makeCard si la API ya los tiene, si no mostrar tabla estática
+  var finishedKO = finished.filter(function(m){ return !m.group; });
+  var resultados16HTML;
+  if(finishedKO.length > 0){
+    resultados16HTML = '<div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">'
+      + '<div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">'
+      + '<div style="font-size:14px;font-weight:800;color:#fff;">🏆 Resultados 16avos</div>'
+      + '<div style="font-size:10px;color:#4ade80;">' + finishedKO.length + ' jugados</div></div>'
+      + '<div style="padding:10px;">'
+      + finishedKO.map(function(m){return makeCard(m);}).join("")
+      + '</div></div>';
+  } else {
+    var r16Row = function(fecha,flag1,eq1,g1,g2,flag2,eq2,pen,estadio){
+      var score = (g1!==null&&g2!==null) ? ('<span style="font-size:16px;font-weight:900;color:#4ade80;letter-spacing:2px;padding:0 8px;">' + g1 + ' - ' + g2 + (pen?'<span style="font-size:9px;color:#fbbf24;margin-left:4px;">'+pen+'</span>':'') + '</span>') : '<span style="font-size:10px;color:#fbbf24;background:#1a2000;border:1px solid #3a4000;border-radius:4px;padding:2px 7px;">Pendiente</span>';
+      return '<tr style="border-top:1px solid #1e2d45;"><td style="padding:9px 8px 2px;font-size:10px;color:#4ade80;font-weight:700;" colspan="3">' + fecha + '</td></tr>'
+        + '<tr><td style="padding:2px 8px 9px;font-size:12px;font-weight:700;text-align:right;width:38%;">' + flag1 + ' ' + eq1 + '</td>'
+        + '<td style="padding:2px 8px 9px;text-align:center;white-space:nowrap;">' + score + '</td>'
+        + '<td style="padding:2px 8px 9px;font-size:12px;font-weight:700;width:38%;">' + flag2 + ' ' + eq2 + '</td></tr>'
+        + '<tr><td colspan="3" style="padding:0 8px 9px;font-size:10px;color:#475569;">🏟 ' + estadio + '</td></tr>';
+    };
+    resultados16HTML = '<div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">'
+      + '<div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">'
+      + '<div style="font-size:14px;font-weight:800;color:#fff;">🏆 Resultados 16avos</div>'
+      + '<div style="font-size:10px;color:#4ade80;">28 Jun – 3 Jul</div></div>'
+      + '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;min-width:300px;"><tbody>'
+      + r16Row('📅 28 jun · 16:00','🇿🇦','Sudáfrica',0,1,'🇨🇦','Canadá',null,'SoFi Stadium, Los Ángeles')
+      + r16Row('📅 29 jun · 13:00','🇧🇷','Brasil',null,null,'🇯🇵','Japón',null,'NRG Stadium, Houston')
+      + r16Row('📅 29 jun · 16:30','🇩🇪','Alemania',null,null,'🇵🇾','Paraguay',null,'AT&T Stadium, Dallas')
+      + r16Row('📅 29 jun · 21:00','🇳🇱','Países Bajos',null,null,'🇲🇦','Marruecos',null,'Levi\'s Stadium, San José')
+      + r16Row('📅 30 jun · 13:00','🇨🇮','C. Marfil',null,null,'🇳🇴','Noruega',null,'Rose Bowl, Los Ángeles')
+      + r16Row('📅 30 jun · 17:00','🇫🇷','Francia',null,null,'🇸🇪','Suecia',null,'MetLife Stadium, Nueva York')
+      + r16Row('📅 30 jun · 21:00','🇲🇽','México',null,null,'🇪🇨','Ecuador',null,'Arrowhead Stadium, Kansas City')
+      + r16Row('📅 1 jul · 12:00','🏴󠁧󠁢󠁥󠁮󠁧󠁿','Inglaterra',null,null,'🇨🇩','Congo DR',null,'Mercedes-Benz Stadium, Atlanta')
+      + r16Row('📅 1 jul · 16:00','🇧🇪','Bélgica',null,null,'🇸🇳','Senegal',null,'Lumen Field, Seattle')
+      + r16Row('📅 1 jul · 20:00','🇺🇸','EE.UU.',null,null,'🇧🇦','Bosnia',null,'SoFi Stadium, Los Ángeles')
+      + r16Row('📅 2 jul · 15:00','🇪🇸','España',null,null,'🇦🇹','Austria',null,'Hard Rock Stadium, Miami')
+      + r16Row('📅 2 jul · 19:00','🇵🇹','Portugal',null,null,'🇭🇷','Croacia',null,'SoFi Stadium, Los Ángeles')
+      + r16Row('📅 2 jul · 23:00','🇨🇭','Suiza',null,null,'🇩🇿','Argelia',null,'MetLife Stadium, Nueva York')
+      + r16Row('📅 3 jul · 14:00','🇦🇺','Australia',null,null,'🇪🇬','Egipto',null,'NRG Stadium, Houston')
+      + r16Row('📅 3 jul · 18:00','🇦🇷','Argentina',null,null,'🇨🇻','Cabo Verde',null,'Hard Rock Stadium, Miami')
+      + r16Row('📅 3 jul · 21:30','🇨🇴','Colombia',null,null,'🇬🇭','Ghana',null,'AT&T Stadium, Dallas')
+      + '</tbody></table></div></div>';
+  }
 
   // TABLAS
   // ── FIXTURE 16AVOS ──
@@ -1004,6 +1015,20 @@ async function main() {
   var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
 
   // ── BRACKET SVG 16AVOS ──
+  // BL8/BR8: equipos conocidos en 8vos (ganadores de 16avos). null = pendiente
+  var BL8=[
+    {a:"🇨🇦 Canadá",b:"Gana ALE/PAR"},  // Winner BL[0] vs Winner BL[1]
+    {a:null,b:null},                       // Winner BL[2] vs Winner BL[3]
+    {a:null,b:null},                       // Winner BL[4] vs Winner BL[5]
+    {a:null,b:null}                        // Winner BL[6] vs Winner BL[7]
+  ];
+  var BR8=[
+    {a:null,b:null},
+    {a:null,b:null},
+    {a:null,b:null},
+    {a:null,b:null}
+  ];
+
   var BL=[
     {a:"🇿🇦 Sudáfrica",b:"🇨🇦 Canadá ✅",t:"FT 0-1"},
     {a:"🇩🇪 Alemania",b:"🇵🇾 Paraguay",t:"29/6 16:30"},
@@ -1116,15 +1141,22 @@ async function main() {
 
   // Left 8vos
   var l8p=[[0,1],[2,3],[4,5],[6,7]];
-  l8p.forEach(function(p){
+  l8p.forEach(function(p,si){
     var ya=mcy(p[0]),yb=mcy(p[1]),ym=(ya+yb)/2;
     // connector
     s+=line(xL16+W16,ya,xL16+W16,yb);
     s+=line(xL16+W16,ya,xL16+W16+CN,ya);
     s+=line(xL16+W16,yb,xL16+W16+CN,yb);
     s+=line(xL16+W16+CN/2,ya,xL16+W16+CN/2,yb);
-    // slot
-    s+=emptySlot(xL8,ym-CH-CG/2,W8);
+    // slot: show team names if known, else empty
+    var sl8=BL8[si];
+    if(sl8&&sl8.a){
+      s+=rect(xL8,ym-CH-CG/2,W8,CH*2+CG,"#0b1120","#4ade80");
+      s+=txt(xL8+5,ym-CG/2-4,sl8.a,"#4ade80",10);
+      s+=txt(xL8+5,ym+CH+CG/2-4,sl8.b,"#94a3b8",9);
+    } else {
+      s+=emptySlot(xL8,ym-CH-CG/2,W8);
+    }
     // out line
     s+=line(xL8+W8,ym,xL8+W8+CN,ym);
   });
@@ -1160,13 +1192,20 @@ async function main() {
 
   // Right 8vos (mirror)
   var r8p=[[0,1],[2,3],[4,5],[6,7]];
-  r8p.forEach(function(p){
+  r8p.forEach(function(p,si){
     var ya=mcy(p[0]),yb=mcy(p[1]),ym=(ya+yb)/2;
     s+=line(xR16,ya,xR16,yb);
     s+=line(xR8+W8,ya,xR16,ya);
     s+=line(xR8+W8,yb,xR16,yb);
     s+=line(xR8+W8+CN/2,ya,xR8+W8+CN/2,yb);
-    s+=emptySlot(xR8,ym-CH-CG/2,W8);
+    var sr8=BR8[si];
+    if(sr8&&sr8.a){
+      s+=rect(xR8,ym-CH-CG/2,W8,CH*2+CG,"#0b1120","#4ade80");
+      s+=txt(xR8+5,ym-CG/2-4,sr8.a,"#4ade80",10);
+      s+=txt(xR8+5,ym+CH+CG/2-4,sr8.b,"#94a3b8",9);
+    } else {
+      s+=emptySlot(xR8,ym-CH-CG/2,W8);
+    }
     s+=line(xR8,ym,xR8-CN,ym);
   });
 
