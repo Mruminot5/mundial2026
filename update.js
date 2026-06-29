@@ -870,7 +870,10 @@ async function main() {
   var jorBtns = jornadas.map(function(j){
     return '<button class="jbtn" onclick="showJornada(' + j + ',this)">J' + j + "</button>";
   }).join("");
-  var resAllBtns = '<button class="jbtn active" onclick="showR16(this)">🏆 16avos</button>' + jorBtns;
+  var resAllBtns = '<span style="font-size:9px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-right:3px;align-self:center;">Fase de Grupos</span>'
+    + jorBtns
+    + '<span style="color:#2a3a5a;margin:0 6px;align-self:center;font-size:16px;line-height:1;">│</span>'
+    + '<button class="jbtn active" onclick="showR16(this)">🏆 16avos</button>';
   var jorBlocks = jornadas.map(function(j){
     var pj = finished.filter(function(m){return m.matchday===j;});
     var grpsP = grupos.filter(function(g){return pj.some(function(m){return m.group===g;});});
@@ -1295,7 +1298,7 @@ async function main() {
     + '</div></div></div>'
     // RESULTADOS
     + '<div id="resultados" class="pane"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">'
-    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados</h2><div>' + resAllBtns + '</div></div>'
+    + '<h2 style="font-size:14px;color:#cbd5e1;">Resultados</h2><div style="display:flex;align-items:center;flex-wrap:wrap;gap:3px;">' + resAllBtns + '</div></div>'
     + '<div id="r16" style="display:block;">' + resultados16HTML + '</div>'
     + jorBlocks + '</div>'
     // TABLAS
