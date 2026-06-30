@@ -1,20 +1,25 @@
 {
-  "ts": "2026-06-30T00:07:22.425Z",
-  "finishedCount": 75,
-  "toFetchCount": 1,
+  "ts": "2026-06-30T08:46:22.780Z",
+  "finishedCount": 76,
+  "toFetchCount": 2,
   "cacheSize": 75,
   "firstFinishedIds": [
+    537418,
     537415,
     537423,
     537417,
-    537401,
-    537402
+    537401
   ],
-  "toFetchCount2": 1,
+  "toFetchCount2": 2,
   "toFetchSample": [
+    537418,
     537415
   ],
   "espnDates": [
+    {
+      "date": "2026-06-30",
+      "count": 10
+    },
     {
       "date": "2026-06-29",
       "count": 13
