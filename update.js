@@ -461,18 +461,23 @@ function makeCard(m) {
   var venue = m.venue || "";
   var anal = getAnal(hName, aName);
 
-  // Score
-  var hG = m.score && m.score.fullTime ? m.score.fullTime.home : null;
-  var aG = m.score && m.score.fullTime ? m.score.fullTime.away : null;
-  if (hG === null && m.score && m.score.regularTime) { hG = m.score.regularTime.home; aG = m.score.regularTime.away; }
+  // Score — para partidos con penales usar regularTime (90 min real)
+  var penH = m.score && m.score.penalties ? m.score.penalties.home : null;
+  var penA = m.score && m.score.penalties ? m.score.penalties.away : null;
+  var hasPen = penH !== null && penA !== null;
+  var hG, aG;
+  if (hasPen && m.score.regularTime) {
+    hG = m.score.regularTime.home; aG = m.score.regularTime.away;
+  } else {
+    hG = m.score && m.score.fullTime ? m.score.fullTime.home : null;
+    aG = m.score && m.score.fullTime ? m.score.fullTime.away : null;
+    if (hG === null && m.score && m.score.regularTime) { hG = m.score.regularTime.home; aG = m.score.regularTime.away; }
+  }
   if (hG === null && done && m.score) {
     if (m.score.winner === "HOME_TEAM") { hG = 1; aG = 0; }
     else if (m.score.winner === "AWAY_TEAM") { hG = 0; aG = 1; }
     else if (m.score.winner === "DRAW") { hG = 0; aG = 0; }
   }
-  var penH = m.score && m.score.penalties ? m.score.penalties.home : null;
-  var penA = m.score && m.score.penalties ? m.score.penalties.away : null;
-  var hasPen = penH !== null && penA !== null;
   var scoreHTML = "";
   if (done || live) {
     if (hG !== null && aG !== null) {
@@ -1100,10 +1105,13 @@ async function main() {
   function buildSlot(p){
     var m=findKO(p);
     if(m&&m.status==="FINISHED"){
-      var hg=m.score&&m.score.fullTime?m.score.fullTime.home:null;
-      var ag=m.score&&m.score.fullTime?m.score.fullTime.away:null;
+      // Usar regularTime para marcador de 90 min cuando hay penales
       var ph=m.score&&m.score.penalties?m.score.penalties.home:null;
       var pa=m.score&&m.score.penalties?m.score.penalties.away:null;
+      var hasPenSlot=ph!==null&&pa!==null;
+      var hg, ag;
+      if(hasPenSlot&&m.score.regularTime){ hg=m.score.regularTime.home; ag=m.score.regularTime.away; }
+      else { hg=m.score&&m.score.fullTime?m.score.fullTime.home:null; ag=m.score&&m.score.fullTime?m.score.fullTime.away:null; }
       var w=koWinner(m,p);
       var flipped=(m.homeTeam&&m.homeTeam.name||"")!==p.h&&Object.keys(TM).filter(function(k){return k===p.a;}).indexOf(m.homeTeam&&m.homeTeam.name||"")>=0;
       var ga=flipped?ag:hg, gb=flipped?hg:ag;
