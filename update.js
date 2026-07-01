@@ -1432,12 +1432,27 @@ async function main() {
     + '<div style="margin-top:22px;background:#121c30;border:1px solid #1e2d45;border-radius:12px;padding:14px;">'
     + '<h3 style="font-size:12px;color:#94a3b8;margin-bottom:10px;text-transform:uppercase;">🗺 Estructura del torneo</h3>'
     + '<div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#0d2a18;border:1px solid #166534;border-radius:7px;"><span style="font-weight:700;">Fase de Grupos</span><span style="color:#4ade80;">🔴 EN CURSO · hasta 27 Jun</span></div>'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#121c30;border:1px solid #1e2d45;border-radius:7px;"><span>16avos de Final</span><span style="color:#64748b;">29 Jun – 3 Jul</span></div>'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#121c30;border:1px solid #1e2d45;border-radius:7px;"><span>8vos de Final</span><span style="color:#64748b;">5 Jul – 8 Jul</span></div>'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#121c30;border:1px solid #1e2d45;border-radius:7px;"><span>Cuartos de Final</span><span style="color:#64748b;">11–12 Jul</span></div>'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#121c30;border:1px solid #1e2d45;border-radius:7px;"><span>Semifinales</span><span style="color:#64748b;">15–16 Jul</span></div>'
-    + '<div style="display:flex;justify-content:space-between;padding:8px 10px;background:#121c30;border:1px solid #1e2d45;border-radius:7px;"><span style="font-weight:700;color:#fbbf24;">🏆 Final</span><span style="color:#fbbf24;">19 Jul · MetLife, NJ</span></div>'
+    + (function(){
+        var nd = new Date();
+        var phases = [
+          {name:"Fase de Grupos",  dates:"15 Jun – 27 Jun", s:new Date("2026-06-15"), e:new Date("2026-06-28")},
+          {name:"16avos de Final", dates:"28 Jun – 3 Jul",  s:new Date("2026-06-28"), e:new Date("2026-07-04")},
+          {name:"8vos de Final",   dates:"4 Jul – 7 Jul",   s:new Date("2026-07-04"), e:new Date("2026-07-08")},
+          {name:"Cuartos de Final",dates:"9 Jul – 12 Jul",  s:new Date("2026-07-09"), e:new Date("2026-07-13")},
+          {name:"Semifinales",     dates:"14 Jul – 15 Jul", s:new Date("2026-07-14"), e:new Date("2026-07-16")},
+          {name:"🏆 Final",        dates:"19 Jul · MetLife, NJ", s:new Date("2026-07-19"), e:new Date("2026-07-20"), fin:true}
+        ];
+        return phases.map(function(p){
+          var cur = nd >= p.s && nd < p.e;
+          var bg = cur ? "background:#0d2a18;border:1px solid #166534;" : "background:#121c30;border:1px solid #1e2d45;";
+          var nStyle = (cur || p.fin) ? "font-weight:700;" + (p.fin ? "color:#fbbf24;" : "") : "";
+          var dStyle = cur ? "color:#4ade80;" : (p.fin ? "color:#fbbf24;" : "color:#64748b;");
+          var dLabel = cur ? "🔴 EN CURSO · " + p.dates : p.dates;
+          return '<div style="display:flex;justify-content:space-between;padding:8px 10px;' + bg + 'border-radius:7px;">'
+            + '<span style="' + nStyle + '">' + p.name + '</span>'
+            + '<span style="' + dStyle + '">' + dLabel + '</span></div>';
+        }).join("");
+      })()
     + '</div></div></div>'
     // RESULTADOS
     + '<div id="resultados" class="pane"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">'
