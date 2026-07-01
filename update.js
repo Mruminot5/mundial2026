@@ -380,6 +380,14 @@ ANAL["Cabo Verde_Argentina"] = ANAL["Argentina_Cape Verde"];
 ANAL["Colombia_Ghana"]       = {g:"Colombia lideró el Grupo K con 7 pts — Luis Díaz letal, James Rodríguez creativo. Ghana fue 1ero del Grupo J con 7 pts — Mohammed Kudus fue la revelación africana. El partido más parejo del 3 de julio.",go:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia. James Rodríguez el creador. Mohammed Kudus (Ghana) — el más desequilibrante de África en este torneo.",fi:"Luis Díaz (Colombia) — si aparece, Colombia gana cómodo. La diferencia individual más clara.",ap:"Colombia favorita leve · Luis Díaz anota · Partido abierto. Cuota Colombia: 2.0x",pr:"Pred: Colombia 2-1"};
 ANAL["Ghana_Colombia"]       = ANAL["Colombia_Ghana"];
 
+// ── R16 RESULTADOS (sobreescriben el análisis previo) ──
+ANAL["South Africa_Canada"]  = {g:"Canadá avanzó a 8vos eliminando a Sudáfrica en su primer partido eliminatorio mundialista. La actuación colectiva del equipo canadiense fue la clave para superar a los africanos.",go:"Alphonso Davies (Canadá) fue determinante. Jonathan David también peligroso.",fi:"Alphonso Davies (Canadá) — el más desequilibrante, su velocidad fue imparable.",ap:"Partido terminado · Canadá clasifica a 8vos",pr:"✅ Canadá clasifica"};
+ANAL["Canada_South Africa"]  = ANAL["South Africa_Canada"];
+ANAL["Germany_Paraguay"]     = {g:"Paraguay dio el gran batacazo eliminando a Alemania en penales. El partido terminó 1-1 tras 90 minutos (0-1 al descanso). Alemania dominó pero no logró superar a la resistente defensa paraguaya. Paraguay ganó 4-3 en la tanda.",go:"Jamal Musiala (Alemania) marcó el empate. Paraguay aprovechó el mínimo error alemán para igualarlo.",fi:"El portero de Paraguay fue la figura absoluta, deteniendo los penales clave de la tanda.",ap:"Partido terminado · Paraguay clasifica a 8vos",pr:"✅ Paraguay clasifica (1-1, pen 4-3)"};
+ANAL["Paraguay_Germany"]     = ANAL["Germany_Paraguay"];
+ANAL["Netherlands_Morocco"]  = {g:"Marruecos repitió la hazaña de 2022 y eliminó a Países Bajos en penales. El partido terminó 1-1 en tiempo reglamentario. Los Leones del Atlas fueron muy sólidos defensivamente y ganaron 3-2 en la tanda.",go:"Cody Gakpo (Países Bajos) marcó el gol. Marruecos igualó y aguantó hasta los penales.",fi:"El portero de Marruecos fue el héroe absoluto, deteniendo los penales decisivos.",ap:"Partido terminado · Marruecos clasifica a 8vos",pr:"✅ Marruecos clasifica (1-1, pen 3-2)"};
+ANAL["Morocco_Netherlands"]  = ANAL["Netherlands_Morocco"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
@@ -460,6 +468,8 @@ function makeCard(m) {
   var fecha = clDateShort(m.utcDate);
   var venue = m.venue || "";
   var anal = getAnal(hName, aName);
+  // isPostMatch: true cuando ANAL tiene datos del partido real (pr empieza con ✅), false cuando es análisis previo
+  var isPostMatch = anal && anal.pr && anal.pr.indexOf("Pred") !== 0;
 
   // Score — para partidos con penales usar regularTime (90 min real)
   var penH = m.score && m.score.penalties ? m.score.penalties.home : null;
@@ -589,7 +599,7 @@ function makeCard(m) {
         + (goalItemsA.length ? goalItemsA.join("") : '<div style="font-size:10px;color:#475569;padding:2px 0;">–</div>')
         + '</div></div>';
       golesHTML = secBox("#4ade80", "⚽ Goles", gRowsHTML);
-    } else if (anal && anal.go) {
+    } else if (anal && anal.go && isPostMatch) {
       golesHTML = secBox("#fbbf24", "⚽ Goleadores", '<span style="font-size:11px;color:#cbd5e1;line-height:1.7;">' + anal.go + '</span>');
     }
     var tarjHTML = cardItems.length ? secBox("#fbbf24", "🟨 Tarjetas", cardItems.join("")) : "";
@@ -629,11 +639,17 @@ function makeCard(m) {
   var analHTML = "";
   if (anal) {
     if (done) {
-      analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">'
-        + (anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "")
-        + secBox("#4ade80","🎬 Resumen del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + '</span>')
-        + secBox("#60a5fa","⭐ Figura del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + '</span>')
-        + betLink + "</div>";
+      if (isPostMatch) {
+        // Tenemos datos reales del partido → mostrar resumen y figura
+        analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:4px;">'
+          + (anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "")
+          + secBox("#4ade80","🎬 Resumen del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.g + '</span>')
+          + secBox("#60a5fa","⭐ Figura del partido",'<span style="font-size:11px;color:#cbd5e1;line-height:1.6;">' + anal.fi + '</span>')
+          + betLink + "</div>";
+      } else {
+        // Solo análisis previo disponible → no mostrar predicciones como datos reales
+        analHTML = '<div style="margin-top:6px;">' + betLink + '</div>';
+      }
     } else {
       var predHTML = anal.pr ? '<div style="background:linear-gradient(135deg,#1a3a1a,#0a1f0a);border:1px solid #4ade80;border-radius:8px;padding:6px 12px;margin-bottom:6px;text-align:center;font-size:13px;font-weight:800;color:#4ade80;">' + anal.pr + "</div>" : "";
       analHTML = '<div style="display:flex;flex-direction:column;gap:5px;margin-top:8px;">'
@@ -759,8 +775,12 @@ async function main() {
         var espnPool = espnByDate[espnDate].slice();
 
         for (var fdm of dateGroups[espnDate]) {
-          var hScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null;
-          var aScore = fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null;
+          // Para partidos de penales, fullTime de football-data puede ser incorrecto → usar regularTime
+          var hasPensMatch = fdm.score && fdm.score.penalties && fdm.score.penalties.home !== null;
+          var hScore = (hasPensMatch && fdm.score.regularTime) ? fdm.score.regularTime.home
+                     : (fdm.score && fdm.score.fullTime ? fdm.score.fullTime.home : null);
+          var aScore = (hasPensMatch && fdm.score.regularTime) ? fdm.score.regularTime.away
+                     : (fdm.score && fdm.score.fullTime ? fdm.score.fullTime.away : null);
 
           // Buscar partido ESPN por marcador, intentando también con nombres de equipo
           var fdmHome = (fdm.homeTeam && fdm.homeTeam.shortName || fdm.homeTeam && fdm.homeTeam.name || "").toLowerCase();
