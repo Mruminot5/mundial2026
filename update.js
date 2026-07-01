@@ -395,6 +395,16 @@ ANAL["Côte d'Ivoire_Norway"] = ANAL["Ivory Coast_Norway"];
 ANAL["Norway_Côte d'Ivoire"] = ANAL["Ivory Coast_Norway"];
 ANAL["France_Sweden"]        = {g:"Francia goleó 3-0 a Suecia y sigue dominante en el torneo. Mbappé marcó dos veces y Barcola sumó el tercero. Mbappé se convirtió en el máximo goleador histórico en fases eliminatorias de Mundiales con 9 goles.",go:"Kylian Mbappé (Francia) doblete al 45' y 74'. Bradley Barcola (Francia) al 53'. Suecia no pudo hacer nada.",fi:"Kylian Mbappé (Francia) — récord histórico de goles en eliminatorias mundialistas. Inalcanzable.",ap:"Partido terminado · Francia clasifica a 8vos",pr:"✅ Francia 3-0 Suecia"};
 ANAL["Sweden_France"]        = ANAL["France_Sweden"];
+ANAL["Mexico_Ecuador"]       = {g:"México liquidó a Ecuador con una primera media hora perfecta. Quiñones al 22' y Jiménez al 31' dieron el 2-0 que el Tri administró hasta el final. El anfitrión sigue invicto en el torneo.",go:"Roberto Quiñones (México) al 22'. Raúl Jiménez (México) al 31'. Ecuador nunca pudo responder.",fi:"Raúl Jiménez (México) — gol y liderazgo total. El Tri en su mejor nivel en décadas.",ap:"Partido terminado · México clasifica a 8vos",pr:"✅ México 2-0 Ecuador"};
+ANAL["Ecuador_Mexico"]       = ANAL["Mexico_Ecuador"];
+
+// ── 8VOS DE FINAL — análisis previo para partidos confirmados ──
+ANAL["Canada_Morocco"]       = {g:"El choque más sorprendente del torneo: los dos equipos revelación de sus respectivos grupos. Canadá hizo historia con su primera victoria en eliminatoria. Marruecos eliminó a Países Bajos en penales repitiendo la épica de Qatar 2022. Duelo de atrevidos.",go:"Alphonso Davies (Canadá) — la mayor amenaza ofensiva. Jonathan David busca más goles. Achraf Hakimi (Marruecos) — imparable por la banda.",fi:"Achraf Hakimi (Marruecos) — el jugador más desequilibrante de estos 8vos. Si está libre, Marruecos pasa.",ap:"Partido muy parejo · Marruecos leve favorita por experiencia. Cuota empate: 3.0x",pr:"Pred: Marruecos 1-0"};
+ANAL["Morocco_Canada"]       = ANAL["Canada_Morocco"];
+ANAL["Paraguay_France"]      = {g:"Paraguay sorprendió al mundo eliminando a Alemania en penales. Ahora enfrenta a Francia, el equipo más en forma del torneo. Mbappé viene de hacer historia con 9 goles en eliminatorias mundialistas. Paraguay tendrá que hacer el partido perfecto.",go:"Kylian Mbappé (Francia) — 4 goles en el torneo, en estado de gracia. Barcola también amenaza. Delantero paraguayo buscará el milagro.",fi:"Kylian Mbappé (Francia) — si está en el día, el partido se termina en el primer tiempo.",ap:"Francia amplia favorita · Mbappé anota · Más de 2 goles. Cuota Francia: 1.5x",pr:"Pred: Francia 3-0"};
+ANAL["France_Paraguay"]      = ANAL["Paraguay_France"];
+ANAL["Brazil_Norway"]        = {g:"El partido más esperado de los 8vos: Vinícius Jr vs Erling Haaland, los dos mejores delanteros del torneo. Brasil remontó agónicamente a Japón 2-1 con Martinelli al 90+5'. Noruega ganó su primera eliminatoria en Mundiales venciendo 2-1 a Costa de Marfil. El duelo de generaciones.",go:"Vinícius Jr (Brasil) — 3 goles en la fase de grupos, amenaza constante. Erling Haaland (Noruega) — 5 goles en el torneo, imparable en área.",fi:"Erling Haaland (Noruega) — si recibe bien la pelota frente al arco, anota. El más letal del torneo.",ap:"Brasil leve favorita · Ambos anotan · Más de 2.5 goles. Cuota Brasil: 1.9x",pr:"Pred: Brasil 2-1"};
+ANAL["Norway_Brazil"]        = ANAL["Brazil_Norway"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -891,7 +901,7 @@ async function main() {
   // PRÓXIMOS
   cardId = 1000;
   var byDate = {};
-  upcoming.filter(function(m){return !isToday(m.utcDate);}).slice(0,20).forEach(function(m){
+  upcoming.filter(function(m){return !isToday(m.utcDate);}).slice(0,35).forEach(function(m){
     var d = clDateShort(m.utcDate);
     if(!byDate[d]) byDate[d]=[];
     byDate[d].push(m);
