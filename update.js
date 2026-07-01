@@ -465,6 +465,41 @@ function getAnal(home, away) {
   return null;
 }
 
+// ── ALINEACIONES PROBABLES ──
+var ALIN = {};
+ALIN["England_DR Congo"] = {
+  fH:"4-2-3-1", h:["Pickford","O'Reilly","Stones","Konsa","R. James","Rice","E. Anderson","Gordon","Bellingham","Madueke","Kane"],
+  fA:"3-4-1-2", a:["Mpasi","Kapuadi","Mbemba","Tuanzebe","Wan-Bissaka","Moutoussamy","Sadiki","Masuaku","Mukau","Bakambu","Wissa"],
+  tarH:[], tarA:[], tarNote:"Amarillas de fase de grupos borradas. Pizarra limpia en 16avos."
+};
+ALIN["England_Congo DR"]       = ALIN["England_DR Congo"];
+ALIN["Belgium_Senegal"] = {
+  fH:"4-2-3-1", h:["Courtois","Castagne","Mechele","Ngoy","De Cuyper","Vanaken","Tielemans","Doku","De Bruyne","Trossard","De Ketelaere"],
+  fA:"4-3-3",   a:["M. Diaw","Diatta","Seck","Niakhaté","Diouf","I. Gueye","Camara","P. Gueye","Mané","Sarr","I. Ndiaye"],
+  tarH:[], tarA:[], tarNote:"Amarillas de fase de grupos borradas. ⚠️ Mendy (Senegal) lesionado — juega Mory Diaw."
+};
+ALIN["United States_Bosnia and Herzegovina"] = {
+  fH:"4-2-3-1", h:["Freese","Freeman","Richards","Ream","Robinson","Adams","Tillman","Dest","McKennie","Pulisic","Balogun"],
+  fA:"4-4-2",   a:["Vasilj","Memić","Katić","Muharemović","Kolašinac","Alajbegović","Bašić","Šunjić","Bajraktarević","Demirović","Džeko"],
+  tarH:[], tarA:[], tarNote:"Amarillas de fase de grupos borradas. Pizarra limpia en 16avos."
+};
+ALIN["USA_Bosnia and Herzegovina"] = ALIN["United States_Bosnia and Herzegovina"];
+ALIN["USA_Bosnia"]                 = ALIN["United States_Bosnia and Herzegovina"];
+
+function getAlin(home, away) {
+  if (!home || !away) return null;
+  var tries = [home+"_"+away, away+"_"+home];
+  for (var i=0;i<tries.length;i++) { if(ALIN[tries[i]]) return ALIN[tries[i]]; }
+  var keys = Object.keys(ALIN);
+  for (var i=0;i<keys.length;i++) {
+    var p = keys[i].split("_"); if(p.length<2) continue;
+    var kh=p[0].toLowerCase(), ka=p[1].toLowerCase(), sh=home.toLowerCase(), sa=away.toLowerCase();
+    if((sh.indexOf(kh)>=0||kh.indexOf(sh)>=0)&&(sa.indexOf(ka)>=0||ka.indexOf(sa)>=0)) return ALIN[keys[i]];
+    if((sh.indexOf(ka)>=0||ka.indexOf(sh)>=0)&&(sa.indexOf(kh)>=0||kh.indexOf(sa)>=0)) return ALIN[keys[i]];
+  }
+  return null;
+}
+
 var cardId = 0;
 function makeCard(m) {
   cardId++;
@@ -486,6 +521,7 @@ function makeCard(m) {
   var fecha = clDateShort(m.utcDate);
   var venue = m.venue || "";
   var anal = getAnal(hName, aName);
+  var alin = getAlin(hName, aName);
   // isPostMatch: true cuando ANAL tiene datos del partido real (pr empieza con ✅), false cuando es análisis previo
   var isPostMatch = anal && anal.pr && anal.pr.indexOf("Pred") !== 0;
 
@@ -680,8 +716,40 @@ function makeCard(m) {
     }
   }
 
+  // ── Alineación probable (solo para próximos) ──
+  var lineupHTML = "";
+  if (!done && !live && alin) {
+    var playerRow = function(players, flipped) {
+      return players.map(function(p, i) {
+        return '<div style="display:flex;align-items:center;gap:4px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,0.04);">'
+          + (flipped
+            ? '<span style="flex:1;font-size:11px;color:#e2e8f0;text-align:right;">' + p + '</span><span style="font-size:10px;color:#4ade80;min-width:16px;text-align:right;">' + (i+1) + '</span>'
+            : '<span style="font-size:10px;color:#4ade80;min-width:16px;">' + (i+1) + '</span><span style="flex:1;font-size:11px;color:#e2e8f0;">' + p + '</span>')
+          + '</div>';
+      }).join("");
+    };
+    var lineupInner = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">'
+      + '<div style="padding-right:8px;border-right:1px solid rgba(255,255,255,0.06);">'
+      + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:4px;">' + hF + ' ' + hN + '<span style="color:#64748b;margin-left:4px;">(' + alin.fH + ')</span></div>'
+      + playerRow(alin.h, false)
+      + '</div>'
+      + '<div style="padding-left:8px;">'
+      + '<div style="font-size:9px;color:#94a3b8;font-weight:700;margin-bottom:4px;">' + aF + ' ' + aN + '<span style="color:#64748b;margin-left:4px;">(' + alin.fA + ')</span></div>'
+      + playerRow(alin.a, false)
+      + '</div>'
+      + '</div>'
+      + (alin.tarNote ? '<div style="margin-top:7px;padding:5px 8px;background:rgba(251,191,36,0.08);border-left:3px solid #fbbf24;border-radius:4px;font-size:10px;color:#fbbf24;">' + alin.tarNote + '</div>' : '')
+      + (alin.tarH && alin.tarH.length ? '<div style="margin-top:4px;font-size:10px;color:#f87171;">🟨 ' + hN + ': ' + alin.tarH.join(", ") + '</div>' : '')
+      + (alin.tarA && alin.tarA.length ? '<div style="margin-top:2px;font-size:10px;color:#f87171;">🟨 ' + aN + ': ' + alin.tarA.join(", ") + '</div>' : '');
+    lineupHTML = '<div style="margin-bottom:8px;background:rgba(0,0,0,0.18);border-radius:8px;overflow:hidden;">'
+      + '<div style="padding:4px 9px;background:rgba(0,0,0,0.25);font-size:9px;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.5px;">👥 Alineaciones probables</div>'
+      + '<div style="padding:8px 9px;">' + lineupInner + '</div>'
+      + '</div>';
+  }
+
   var detailHTML = '<div id="' + cid + '" style="display:none;margin-top:10px;border-top:1px solid #1e2d45;padding-top:9px;">'
     + statsHTML
+    + lineupHTML
     + '<div style="font-size:10px;color:#64748b;margin-bottom:' + (analHTML ? "8px" : "0") + ';">📅 ' + fecha + " · 🕐 " + hora + " Chile" + (venue ? " · 🏟 " + venue : "") + "</div>"
     + analHTML
     + "</div>";
