@@ -929,15 +929,31 @@ async function main() {
 
   // RESULTADOS 16AVOS — usar makeCard si la API ya los tiene, si no mostrar tabla estática
   var finishedKO = finished.filter(function(m){ return !m.group; });
+  // Ordenar ascendente por fecha para mostrar cronológicamente
+  var finishedKOAsc = finishedKO.slice().sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var resultados16HTML;
-  if(finishedKO.length > 0){
+  if(finishedKOAsc.length > 0){
+    // Agrupar por fecha (primeros 10 chars del utcDate)
+    var koByDate = {};
+    var koDateOrder = [];
+    finishedKOAsc.forEach(function(m){
+      var dk = m.utcDate.substring(0,10);
+      if(!koByDate[dk]){ koByDate[dk]=[]; koDateOrder.push(dk); }
+      koByDate[dk].push(m);
+    });
+    var koDateBlocks = koDateOrder.map(function(dk){
+      var label = clDateShort(dk + "T12:00:00Z");
+      return '<div style="margin-bottom:10px;">'
+        + '<div style="font-size:11px;color:#4ade80;font-weight:700;margin:4px 0 6px;">'
+        + '<span style="background:#0d2a18;border-radius:4px;padding:2px 8px;border:1px solid #166534;">📅 ' + label + '</span></div>'
+        + koByDate[dk].map(function(m){return makeCard(m);}).join("")
+        + '</div>';
+    }).join("");
     resultados16HTML = '<div style="background:#121c30;border-radius:10px;border:1px solid #1e2d45;overflow:hidden;margin-bottom:10px;">'
       + '<div style="padding:12px 13px;border-bottom:1px solid #1e2d45;display:flex;align-items:center;justify-content:space-between;">'
       + '<div style="font-size:14px;font-weight:800;color:#fff;">🏆 Resultados 16avos</div>'
-      + '<div style="font-size:10px;color:#4ade80;">' + finishedKO.length + ' jugados</div></div>'
-      + '<div style="padding:10px;">'
-      + finishedKO.map(function(m){return makeCard(m);}).join("")
-      + '</div></div>';
+      + '<div style="font-size:10px;color:#4ade80;">' + finishedKOAsc.length + ' jugados</div></div>'
+      + '<div style="padding:10px;">' + koDateBlocks + '</div></div>';
   } else {
     var r16Row = function(fecha,flag1,eq1,g1,g2,flag2,eq2,pen,estadio){
       var score = (g1!==null&&g2!==null) ? ('<span style="font-size:16px;font-weight:900;color:#4ade80;letter-spacing:2px;padding:0 8px;">' + g1 + ' - ' + g2 + (pen?'<span style="font-size:9px;color:#fbbf24;margin-left:4px;">'+pen+'</span>':'') + '</span>') : '<span style="font-size:10px;color:#fbbf24;background:#1a2000;border:1px solid #3a4000;border-radius:4px;padding:2px 7px;">Pendiente</span>';
