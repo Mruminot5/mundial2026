@@ -1052,7 +1052,7 @@ async function main() {
       if(!koByDate[dk]){ koByDate[dk]=[]; koDateOrder.push(dk); }
       koByDate[dk].push(m);
     });
-    var koDateBlocks = koDateOrder.map(function(dk){
+    var koDateBlocks = koDateOrder.slice().reverse().map(function(dk){
       var label = clDateShort(dk + "T12:00:00Z");
       return '<div style="margin-bottom:10px;">'
         + '<div style="font-size:11px;color:#4ade80;font-weight:700;margin:4px 0 6px;">'
