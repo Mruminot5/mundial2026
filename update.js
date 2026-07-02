@@ -403,10 +403,13 @@ ANAL["DR Congo_England"]     = ANAL["England_DR Congo"];
 ANAL["Congo DR_England"]     = ANAL["England_DR Congo"];
 ANAL["Belgium_Senegal"]      = {g:"Bélgica sufrió enormemente para eliminar a Senegal 3-2 en la prórroga. Los africanos dominaron 2-0 hasta el 86', pero dos goles en 3 minutos forzaron el alargue. Tielemans marcó el penal decisivo en el tiempo extra.",go:"Habib Diarra (Senegal) al 24'. Ismaila Sarr (Senegal) al 51'. Bélgica empató en el 86' y 89'. Tielemans (Bélgica) penal en prórroga.",fi:"Tielemans (Bélgica) — el penal de la clasificación. La remontada más épica del torneo.",ap:"Partido terminado · Bélgica clasifica a 8vos vs EE.UU.",pr:"✅ Bélgica 3-2 Senegal (ET)"};
 ANAL["Senegal_Belgium"]      = ANAL["Belgium_Senegal"];
-ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia y llegó a su quinto partido mundialista seguido. Balogun anotó pero luego vio la roja — el héroe y el villano del partido. EE.UU. sufrió pero clasificó.",go:"Folarin Balogun (EE.UU.) marcó y fue expulsado. Otro goleador completó el marcador.",fi:"El colectivo de EE.UU. — sostuvieron el resultado con 10 hombres. Gran disciplina táctica.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica. ⚠️ Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
-ANAL["Bosnia and Herzegovina_USA"] = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["USA_Bosnia and Herzegovina"] = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["USA_Bosnia"]           = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia con 10 hombres. Balogun abrió el marcador pero fue expulsado por roja. Tillman selló el 2-0 de tiro libre en el descanso. Épica remontada defensiva.",go:"Folarin Balogun (EE.UU.) gol y roja. Malik Tillman (EE.UU.) golazo de tiro libre para el 2-0.",fi:"Malik Tillman (EE.UU.) — su golazo de tiro libre con 10 hombres fue el más importante del partido.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica (6 jul). ⚠️ Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
+ANAL["Bosnia and Herzegovina_USA"]       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia and Herzegovina"]       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia"]                       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["United States_Bosnia"]             = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia_United States"]             = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia and Herzegovina_United States"] = ANAL["United States_Bosnia and Herzegovina"];
 
 // ── 8VOS DE FINAL — análisis previo para partidos confirmados ──
 ANAL["Canada_Morocco"]       = {g:"El choque más sorprendente del torneo: los dos equipos revelación. Canadá hizo historia con su primera victoria eliminatoria. Marruecos eliminó a Países Bajos en penales repitiendo la épica de 2022.",go:"Alphonso Davies (Canadá) — la mayor amenaza. Jonathan David busca más goles. Achraf Hakimi (Marruecos) — imparable por banda.",fi:"Achraf Hakimi (Marruecos) — el más desequilibrante. Si está libre, Marruecos pasa.",ap:"Partido muy parejo · Marruecos leve favorita. Cuota empate: 3.0x",pr:"Pred: Marruecos 1-0"};
