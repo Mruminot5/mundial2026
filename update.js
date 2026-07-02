@@ -405,6 +405,7 @@ ANAL["Belgium_Senegal"]      = {g:"Bélgica sufrió enormemente para eliminar a 
 ANAL["Senegal_Belgium"]      = ANAL["Belgium_Senegal"];
 ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia y llegó a su quinto partido mundialista seguido. Balogun anotó pero luego vio la roja — el héroe y el villano del partido. EE.UU. sufrió pero clasificó.",go:"Folarin Balogun (EE.UU.) marcó y fue expulsado. Otro goleador completó el marcador.",fi:"El colectivo de EE.UU. — sostuvieron el resultado con 10 hombres. Gran disciplina táctica.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica. ⚠️ Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
 ANAL["Bosnia and Herzegovina_USA"] = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia and Herzegovina"] = ANAL["United States_Bosnia and Herzegovina"];
 ANAL["USA_Bosnia"]           = ANAL["United States_Bosnia and Herzegovina"];
 
 // ── 8VOS DE FINAL — análisis previo para partidos confirmados ──
