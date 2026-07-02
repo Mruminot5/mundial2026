@@ -397,14 +397,29 @@ ANAL["France_Sweden"]        = {g:"Francia goleó 3-0 a Suecia y sigue dominante
 ANAL["Sweden_France"]        = ANAL["France_Sweden"];
 ANAL["Mexico_Ecuador"]       = {g:"México liquidó a Ecuador con una primera media hora perfecta. Quiñones al 22' y Jiménez al 31' dieron el 2-0 que el Tri administró hasta el final. El anfitrión sigue invicto en el torneo.",go:"Roberto Quiñones (México) al 22'. Raúl Jiménez (México) al 31'. Ecuador nunca pudo responder.",fi:"Raúl Jiménez (México) — gol y liderazgo total. El Tri en su mejor nivel en décadas.",ap:"Partido terminado · México clasifica a 8vos",pr:"✅ México 2-0 Ecuador"};
 ANAL["Ecuador_Mexico"]       = ANAL["Mexico_Ecuador"];
+ANAL["England_DR Congo"]     = {g:"Inglaterra remontó 2-1 a Congo DR tras ir perdiendo. Brian Cipenga sorprendió al minuto 7, pero Harry Kane apareció dos veces en el segundo tiempo para clasificar a los Tres Leones.",go:"Brian Cipenga (Congo DR) al 7'. Harry Kane (Inglaterra) doblete en el 2do tiempo — el capitán cuando más se necesita.",fi:"Harry Kane (Inglaterra) — dos goles de pura frialdad para remontar el partido.",ap:"Partido terminado · Inglaterra clasifica a 8vos vs México",pr:"✅ Inglaterra 2-1 Congo DR"};
+ANAL["England_Congo DR"]     = ANAL["England_DR Congo"];
+ANAL["DR Congo_England"]     = ANAL["England_DR Congo"];
+ANAL["Congo DR_England"]     = ANAL["England_DR Congo"];
+ANAL["Belgium_Senegal"]      = {g:"Bélgica sufrió enormemente para eliminar a Senegal 3-2 en la prórroga. Los africanos dominaron 2-0 hasta el 86', pero dos goles en 3 minutos forzaron el alargue. Tielemans marcó el penal decisivo en el tiempo extra.",go:"Habib Diarra (Senegal) al 24'. Ismaila Sarr (Senegal) al 51'. Bélgica empató en el 86' y 89'. Tielemans (Bélgica) penal en prórroga.",fi:"Tielemans (Bélgica) — el penal de la clasificación. La remontada más épica del torneo.",ap:"Partido terminado · Bélgica clasifica a 8vos vs EE.UU.",pr:"✅ Bélgica 3-2 Senegal (ET)"};
+ANAL["Senegal_Belgium"]      = ANAL["Belgium_Senegal"];
+ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia y llegó a su quinto partido mundialista seguido. Balogun anotó pero luego vio la roja — el héroe y el villano del partido. EE.UU. sufrió pero clasificó.",go:"Folarin Balogun (EE.UU.) marcó y fue expulsado. Otro goleador completó el marcador.",fi:"El colectivo de EE.UU. — sostuvieron el resultado con 10 hombres. Gran disciplina táctica.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica. ⚠️ Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
+ANAL["Bosnia and Herzegovina_USA"] = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia"]           = ANAL["United States_Bosnia and Herzegovina"];
 
 // ── 8VOS DE FINAL — análisis previo para partidos confirmados ──
-ANAL["Canada_Morocco"]       = {g:"El choque más sorprendente del torneo: los dos equipos revelación de sus respectivos grupos. Canadá hizo historia con su primera victoria en eliminatoria. Marruecos eliminó a Países Bajos en penales repitiendo la épica de Qatar 2022. Duelo de atrevidos.",go:"Alphonso Davies (Canadá) — la mayor amenaza ofensiva. Jonathan David busca más goles. Achraf Hakimi (Marruecos) — imparable por la banda.",fi:"Achraf Hakimi (Marruecos) — el jugador más desequilibrante de estos 8vos. Si está libre, Marruecos pasa.",ap:"Partido muy parejo · Marruecos leve favorita por experiencia. Cuota empate: 3.0x",pr:"Pred: Marruecos 1-0"};
+ANAL["Canada_Morocco"]       = {g:"El choque más sorprendente del torneo: los dos equipos revelación. Canadá hizo historia con su primera victoria eliminatoria. Marruecos eliminó a Países Bajos en penales repitiendo la épica de 2022.",go:"Alphonso Davies (Canadá) — la mayor amenaza. Jonathan David busca más goles. Achraf Hakimi (Marruecos) — imparable por banda.",fi:"Achraf Hakimi (Marruecos) — el más desequilibrante. Si está libre, Marruecos pasa.",ap:"Partido muy parejo · Marruecos leve favorita. Cuota empate: 3.0x",pr:"Pred: Marruecos 1-0"};
 ANAL["Morocco_Canada"]       = ANAL["Canada_Morocco"];
-ANAL["Paraguay_France"]      = {g:"Paraguay sorprendió al mundo eliminando a Alemania en penales. Ahora enfrenta a Francia, el equipo más en forma del torneo. Mbappé viene de hacer historia con 9 goles en eliminatorias mundialistas. Paraguay tendrá que hacer el partido perfecto.",go:"Kylian Mbappé (Francia) — 4 goles en el torneo, en estado de gracia. Barcola también amenaza. Delantero paraguayo buscará el milagro.",fi:"Kylian Mbappé (Francia) — si está en el día, el partido se termina en el primer tiempo.",ap:"Francia amplia favorita · Mbappé anota · Más de 2 goles. Cuota Francia: 1.5x",pr:"Pred: Francia 3-0"};
+ANAL["Paraguay_France"]      = {g:"Paraguay eliminó a Alemania en penales — el batacazo del torneo. Ahora enfrenta a Francia, la selección más en forma. Mbappé viene de hacer historia con 9 goles en eliminatorias mundialistas. Paraguay tendrá que hacer el partido perfecto.",go:"Kylian Mbappé (Francia) — 4 goles en el torneo, en estado de gracia. Barcola también amenaza.",fi:"Kylian Mbappé (Francia) — si está en el día, el partido se termina en el primer tiempo.",ap:"Francia amplia favorita · Mbappé anota · Más de 2 goles. Cuota Francia: 1.5x",pr:"Pred: Francia 3-0"};
 ANAL["France_Paraguay"]      = ANAL["Paraguay_France"];
-ANAL["Brazil_Norway"]        = {g:"El partido más esperado de los 8vos: Vinícius Jr vs Erling Haaland, los dos mejores delanteros del torneo. Brasil remontó agónicamente a Japón 2-1 con Martinelli al 90+5'. Noruega ganó su primera eliminatoria en Mundiales venciendo 2-1 a Costa de Marfil. El duelo de generaciones.",go:"Vinícius Jr (Brasil) — 3 goles en la fase de grupos, amenaza constante. Erling Haaland (Noruega) — 5 goles en el torneo, imparable en área.",fi:"Erling Haaland (Noruega) — si recibe bien la pelota frente al arco, anota. El más letal del torneo.",ap:"Brasil leve favorita · Ambos anotan · Más de 2.5 goles. Cuota Brasil: 1.9x",pr:"Pred: Brasil 2-1"};
+ANAL["Brazil_Norway"]        = {g:"El duelo de goleadores del torneo: Vinícius Jr vs Erling Haaland. Brasil remontó agónicamente a Japón con Martinelli al 90+5'. Noruega venció 2-1 a Costa de Marfil con Haaland decisivo. El partido más atractivo de los 8vos.",go:"Vinícius Jr (Brasil) — 3 goles en grupos, amenaza constante. Erling Haaland (Noruega) — 5 goles, imparable en área.",fi:"Erling Haaland (Noruega) — si recibe bien frente al arco, anota. El más letal del torneo.",ap:"Brasil leve favorita · Ambos anotan · Más de 2.5 goles. Cuota Brasil: 1.9x",pr:"Pred: Brasil 2-1"};
 ANAL["Norway_Brazil"]        = ANAL["Brazil_Norway"];
+ANAL["England_Mexico"]       = {g:"El duelo más esperado de los 8vos: Inglaterra eliminó a Congo DR remontando 2-1, México arrasó en grupos con 9 pts y goleó 2-0 a Ecuador. Dos anfitriones potentes que se miden en un choque histórico.",go:"Harry Kane (Inglaterra) — dos goles de remontada ante Congo. Alexis Vega y Quiñones (México) en gran nivel.",fi:"Jude Bellingham (Inglaterra) — el jugador más completo del torneo. Si aparece, Inglaterra gana.",ap:"Partido muy parejo · Ambos anotan · Sin empate. Cuota empate: 3.2x",pr:"Pred: Inglaterra 2-1"};
+ANAL["Mexico_England"]       = ANAL["England_Mexico"];
+ANAL["United States_Belgium"] = {g:"EE.UU. venció 2-0 a Bosnia aunque terminó con 10 hombres (roja de Balogun). Bélgica sufrió la remontada más épica del torneo: de 0-2 a 3-2 en la prórroga ante Senegal. Dos equipos golpeados que van a todo. ⚠️ Balogun SUSPENDIDO para EE.UU.",go:"Balogun suspendido — Pulisic liderará el ataque de EE.UU. Tielemans y De Bruyne (Bélgica) como cerebros.",fi:"Kevin De Bruyne (Bélgica) — si aparece en su mejor versión, Bélgica gana cómodo.",ap:"Bélgica favorita leve · De Bruyne decisivo. Cuota Bélgica: 1.9x",pr:"Pred: Bélgica 2-1"};
+ANAL["Belgium_United States"] = ANAL["United States_Belgium"];
+ANAL["Belgium_USA"]           = ANAL["United States_Belgium"];
+ANAL["USA_Belgium"]           = ANAL["United States_Belgium"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -485,6 +500,24 @@ ALIN["United States_Bosnia and Herzegovina"] = {
 };
 ALIN["USA_Bosnia and Herzegovina"] = ALIN["United States_Bosnia and Herzegovina"];
 ALIN["USA_Bosnia"]                 = ALIN["United States_Bosnia and Herzegovina"];
+ALIN["Spain_Austria"] = {
+  fH:"4-3-3",   h:["Unai Simón","Llorente","Cubarsí","Laporte","Cucurella","Pedri","Rodri","Dani Olmo","L. Yamal","Oyarzabal","Álex Baena"],
+  fA:"4-2-3-1", a:["Schlager","Posch","Alaba","Lienhart","Mwene","X. Schlager","Seiwald","Sabitzer","Schmid","Laimer","Arnautovic"],
+  tarH:[], tarA:[], tarNote:"Pizarra limpia. España llega como favorita con todo su once titular."
+};
+ALIN["Austria_Spain"] = ALIN["Spain_Austria"];
+ALIN["Portugal_Croatia"] = {
+  fH:"4-2-3-1", h:["D. Costa","Dalot","R. Dias","G. Inácio","Nuno Mendes","J. Neves","Vitinha","F. Conceição","B. Fernandes","R. Leão","Cristiano Ronaldo"],
+  fA:"4-2-3-1", a:["Livaković","Stanišić","Caleta-Car","Gvardiol","Erlić","Kovačić","Modrić","P. Sučić","Pašalić","Vlašić","Kramarić"],
+  tarH:[], tarA:[], tarNote:"⚠️ Modrić (Croacia) en duda por molestias. El duelo más parejo del día."
+};
+ALIN["Croatia_Portugal"] = ALIN["Portugal_Croatia"];
+ALIN["Switzerland_Algeria"] = {
+  fH:"4-2-3-1", h:["Kobel","R. Rodríguez","Akanji","Elvedi","Jacquet","Xhaka","Freuler","Vargas","Manzambi","Sow","Embolo"],
+  fA:"4-2-3-1", a:["L. Zidane","Belghali","Mandi","Bensebaini","Aït-Nouri","Bentaleb","Chaïbi","Mahrez","Maza","Aouar","Gouiri"],
+  tarH:[], tarA:[], tarNote:"⚠️ Manzambi (Suiza) lleva 3 goles en el torneo — su mejor versión. Mahrez (Argelia) capitán y referente."
+};
+ALIN["Algeria_Switzerland"] = ALIN["Switzerland_Algeria"];
 
 function getAlin(home, away) {
   if (!home || !away) return null;
