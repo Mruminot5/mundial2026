@@ -425,6 +425,14 @@ ANAL["Belgium_United States"] = ANAL["United States_Belgium"];
 ANAL["Belgium_USA"]           = ANAL["United States_Belgium"];
 ANAL["USA_Belgium"]           = ANAL["United States_Belgium"];
 
+ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia con 10 hombres. Balogun abrió el marcador pero fue expulsado por roja. Tillman selló el 2-0 de tiro libre en el descanso. Épica remontada defensiva.",go:"Folarin Balogun (EE.UU.) gol y roja. Malik Tillman (EE.UU.) golazo de tiro libre para el 2-0.",fi:"Malik Tillman (EE.UU.) — su golazo de tiro libre con 10 hombres fue el más importante del partido.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica (6 jul). Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
+ANAL["Bosnia and Herzegovina_USA"]       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia and Herzegovina"]       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["USA_Bosnia"]                       = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["United States_Bosnia"]             = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia_United States"]             = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia and Herzegovina_United States"] = ANAL["United States_Bosnia and Herzegovina"];
+
 function getAnal(home, away) {
   if (!home || !away) return null;
   // Normalizar apostrofes y caracteres especiales
