@@ -1,8 +1,8 @@
 {
-  "ts": "2026-07-03T08:38:32.253Z",
+  "ts": "2026-07-03T09:44:56.922Z",
   "finishedCount": 85,
-  "toFetchCount": 3,
-  "cacheSize": 83,
+  "toFetchCount": 1,
+  "cacheSize": 85,
   "firstFinishedIds": [
     537429,
     537419,
@@ -10,89 +10,14 @@
     537421,
     537422
   ],
-  "toFetchCount2": 3,
+  "toFetchCount2": 1,
   "toFetchSample": [
-    537429,
-    537419,
     537421
   ],
   "espnDates": [
     {
-      "date": "2026-07-03",
-      "count": 11
-    },
-    {
       "date": "2026-07-02",
       "count": 12
     }
-  ],
-  "espnSampleStats": [
-    {
-      "team": "Switzerland",
-      "stats": [
-        "foulsCommitted=10",
-        "yellowCards=0",
-        "redCards=0",
-        "offsides=0",
-        "wonCorners=4",
-        "saves=2",
-        "possessionPct=44.5",
-        "totalShots=11",
-        "shotsOnTarget=5",
-        "shotPct=0.5",
-        "penaltyKickGoals=0",
-        "penaltyKickShots=0",
-        "accuratePasses=355",
-        "totalPasses=438",
-        "passPct=0.8",
-        "accurateCrosses=4",
-        "totalCrosses=14",
-        "crossPct=0.3",
-        "totalLongBalls=52",
-        "accurateLongBalls=21",
-        "longballPct=0.4",
-        "blockedShots=2",
-        "effectiveTackles=14",
-        "totalTackles=20",
-        "tacklePct=0.7",
-        "interceptions=17",
-        "effectiveClearance=23",
-        "totalClearance=23"
-      ]
-    },
-    {
-      "team": "Algeria",
-      "stats": [
-        "foulsCommitted=12",
-        "yellowCards=2",
-        "redCards=0",
-        "offsides=2",
-        "wonCorners=2",
-        "saves=2",
-        "possessionPct=55.5",
-        "totalShots=8",
-        "shotsOnTarget=2",
-        "shotPct=0.3",
-        "penaltyKickGoals=0",
-        "penaltyKickShots=0",
-        "accuratePasses=478",
-        "totalPasses=563",
-        "passPct=0.8",
-        "accurateCrosses=1",
-        "totalCrosses=6",
-        "crossPct=0.2",
-        "totalLongBalls=63",
-        "accurateLongBalls=29",
-        "longballPct=0.5",
-        "blockedShots=3",
-        "effectiveTackles=9",
-        "totalTackles=21",
-        "tacklePct=0.4",
-        "interceptions=10",
-        "effectiveClearance=14",
-        "totalClearance=14"
-      ]
-    }
-  ],
-  "espnSamplePlays": []
+  ]
 }
