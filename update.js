@@ -523,6 +523,30 @@ ALIN["Switzerland_Algeria"] = {
 };
 ALIN["Algeria_Switzerland"] = ALIN["Switzerland_Algeria"];
 
+// --- 3 julio ---
+ALIN["Australia_Egypt"] = {
+  fH:"3-4-2-1", h:["Beach","Circati","Souttar","Herrington","Bos","Irvine","O'Neill","Behich","Volpato","Metcalfe","Irankunda"],
+  fA:"4-2-3-1", a:["Shobeir","M. Hany","Y. Ibrahim","Rabia","Hafez","Ateya","Fathy","Ziko","Salah","Ashour","Marmoush"],
+  tarH:[], tarA:[], tarNote:"Australia sale con sistema de 3 centrales. Irankunda (19 años) como punta. Egipto con Salah+Marmoush como dupla letal."
+};
+ALIN["Egypt_Australia"] = ALIN["Australia_Egypt"];
+
+ALIN["Argentina_Cape Verde"] = {
+  fH:"4-2-3-1", h:["E. Martínez","Molina","C. Romero","Lis. Martínez","Medina","Mac Allister","E. Fernández","De Paul","Almada","Messi","Lautaro"],
+  fA:"4-1-4-1", a:["Vozinha","Moreira","Pico","Diney","S. Cabral","Lenini","R. Mendes","Duarte","Monteiro","J. Cabral","Livramento"],
+  tarH:[], tarA:[], tarNote:"Messi busca su primer 16avos a los 38 años. Cabo Verde sorpresa del torneo — Vozinha figura bajo palos."
+};
+ALIN["Cape Verde_Argentina"]  = ALIN["Argentina_Cape Verde"];
+ALIN["Argentina_Cabo Verde"]  = ALIN["Argentina_Cape Verde"];
+ALIN["Cabo Verde_Argentina"]  = ALIN["Argentina_Cape Verde"];
+
+ALIN["Colombia_Ghana"] = {
+  fH:"4-3-3", h:["Vargas","Muñoz","Lucumí","Sánchez","Mojica","Lerma","Puerta","Arias","J. Rodríguez","Suárez","L. Díaz"],
+  fA:"4-5-1", a:["Asare","Senaya","Adjetey","Luckassen","Mensah","Sulemana","Partey","Owusu","Sibo","Semenyo","Ayew"],
+  tarH:[], tarA:[], tarNote:"James Rodríguez y Luis Díaz lideran a Colombia. Thomas Partey ancla el mediocampo ghanés. ⚠️ Zigi (portero titular Ghana) lesionado, juega Asare."
+};
+ALIN["Ghana_Colombia"] = ALIN["Colombia_Ghana"];
+
 function getAlin(home, away) {
   if (!home || !away) return null;
   var tries = [home+"_"+away, away+"_"+home];
