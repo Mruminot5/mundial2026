@@ -900,6 +900,9 @@ async function main() {
   };
   try { fs.writeFileSync("af_debug.json", JSON.stringify(afDebug, null, 2)); } catch(e) {}
 
+  // Mapeo manual fd match ID → ESPN event ID (para partidos R32 con nombres genéricos en scoreboard)
+  var MANUAL_ESPN_IDS = { "537421": "760494" };
+
   if (toFetch.length > 0) {
     // Agrupar por fecha UTC
     var dateGroups = {};
@@ -949,6 +952,24 @@ async function main() {
           // Buscar partido ESPN por marcador, intentando también con nombres de equipo
           var fdmHome = (fdm.homeTeam && fdm.homeTeam.shortName || fdm.homeTeam && fdm.homeTeam.name || "").toLowerCase();
           var fdmAway = (fdm.awayTeam && fdm.awayTeam.shortName || fdm.awayTeam && fdm.awayTeam.name || "").toLowerCase();
+
+          // Bypass: si hay ID manual, saltar búsqueda por score y fetchear directo
+          var manualEspnId = MANUAL_ESPN_IDS[String(fdm.id)];
+          if (manualEspnId) {
+            console.log("ESPN: ID manual " + manualEspnId + " para " + (fdm.homeTeam&&fdm.homeTeam.name) + " vs " + (fdm.awayTeam&&fdm.awayTeam.name));
+            try {
+              var summary = await getESPN("summary?event=" + manualEspnId);
+              statsCache[String(fdm.id)] = {
+                espnId: String(manualEspnId),
+                events: mapESPNEvents(summary),
+                stats:  mapESPNStats(summary)
+              };
+            } catch(e) {
+              console.log("ESPN manual error: " + e.message);
+              statsCache[String(fdm.id)] = { notFound: true };
+            }
+            continue;
+          }
 
           var espnIdx = -1;
           espnPool.forEach(function(e, i) {
