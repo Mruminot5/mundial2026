@@ -427,6 +427,12 @@ ANAL["United States_Belgium"] = {g:"EE.UU. venció 2-0 a Bosnia aunque terminó 
 ANAL["Belgium_United States"] = ANAL["United States_Belgium"];
 ANAL["Belgium_USA"]           = ANAL["United States_Belgium"];
 ANAL["USA_Belgium"]           = ANAL["United States_Belgium"];
+ANAL["Spain_Portugal"]        = {g:"El Derby Ibérico más importante de la historia: el primer España vs Portugal en un Mundial. España arrasó 3-0 a Austria con Oyarzabal magistral. Portugal remontó agónicamente a Croacia con Ramos al 90+4'. Duelo de sistemas perfectos contra jerarquía histórica.",go:"Lamine Yamal (España) — el niño prodigio que desborda a cualquier marcador. Cristiano Ronaldo (Portugal) — penal y liderazgo. Rodri el metrónomo español.",fi:"Lamine Yamal (España) — 17 años haciendo historia. Si está libre, España gana cómodo.",ap:"España favorita leve · Ambos anotan · Gol de Ronaldo. Cuota España: 1.8x",pr:"Pred: España 2-1"};
+ANAL["Portugal_Spain"]        = ANAL["Spain_Portugal"];
+ANAL["Argentina_Switzerland"] = {g:"Argentina llegó sufriendo tras el épico 3-2 (AET) ante Cabo Verde con Messi en modo histórico (7 goles). Suiza fue sólida y contundente: 2-0 a Argelia sin complicaciones. La Albiceleste tiene más jerarquía pero viene desgastada de la prórroga.",go:"Lionel Messi (Argentina) — 7 goles en el torneo, imparable. Xherdan Shaqiri (Suiza) — creativo y peligroso. Embolo amenaza el área.",fi:"Lionel Messi (Argentina) — el mejor del mundo cuando el torneo lo necesita. Si aparece, Argentina gana.",ap:"Argentina favorita · Messi anota · 1+ goles Suiza. Cuota Argentina: 1.6x",pr:"Pred: Argentina 2-1"};
+ANAL["Switzerland_Argentina"] = ANAL["Argentina_Switzerland"];
+ANAL["Egypt_Colombia"]        = {g:"Egipto es el equipo revelación del torneo: primera vez en 8vos, Salah con panenka épico en penales. Colombia venció 1-0 a Ghana con Arias, pero James Rodríguez salió lesionado. El partido del corazón vs la táctica.",go:"Mohamed Salah (Egipto) — el capitán histórico que inspiró la clasificación. Jhon Arias (Colombia) — autor del gol vs Ghana. ⚠️ James Rodríguez en duda.",fi:"Mohamed Salah (Egipto) — si está en el día, el partido es otro. Su panenka fue icónica.",ap:"Colombia favorita leve · Salah anota · Sin empate. ⚠️ Confirmar estado de James. Cuota Colombia: 1.8x",pr:"Pred: Colombia 2-1"};
+ANAL["Colombia_Egypt"]        = ANAL["Egypt_Colombia"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -563,6 +569,46 @@ ALIN["Paraguay_France"] = {
   tarH:[], tarA:[], tarNote:"Paraguay eliminó a Alemania en penales — el batacazo del torneo. Francia sin conceder en 8vos históricos. Mbappé en estado de gracia con 4 goles. Francia amplísima favorita."
 };
 ALIN["France_Paraguay"] = ALIN["Paraguay_France"];
+
+// --- 8vos restantes ---
+ALIN["Brazil_Norway"] = {
+  fH:"4-2-3-1", h:["Ederson","Militao","Marquinhos","Gabriel","Guilherme","Casemiro","Gomes","Raphinha","Rodrygo","Vinicius Jr","Endrick"],
+  fA:"4-3-3", a:["Nyland","Ryerson","Ostigard","Skjelvik","Meling","Aursnes","Amdouni","Odegaard","Nusa","Haaland","Sorloth"],
+  tarH:[], tarA:[], tarNote:"El duelo más atractivo de los 8vos: Vinícius Jr vs Haaland. Brasil con potencia ofensiva brutal. Haaland (5 goles) es el más letal del torneo. Ødegaard el cerebro noruego."
+};
+ALIN["Norway_Brazil"] = ALIN["Brazil_Norway"];
+ALIN["England_Mexico"] = {
+  fH:"4-3-3", h:["Flaherty","Alexander-Arnold","Guehi","Stones","Shaw","Bellingham","Rice","Gallagher","Saka","Kane","Foden"],
+  fA:"4-3-3", a:["Ochoa","Sanchez","Montes","Vasquez","Gallardo","Herrera","Alvarez","Romo","Quiñones","Jimenez","Vega"],
+  tarH:[], tarA:[], tarNote:"Harry Kane (doblete vs Congo) lidera a Inglaterra. México invicto con 9 pts en grupos. Bellingham el jugador más completo del torneo. Un choque épico entre dos anfitriones."
+};
+ALIN["Mexico_England"] = ALIN["England_Mexico"];
+ALIN["United States_Belgium"] = {
+  fH:"4-3-3", h:["Turner","Dest","Richards","Long","Robinson","Adams","Musah","Tillman","Pulisic","Mckennie","Freeman"],
+  fA:"4-2-3-1", a:["Mignolet","Castagne","Faes","Debast","Theate","Onana","Mangala","Tielemans","De Bruyne","Doku","Lukaku"],
+  tarH:[], tarA:[], tarNote:"⚠️ Balogun SUSPENDIDO por roja vs Bosnia. Pulisic lidera el ataque americano. Kevin De Bruyne el gran favorito individual del partido. EE.UU. con hambre de historia."
+};
+ALIN["Belgium_United States"] = ALIN["United States_Belgium"];
+ALIN["Belgium_USA"] = ALIN["United States_Belgium"];
+ALIN["USA_Belgium"] = ALIN["United States_Belgium"];
+ALIN["Spain_Portugal"] = {
+  fH:"4-2-3-1", h:["Simón","Porro","Laporte","Cubarsi","Cucurella","Rodri","Pedri","Yamal","Olmo","Baena","Oyarzabal"],
+  fA:"4-2-3-1", a:["Costa","Dalot","Dias","Inácio","Mendes","Neves","Vitinha","B. Fernandes","Leão","Ronaldo","G. Ramos"],
+  tarH:[], tarA:[], tarNote:"El Derby Ibérico más grande de la historia. España con Yamal (17 años) imbatible. Ronaldo y Ramos la dupla de ataque portuguesa. Rodri vs Vitinha el duelo de mediocentros del torneo."
+};
+ALIN["Portugal_Spain"] = ALIN["Spain_Portugal"];
+ALIN["Argentina_Switzerland"] = {
+  fH:"4-4-2", h:["E. Martínez","Molina","Romero","Lis. Martínez","Medina","Mac Allister","E. Fernández","De Paul","Almada","Messi","J. Álvarez"],
+  fA:"4-2-3-1", a:["Kobel","Widmer","Akanji","Elvedi","Rodriguez","Freuler","Xhaka","Ndoye","Shaqiri","Embolo","Vargas"],
+  tarH:[], tarA:[], tarNote:"Messi viene de 7 goles — récord histórico en un Mundial. Argentina desgastada tras AET vs Cabo Verde. Suiza eficiente y descansada. Xhaka el motor suizo. Argentina favorita pero alerta."
+};
+ALIN["Switzerland_Argentina"] = ALIN["Argentina_Switzerland"];
+ALIN["Egypt_Colombia"] = {
+  fH:"4-4-2", h:["Shobeir","M. Hany","Y. Ibrahim","Rabia","Hafez","Ateya","Fathy","Ashour","Salah","Marmoush","Ziko"],
+  fA:"4-3-3", a:["Vargas","Muñoz","Lucumí","Sánchez","Mojica","Lerma","Puerta","Arias","J. Rodríguez","Suárez","L. Díaz"],
+  tarH:[], tarA:[], tarNote:"Mohamed Salah (Panenka icónico en penales) lidera la sorpresa de Egipto. Colombia con duda de James Rodríguez (lesión). Jhon Arias y Luis Díaz los diferenciadores colombianos."
+};
+ALIN["Colombia_Egypt"] = ALIN["Egypt_Colombia"];
 
 function getAlin(home, away) {
   if (!home || !away) return null;
@@ -1194,7 +1240,10 @@ async function main() {
     "🇦🇷 <b>Argentina sufrió vs Cabo Verde</b> — Messi 7 goles en el torneo. Nuevo récord histórico.",
     "🇪🇬 <b>Egipto histórico</b> — Primera vez en 8vos. Salah Panenka. Eliminó a Australia.",
     "🇨🇴 <b>Colombia sólida</b> — 1-0 a Ghana. ⚠️ James Rodríguez en duda por lesión.",
-    "🏆 16avos terminados · 8vos de Final arrancan el 4 Jul. Francia y Argentina, los más letales."
+    "🇪🇸 <b>España brutal</b> — 3-0 a Austria. Oyarzabal doblete, Yamal imparable. El mejor equipo del torneo.",
+    "🇵🇹 <b>Portugal de milagro</b> — Ramos al 90+4' eliminó a Croacia. Ronaldo penal al 68'. Dramático.",
+    "🇨🇭 <b>Suiza sólida</b> — 2-0 a Argelia. Embolo y Ndoye. La Nati en 8vos sin sudar.",
+    "🏆 16avos terminados · 8vos de Final arrancan el 4 Jul. España-Portugal el partido del siglo."
   ]);
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + " completada</div>"
