@@ -410,6 +410,9 @@ ANAL["USA_Bosnia"]                       = ANAL["United States_Bosnia and Herzeg
 ANAL["United States_Bosnia"]             = ANAL["United States_Bosnia and Herzegovina"];
 ANAL["Bosnia_United States"]             = ANAL["United States_Bosnia and Herzegovina"];
 ANAL["Bosnia and Herzegovina_United States"] = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["United States_Bosnia-Herzegovina"]  = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia-Herzegovina_United States"]  = ANAL["United States_Bosnia and Herzegovina"];
+ANAL["Bosnia-Herzegovina_USA"]            = ANAL["United States_Bosnia and Herzegovina"];
 
 // ── 8VOS DE FINAL — análisis previo para partidos confirmados ──
 ANAL["Canada_Morocco"]       = {g:"El choque más sorprendente del torneo: los dos equipos revelación. Canadá hizo historia con su primera victoria eliminatoria. Marruecos eliminó a Países Bajos en penales repitiendo la épica de 2022.",go:"Alphonso Davies (Canadá) — la mayor amenaza. Jonathan David busca más goles. Achraf Hakimi (Marruecos) — imparable por banda.",fi:"Achraf Hakimi (Marruecos) — el más desequilibrante. Si está libre, Marruecos pasa.",ap:"Partido muy parejo · Marruecos leve favorita. Cuota empate: 3.0x",pr:"Pred: Marruecos 1-0"};
@@ -443,7 +446,7 @@ function getAnal(home, away) {
   // Buscar con fixes de nombres
   var fixes = {
     "IR Iran":"Iran","Curaçao":"Curacao","Côte d'Ivoire":"Ivory Coast",
-    "Bosnia and Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde",
+    "Bosnia and Herzegovina":"Bosnia","Bosnia-Herzegovina":"Bosnia","Cape Verde Islands":"Cabo Verde",
     "Cape Verde":"Cabo Verde","South Korea":"Korea Republic","United States":"USA",
     "Cote d'Ivoire":"Ivory Coast","Côte d\'Ivoire":"Ivory Coast"
   };
