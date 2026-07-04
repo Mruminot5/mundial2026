@@ -370,14 +370,14 @@ ANAL["Croatia_Portugal"]     = ANAL["Portugal_Croatia"];
 ANAL["Switzerland_Algeria"]  = {g:"Suiza lideró el Grupo B con 7 pts — 4-1 Bosnia, 2-1 Canadá. Argelia clasificó del Grupo J como mejor tercero tras 9 pts perfectos en grupo facilitado. Suiza es favorita pero Argelia llegó invicta.",go:"Breel Embolo (Suiza) — el delantero referente en zona de peligro. Granit Xhaka motor del mediocampo. Islam Slimani o Belaïli (Argelia) como referente ofensivo.",fi:"Granit Xhaka (Suiza) — el motor que hace funcionar todo. Si está bien, Suiza gana.",ap:"Suiza gana · Embolo anota · Sin empate. Cuota Suiza: 1.7x",pr:"Pred: Suiza 2-0"};
 ANAL["Algeria_Switzerland"]  = ANAL["Switzerland_Algeria"];
 
-// 3 Jul
-ANAL["Australia_Egypt"]      = {g:"Australia fue 2da del Grupo D con 7 pts — venció a Turquía 2-0 en J1 y clasificó temprano. Egipto llegó al Round of 32 desde el Grupo G con 4 pts. Australia tiene más jerarquía y clasifica por primera vez a 8vos.",go:"Nestory Irankunda (Australia) — el joven más explosivo del torneo. Mathew Ryan (arq) fue clave. Omar Marmoush (Egipto) — delantero de Premier League, el único con nivel para marcar.",fi:"Nestory Irankunda (Australia) — si tiene espacio, nadie lo para. Puede decidir el partido.",ap:"Australia gana · Irankunda anota. Cuota Australia: 1.9x",pr:"Pred: Australia 2-0"};
+// 3 Jul — RESULTADOS
+ANAL["Australia_Egypt"]      = {g:"Egipto eliminó a Australia en penales (4-2) tras empate 1-1. Emam Ashour abrió el marcador al 13'. Mohamed Hany anotó en propia meta para Australia. En la tanda, Salah marcó un Panenka y Hossam Abdelmaguid cerró la clasificación histórica.",go:"Emam Ashour (Egipto) al 13'. Mohamed Hany (OG, Australia) al ~55'. Salah marcó con Panenka en la tanda.",fi:"Mohamed Salah (Egipto) — Panenka audaz en la tanda y figura total. Primera clasificación a 8vos en la historia de Egipto.",ap:"Partido terminado · Egipto clasifica a 8vos vs Argentina (7 jul)",pr:"✅ Egipto clasifica (1-1, pen 4-2)"};
 ANAL["Egypt_Australia"]      = ANAL["Australia_Egypt"];
-ANAL["Argentina_Cape Verde"] = {g:"Argentina fue primera del Grupo L con 9 pts — Messi hat-trick en J1 (iguala a Klose), 6 goles en 3 partidos. Cabo Verde sorprendió al llegar al Round of 32 clasificando del Grupo H con 5 pts. El partido más desigual de la fase eliminatoria.",go:"Lionel Messi (Argentina) — 6 goles, máximo goleador del torneo. Si anota hoy supera el récord de Klose (16). Lautaro Martínez también letal. Garry Rodrigues (Cabo Verde) — el único peligro.",fi:"Lionel Messi (Argentina) — el mejor jugador de la historia en su último Mundial. Este es su partido histórico.",ap:"Argentina gana amplio · Messi marca el récord · Más de 3 goles. Cuota Argentina: 1.3x",pr:"Pred: Argentina 4-0"};
+ANAL["Argentina_Cape Verde"] = {g:"Argentina sufrió para ganar 3-2 a Cabo Verde en tiempo extra. Messi abrió al 29', Duarte igualó al 59'. Lis. Martínez puso el 2-1 al 92' (AET), Cabral igualó al 103' con un golazo. Diney Borges anotó en propia meta al 111' para sellar el pase.",go:"Messi (ARG) al 29'. Duarte (CV) al 59'. Lis. Martínez (ARG) al 92'. S. Cabral (CV) golazo al 103'. Diney OG (CV) al 111'.",fi:"Lionel Messi (Argentina) — asistencia en el gol decisivo. 10 goles en fases eliminatorias históricas.",ap:"Partido terminado · Argentina clasifica a 8vos vs Egipto (7 jul)",pr:"✅ Argentina 3-2 Cabo Verde (AET)"};
 ANAL["Argentina_Cabo Verde"] = ANAL["Argentina_Cape Verde"];
 ANAL["Cape Verde_Argentina"] = ANAL["Argentina_Cape Verde"];
 ANAL["Cabo Verde_Argentina"] = ANAL["Argentina_Cape Verde"];
-ANAL["Colombia_Ghana"]       = {g:"Colombia lideró el Grupo K con 7 pts — Luis Díaz letal, James Rodríguez creativo. Ghana fue 1ero del Grupo J con 7 pts — Mohammed Kudus fue la revelación africana. El partido más parejo del 3 de julio.",go:"Luis Díaz (Colombia) — extremo del Liverpool en estado de gracia. James Rodríguez el creador. Mohammed Kudus (Ghana) — el más desequilibrante de África en este torneo.",fi:"Luis Díaz (Colombia) — si aparece, Colombia gana cómodo. La diferencia individual más clara.",ap:"Colombia favorita leve · Luis Díaz anota · Partido abierto. Cuota Colombia: 2.0x",pr:"Pred: Colombia 2-1"};
+ANAL["Colombia_Ghana"]       = {g:"Colombia ganó 1-0 a Ghana con un gol tempranero de Jhon Arias al 14', asistido por Luis Suárez. James Rodríguez salió lesionado al descanso. Colombia fue sólida y controló el partido sin mayores problemas.",go:"Jhon Arias (Colombia) al 14'. Asistencia de Luis Suárez. James Rodríguez salió por lesión al 45'.",fi:"Jhon Arias (Colombia) — gol decisivo al 14' para sellar la clasificación de Colombia.",ap:"Partido terminado · Colombia clasifica a 8vos vs Suiza (8 jul). ⚠️ James Rodríguez en duda por lesión.",pr:"✅ Colombia 1-0 Ghana"};
 ANAL["Ghana_Colombia"]       = ANAL["Colombia_Ghana"];
 
 // ── R16 RESULTADOS (sobreescriben el análisis previo) ──
@@ -424,14 +424,6 @@ ANAL["United States_Belgium"] = {g:"EE.UU. venció 2-0 a Bosnia aunque terminó 
 ANAL["Belgium_United States"] = ANAL["United States_Belgium"];
 ANAL["Belgium_USA"]           = ANAL["United States_Belgium"];
 ANAL["USA_Belgium"]           = ANAL["United States_Belgium"];
-
-ANAL["United States_Bosnia and Herzegovina"] = {g:"EE.UU. venció 2-0 a Bosnia con 10 hombres. Balogun abrió el marcador pero fue expulsado por roja. Tillman selló el 2-0 de tiro libre en el descanso. Épica remontada defensiva.",go:"Folarin Balogun (EE.UU.) gol y roja. Malik Tillman (EE.UU.) golazo de tiro libre para el 2-0.",fi:"Malik Tillman (EE.UU.) — su golazo de tiro libre con 10 hombres fue el más importante del partido.",ap:"Partido terminado · EE.UU. clasifica a 8vos vs Bélgica (6 jul). Balogun SUSPENDIDO.",pr:"✅ EE.UU. 2-0 Bosnia"};
-ANAL["Bosnia and Herzegovina_USA"]       = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["USA_Bosnia and Herzegovina"]       = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["USA_Bosnia"]                       = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["United States_Bosnia"]             = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["Bosnia_United States"]             = ANAL["United States_Bosnia and Herzegovina"];
-ANAL["Bosnia and Herzegovina_United States"] = ANAL["United States_Bosnia and Herzegovina"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -554,6 +546,20 @@ ALIN["Colombia_Ghana"] = {
   tarH:[], tarA:[], tarNote:"James Rodríguez y Luis Díaz lideran a Colombia. Thomas Partey ancla el mediocampo ghanés. ⚠️ Zigi (portero titular Ghana) lesionado, juega Asare."
 };
 ALIN["Ghana_Colombia"] = ALIN["Colombia_Ghana"];
+
+// --- 4 julio — 8vos de Final ---
+ALIN["Canada_Morocco"] = {
+  fH:"4-3-3", h:["Crepeau","Johnston","Miller","Bombito","Davies","Eustaquio","Piette","Kone","David","Larin","Buchanan"],
+  fA:"4-3-3", a:["Bounou","Hakimi","El Yamiq","Aguerd","Mazraoui","Ounahi","Amrabat","Bennacer","Ziyech","En-Nesyri","Brahim Diaz"],
+  tarH:[], tarA:[], tarNote:"Duelo de sorpresas del torneo. Davies y David vs la muralla de Amrabat. Hakimi desequilibrante por derecha. Marruecos leve favorita."
+};
+ALIN["Morocco_Canada"] = ALIN["Canada_Morocco"];
+ALIN["Paraguay_France"] = {
+  fH:"5-4-1", h:["Gatito Fernandez","Alderete","Balbuena","Alonso","Villasanti","Sanabria","Enciso","Camacho","Cubas","Almada","Bareiro"],
+  fA:"4-3-3", a:["Maignan","Kounde","Upamecano","Saliba","Hernandez","Tchouameni","Camavinga","Rabiot","Dembele","Mbappe","Barcola"],
+  tarH:[], tarA:[], tarNote:"Paraguay eliminó a Alemania en penales — el batacazo del torneo. Francia sin conceder en 8vos históricos. Mbappé en estado de gracia con 4 goles. Francia amplísima favorita."
+};
+ALIN["France_Paraguay"] = ALIN["Paraguay_France"];
 
 function getAlin(home, away) {
   if (!home || !away) return null;
@@ -1156,18 +1162,26 @@ async function main() {
     "🇦🇷 <b>Argentina pleno</b> — 3 victorias, 9 pts. Messi en modo histórico. Favoritísimo.",
     "🇿🇦 <b>Sudáfrica sorpresa</b> — Eliminó a Corea del Sur. Los Bafana Bafana clasificaron.",
     "🇰🇷 <b>Corea del Sur fuera</b> — Perdió ante Sudáfrica. Eliminada en la fase de grupos.",
-    "🏆 Fase de grupos terminada · 16avos de final arrancan el 29 Jun."
+    "🏆 Fase de grupos terminada · 16avos de final arrancaron el 29 Jun."
+  ]);
+  if(jornadaMax>=4) tipsLines = tipsLines.concat([
+    "🇵🇾 <b>¡Paraguay elimina a Alemania!</b> — Batacazo histórico en penales (4-3). La sorpresa del torneo.",
+    "🇲🇦 <b>¡Marruecos elimina a Países Bajos!</b> — Penales (3-2). Los Leones del Atlas repiten 2022.",
+    "🇦🇷 <b>Argentina sufrió vs Cabo Verde</b> — Messi 7 goles en el torneo. Nuevo récord histórico.",
+    "🇪🇬 <b>Egipto histórico</b> — Primera vez en 8vos. Salah Panenka. Eliminó a Australia.",
+    "🇨🇴 <b>Colombia sólida</b> — 1-0 a Ghana. ⚠️ James Rodríguez en duda por lesión.",
+    "🏆 16avos terminados · 8vos de Final arrancan el 4 Jul. Francia y Argentina, los más letales."
   ]);
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + " completada</div>"
     + '<div style="font-size:12px;color:#cbd5e1;line-height:2.0;">' + tipsLines.join("<br>") + "</div></div>";
 
   var continentes = [
-    {c:"rgba(96,165,250,0.06)",b:"rgba(96,165,250,0.15)",t:"#93c5fd",ti:"EUROPA",j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0). Norte europeo domina.",j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar. Portugal sigue en crisis. Francia y Noruega favoritos Grupo I.",j3:"Fase de grupos terminada. Clasificados europeos definidos."},
-    {c:"rgba(74,222,128,0.06)",b:"rgba(74,222,128,0.15)",t:"#86efac",ti:"SUDAMERICA",j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1), Ecuador (0-1).",j2:"Brasil reacciono 3-0 a Haiti. Mexico y EE.UU. clasificados. Ecuador casi eliminado.",j3:"Argentina lider indiscutible. Clasificados sudamericanos definidos."},
-    {c:"rgba(251,191,36,0.06)",b:"rgba(251,191,36,0.15)",t:"#fcd34d",ti:"AFRICA",j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica), RD Congo (empato Portugal).",j2:"Marruecos 1-0 Escocia confirma liderato Grupo C.",j3:"Marruecos avanza. Clasificados africanos definidos."},
-    {c:"rgba(167,139,250,0.06)",b:"rgba(167,139,250,0.15)",t:"#c4b5fd",ti:"ASIA Y OCEANIA",j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada). Flojos: Qatar (1-1).",j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada.",j3:"Japon y Corea clasificados. Qatar eliminado."},
-    {c:"rgba(248,113,113,0.06)",b:"rgba(248,113,113,0.15)",t:"#fca5a5",ti:"CONCACAF",j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo 1-1.",j2:"Mexico y EE.UU. clasificados 6 pts. Canada goleo 6-0. CONCACAF historico.",j3:"Los 3 anfitriones clasificados. Historico para CONCACAF."}
+    {c:"rgba(96,165,250,0.06)",b:"rgba(96,165,250,0.15)",t:"#93c5fd",ti:"EUROPA",j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0). Norte europeo domina.",j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar. Portugal sigue en crisis. Francia y Noruega favoritos Grupo I.",j3:"8vos: Francia vs Paraguay, Brasil vs Noruega, Inglaterra vs Mexico, Belgica vs EE.UU. Europa bien representada. ⚠️ Alemania eliminada por Paraguay."},
+    {c:"rgba(74,222,128,0.06)",b:"rgba(74,222,128,0.15)",t:"#86efac",ti:"SUDAMERICA",j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1), Ecuador (0-1).",j2:"Brasil reacciono 3-0 a Haiti. Mexico y EE.UU. clasificados. Ecuador casi eliminado.",j3:"8vos: Argentina 3-2 Cabo Verde (AET), Colombia 1-0 Ghana. Paraguay en 8vos tras batacazo vs Alemania. Messi 7 goles — imparable."},
+    {c:"rgba(251,191,36,0.06)",b:"rgba(251,191,36,0.15)",t:"#fcd34d",ti:"AFRICA",j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica), RD Congo (empato Portugal).",j2:"Marruecos 1-0 Escocia confirma liderato Grupo C.",j3:"8vos: Marruecos elimino a Paises Bajos en penales · Egipto elimino a Australia · Colombia elimino a Ghana. 3 africanos en 8vos — epico."},
+    {c:"rgba(167,139,250,0.06)",b:"rgba(167,139,250,0.15)",t:"#c4b5fd",ti:"ASIA Y OCEANIA",j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada). Flojos: Qatar (1-1).",j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada.",j3:"Australia eliminada por Egipto en penales. Japon y Corea pendientes de sus 8vos. Qatar y Corea del Sur fuera."},
+    {c:"rgba(248,113,113,0.06)",b:"rgba(248,113,113,0.15)",t:"#fca5a5",ti:"CONCACAF",j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo 1-1.",j2:"Mexico y EE.UU. clasificados 6 pts. Canada goleo 6-0. CONCACAF historico.",j3:"8vos: Canada, EE.UU. y Mexico todos clasificados. EE.UU. 2-0 Bosnia con 10 hombres. Canada busca cuartos vs Marruecos — historico."}
   ];
   var contHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
     + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + jornadaMax + "</div>"
@@ -1218,8 +1232,8 @@ async function main() {
     + 'function showR16(btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var r16=document.getElementById("r16");if(r16)r16.style.display="block";}'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}';
 
-  var favs = [["🇦🇷","Argentina","Messi hat-trick vs Argelia. Iguala récord Klose.","4.0x"],["🇫🇷","Francia","3-1 a Senegal. Mbappé goleador histórico.","4.5x"],["🇩🇪","Alemania","7-1 a Curazao. Mejor arranque del torneo.","5.5x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","4-2 a Croacia. Kane doblete.","8.0x"],["🇳🇴","Noruega","4-1 a Iraq. Haaland debut histórico.","12x"]];
-  var bads = [["🇵🇹","Portugal","1-1 vs RD Congo. Cristiano sin tiros."],["🇪🇸","España","0-0 vs Cabo Verde. El campeón sin aparecer."],["🇳🇱","Países Bajos","2-2 vs Japón al 89min. Defensa frágil."]];
+  var favs = [["🇫🇷","Francia","Mbappé 4 goles, 8vos sin recibir. El equipo más sólido del torneo.","3.5x"],["🇦🇷","Argentina","Messi 7 goles — récord histórico. 3-2 a Cabo Verde en AET. Máquina.","4.0x"],["🇧🇷","Brasil","Remontó a Japón al 90+5'. Vinícius Jr imparable. Enfrenta a Noruega.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Sólida en grupos. Kane + Bellingham. Choque con México.","7.0x"],["🇨🇴","Colombia","1-0 a Ghana. Luis Díaz brillante. Enfrenta a Suiza.","15x"]];
+  var bads = [["🇵🇾","Paraguay","Eliminó a Alemania — el batacazo. Pero vs Francia es otro planeta. Cuidado apostar a Paraguay."],["🇨🇦","Canadá","Primera eliminatoria histórica. Sin experiencia en K.O. Marruecos tiene más oficio."],["🇪🇬","Egipto","Primera vez en 8vos. Todo depende de Salah. Si él no aparece vs Argentina, caen cómodo."]];
 
   // ── BRACKET SVG 16AVOS — dinámico desde API ──
   // Mapa: nombre API → {flag, nombre en español}
