@@ -1321,7 +1321,7 @@ async function main() {
     "United States":{f:"ðŸ‡ºðŸ‡¸",n:"EE.UU."},"USA":{f:"ðŸ‡ºðŸ‡¸",n:"EE.UU."},
     "Bosnia and Herzegovina":{f:"ðŸ‡§ðŸ‡¦",n:"Bosnia"},"Bosnia-Herzegovina":{f:"ðŸ‡§ðŸ‡¦",n:"Bosnia"},
     "Switzerland":{f:"ðŸ‡¨ðŸ‡­",n:"Suiza"},"Algeria":{f:"ðŸ‡©ðŸ‡¿",n:"Argelia"},
-    "Argentina":{f:"ðŸ‡¦ðŸ‡·",n:"Argentina"},"Cape Verde":{f:"ðŸ‡¨ðŸ‡»",n:"Cabo Verde"},
+    "Argentina":{f:"ðŸ‡¦ðŸ‡·",n:"Argentina"},"Cape Verde":{f:"ðŸ‡¨ðŸ‡»",n:"Cabo Verde"},"Cabo Verde":{f:"🇨🇻",n:"Cabo Verde"},
     "Brazil":{f:"ðŸ‡§ðŸ‡·",n:"Brasil"},"Japan":{f:"ðŸ‡¯ðŸ‡µ",n:"JapÃ³n"},
     "Netherlands":{f:"ðŸ‡³ðŸ‡±",n:"PaÃ­ses Bajos"},"Morocco":{f:"ðŸ‡²ðŸ‡¦",n:"Marruecos"},
     "France":{f:"ðŸ‡«ðŸ‡·",n:"Francia"},"Sweden":{f:"ðŸ‡¸ðŸ‡ª",n:"Suecia"},
