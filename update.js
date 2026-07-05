@@ -1353,7 +1353,7 @@ async function main() {
     "United States":{f:"🇺🇸",n:"EE.UU."},"USA":{f:"🇺🇸",n:"EE.UU."},
     "Bosnia and Herzegovina":{f:"🇧🇦",n:"Bosnia"},"Bosnia-Herzegovina":{f:"🇧🇦",n:"Bosnia"},
     "Switzerland":{f:"🇨🇭",n:"Suiza"},"Algeria":{f:"🇩🇿",n:"Argelia"},
-    "Argentina":{f:"🇦🇷",n:"Argentina"},"Cape Verde":{f:"🇨🇻",n:"Cabo Verde"},"Cabo Verde":{f:"🇨🇻",n:"Cabo Verde"},
+    "Argentina":{f:"🇦🇷",n:"Argentina"},"Cape Verde":{f:"🇨🇻",n:"Cabo Verde"},"Cabo Verde":{f:"🇨🇻",n:"Cabo Verde"},"Cape Verde Islands":{f:"🇨🇻",n:"Cabo Verde"},
     "Brazil":{f:"🇧🇷",n:"Brasil"},"Japan":{f:"🇯🇵",n:"Japón"},
     "Netherlands":{f:"🇳🇱",n:"Países Bajos"},"Morocco":{f:"🇲🇦",n:"Marruecos"},
     "France":{f:"🇫🇷",n:"Francia"},"Sweden":{f:"🇸🇪",n:"Suecia"},
@@ -1438,12 +1438,13 @@ async function main() {
   }
   // Construye entrada de 8vos (par de 16avos)
   function build8Slot(pairs,i,j){
-    var w1=koWinner(findKO(pairs[i]),pairs[i]);
-    var w2=koWinner(findKO(pairs[j]),pairs[j]);
-    if(!w1&&!w2) return {a:null,b:null};
+    var m1=findKO(pairs[i]); var m2=findKO(pairs[j]);
+    var w1=koWinner(m1,pairs[i]); var w2=koWinner(m2,pairs[j]);
+    if(!w1&&!w2) return {a:null,b:null,wk1:null,wk2:null};
     return {
       a: w1 ? td(w1) : "Gana "+tn(pairs[i].h)+"/"+tn(pairs[i].a),
-      b: w2 ? td(w2) : "Gana "+tn(pairs[j].h)+"/"+tn(pairs[j].a)
+      b: w2 ? td(w2) : "Gana "+tn(pairs[j].h)+"/"+tn(pairs[j].a),
+      wk1:w1, wk2:w2
     };
   }
 
@@ -1451,6 +1452,15 @@ async function main() {
   var BR=BRpairs.map(buildSlot);
   var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
   var BR8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
+  function build4Slot(sA,sB){
+    if(!sA||!sA.wk1||!sB||!sB.wk1) return {a:null,b:null};
+    var p8A={h:sA.wk1,a:sA.wk2||""}; var p8B={h:sB.wk1,a:sB.wk2||""};
+    var w8A=koWinner(findKO(p8A),p8A); var w8B=koWinner(findKO(p8B),p8B);
+    if(!w8A&&!w8B) return {a:null,b:null};
+    return {a:w8A?td(w8A):null, b:w8B?td(w8B):null};
+  }
+  var BL4=[[0,1],[2,3]].map(function(p){return build4Slot(BL8[p[0]],BL8[p[1]]);});
+  var BR4=[[0,1],[2,3]].map(function(p){return build4Slot(BR8[p[0]],BR8[p[1]]);});
 
   // Constantes de layout
   var CH=26, CG=2, MG=10;
@@ -1566,10 +1576,11 @@ async function main() {
   // Left 4tos
   var l8cy=[gcy(0,1),gcy(2,3),gcy(4,5),gcy(6,7)];
   var l4p=[[0,1],[2,3]];
-  l4p.forEach(function(p){
+  l4p.forEach(function(p,qi){
     var ya=l8cy[p[0]],yb=l8cy[p[1]],ym=(ya+yb)/2;
     s+=line(xL8+W8+CN/2,ya,xL8+W8+CN/2,yb);
-    s+=emptySlot(xL4,ym-CH-CG/2,W4);
+    var sl4=BL4[qi];
+    if(sl4&&sl4.a){s+=rect(xL4,ym-CH-CG/2,W4,CH*2+CG,"#0b1120","#4ade80");s+=txt(xL4+5,ym-CG/2-4,sl4.a,"#4ade80",10);s+=txt(xL4+5,ym+CH+CG/2-4,sl4.b||"?","#94a3b8",9);}else{s+=emptySlot(xL4,ym-CH-CG/2,W4);}
     s+=line(xL4+W4,ym,xL4+W4+CN,ym);
   });
 
@@ -1614,10 +1625,11 @@ async function main() {
   // Right 4tos
   var r8cy=[gcy(0,1),gcy(2,3),gcy(4,5),gcy(6,7)];
   var r4p=[[0,1],[2,3]];
-  r4p.forEach(function(p){
+  r4p.forEach(function(p,qi){
     var ya=r8cy[p[0]],yb=r8cy[p[1]],ym=(ya+yb)/2;
     s+=line(xR8-CN/2,ya,xR8-CN/2,yb);
-    s+=emptySlot(xR4,ym-CH-CG/2,W4);
+    var sr4=BR4[qi];
+    if(sr4&&sr4.a){s+=rect(xR4,ym-CH-CG/2,W4,CH*2+CG,"#0b1120","#4ade80");s+=txt(xR4+5,ym-CG/2-4,sr4.a,"#4ade80",10);s+=txt(xR4+5,ym+CH+CG/2-4,sr4.b||"?","#94a3b8",9);}else{s+=emptySlot(xR4,ym-CH-CG/2,W4);}
     s+=line(xR4,ym,xR4-CN,ym);
   });
 
