@@ -1234,7 +1234,7 @@ async function main() {
     "🇰🇷 <b>Corea del Sur fuera</b> — Perdió ante Sudáfrica. Eliminada en la fase de grupos.",
     "🏆 Fase de grupos terminada · 16avos de final arrancaron el 29 Jun."
   ]);
-  if(jornadaMax>=4) tipsLines = tipsLines.concat([
+  if(finishedKO.length>0) tipsLines = tipsLines.concat([
     "🇵🇾 <b>¡Paraguay elimina a Alemania!</b> — Batacazo histórico en penales (4-3). La sorpresa del torneo.",
     "🇲🇦 <b>¡Marruecos elimina a Países Bajos!</b> — Penales (3-2). Los Leones del Atlas repiten 2022.",
     "🇦🇷 <b>Argentina sufrió vs Cabo Verde</b> — Messi 7 goles en el torneo. Nuevo récord histórico.",
@@ -1245,22 +1245,54 @@ async function main() {
     "🇨🇭 <b>Suiza sólida</b> — 2-0 a Argelia. Embolo y Ndoye. La Nati en 8vos sin sudar.",
     "🏆 16avos terminados · 8vos de Final arrancan el 4 Jul. España-Portugal el partido del siglo."
   ]);
+  if(finishedKO.length>16) tipsLines = tipsLines.concat([
+    "🇲🇦 <b>¡Marruecos 3-0 Canadá!</b> — Los Leones del Atlas arrasan en 8vos. Primera gran sorpresa.",
+    "🇫🇷 <b>Francia favorita vs Paraguay</b> — Mbappé en forma bestial. Paraguay ya cumplió vs Alemania.",
+    "⚡ <b>Brasil vs Noruega</b> — Vinícius Jr vs Haaland. El duelo más espectacular de los 8vos.",
+    "🇦🇷 <b>Argentina vs Suiza</b> — Messi (récord 7 goles) vs la Nati eficiente. Argentina leve favorita.",
+    "🇪🇬 <b>Egipto vs Colombia</b> — Salah vs Luis Díaz. El duelo más parejo de la ronda.",
+    "⚠️ <b>Canadá eliminada 0-3</b> — Sin experiencia K.O. Marruecos tuvo más oficio en cada línea.",
+    "🏆 <b>8vos de Final en marcha</b> — Los 8 mejores quedan para cuartos el 9 Jul."
+  ]);
+  var tipsPhase = finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
+
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
-    + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + jornadaMax + " completada</div>"
+    + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + tipsPhase + "</div>"
     + '<div style="font-size:12px;color:#cbd5e1;line-height:2.0;">' + tipsLines.join("<br>") + "</div></div>";
 
   var continentes = [
-    {c:"rgba(96,165,250,0.06)",b:"rgba(96,165,250,0.15)",t:"#93c5fd",ti:"EUROPA",j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0). Norte europeo domina.",j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar. Portugal sigue en crisis. Francia y Noruega favoritos Grupo I.",j3:"8vos: Francia vs Paraguay, Brasil vs Noruega, Inglaterra vs Mexico, Belgica vs EE.UU. Europa bien representada. ⚠️ Alemania eliminada por Paraguay."},
-    {c:"rgba(74,222,128,0.06)",b:"rgba(74,222,128,0.15)",t:"#86efac",ti:"SUDAMERICA",j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1), Ecuador (0-1).",j2:"Brasil reacciono 3-0 a Haiti. Mexico y EE.UU. clasificados. Ecuador casi eliminado.",j3:"8vos: Argentina 3-2 Cabo Verde (AET), Colombia 1-0 Ghana. Paraguay en 8vos tras batacazo vs Alemania. Messi 7 goles — imparable."},
-    {c:"rgba(251,191,36,0.06)",b:"rgba(251,191,36,0.15)",t:"#fcd34d",ti:"AFRICA",j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica), RD Congo (empato Portugal).",j2:"Marruecos 1-0 Escocia confirma liderato Grupo C.",j3:"8vos: Marruecos elimino a Paises Bajos en penales · Egipto elimino a Australia · Colombia elimino a Ghana. 3 africanos en 8vos — epico."},
-    {c:"rgba(167,139,250,0.06)",b:"rgba(167,139,250,0.15)",t:"#c4b5fd",ti:"ASIA Y OCEANIA",j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada). Flojos: Qatar (1-1).",j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada.",j3:"Australia eliminada por Egipto en penales. Japon y Corea pendientes de sus 8vos. Qatar y Corea del Sur fuera."},
-    {c:"rgba(248,113,113,0.06)",b:"rgba(248,113,113,0.15)",t:"#fca5a5",ti:"CONCACAF",j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo 1-1.",j2:"Mexico y EE.UU. clasificados 6 pts. Canada goleo 6-0. CONCACAF historico.",j3:"8vos: Canada, EE.UU. y Mexico todos clasificados. EE.UU. 2-0 Bosnia con 10 hombres. Canada busca cuartos vs Marruecos — historico."}
+    {c:"rgba(96,165,250,0.06)",b:"rgba(96,165,250,0.15)",t:"#93c5fd",ti:"EUROPA",
+     j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0).",
+     j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar. Portugal sigue en crisis.",
+     j3:"16avos: Francia, Noruega, Inglaterra, Belgica, Suiza, Espana, Portugal en 8vos. Alemania eliminada por Paraguay.",
+     j4:"8vos: Francia vs Paraguay (Mbappe 4 goles). Belgica vs EE.UU. Noruega (Haaland 5 goles) vs Brasil. Espana-Portugal el derby del siglo."},
+    {c:"rgba(74,222,128,0.06)",b:"rgba(74,222,128,0.15)",t:"#86efac",ti:"SUDAMERICA",
+     j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1).",
+     j2:"Brasil reacciono 3-0 a Haiti. Mexico y EE.UU. clasificados.",
+     j3:"16avos: Argentina 3-2 Cabo Verde (AET · Messi 7 goles record), Colombia 1-0 Ghana. Paraguay batacazo vs Alemania.",
+     j4:"8vos: Argentina vs Suiza (Messi busca cuartos). Colombia vs Egipto. Paraguay vs Francia. Brasil-Noruega el duelo."},
+    {c:"rgba(251,191,36,0.06)",b:"rgba(251,191,36,0.15)",t:"#fcd34d",ti:"AFRICA",
+     j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica).",
+     j2:"Marruecos 1-0 Escocia confirma liderato Grupo C.",
+     j3:"16avos: Marruecos elimino a Paises Bajos en penales · Egipto elimino a Australia (Salah Panenka).",
+     j4:"8vos: Marruecos 3-0 Canada — Los Leones dominan. Egipto vs Colombia el proximo. Africa puede meter 2 en cuartos."},
+    {c:"rgba(167,139,250,0.06)",b:"rgba(167,139,250,0.15)",t:"#c4b5fd",ti:"ASIA Y OCEANIA",
+     j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada).",
+     j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada.",
+     j3:"16avos: Australia eliminada por Egipto. Japon y Corea del Sur tambien fuera. Asia sin representantes en 8vos.",
+     j4:"8vos: Sin equipos asiaticos ni oceanicos. Qatar, Corea del Sur, Australia, Japon eliminados."},
+    {c:"rgba(248,113,113,0.06)",b:"rgba(248,113,113,0.15)",t:"#fca5a5",ti:"CONCACAF",
+     j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo 1-1.",
+     j2:"Mexico y EE.UU. clasificados 6 pts. Canada goleo 6-0. CONCACAF historico.",
+     j3:"16avos: Canada, EE.UU. y Mexico todos clasificados. EE.UU. 2-0 Bosnia.",
+     j4:"8vos: Canada eliminada 0-3 vs Marruecos. Mexico vs Inglaterra en casa. EE.UU. vs Belgica — De Bruyne el peligro."}
   ];
+  var contPhase = finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
   var contHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
-    + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + jornadaMax + "</div>"
+    + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + contPhase + "</div>"
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
     + continentes.map(function(ct){
-        var tx = jornadaMax>=3?ct.j3:jornadaMax>=2?ct.j2:ct.j1;
+        var tx = finishedKO.length>16?ct.j4:finishedKO.length>0?ct.j3:jornadaMax>=2?ct.j2:ct.j1;
         return '<div style="background:' + ct.c + ';border-radius:8px;padding:10px 12px;border:1px solid ' + ct.b + ';">'
           + '<div style="font-size:11px;font-weight:700;color:' + ct.t + ';margin-bottom:5px;">' + ct.ti + "</div>"
           + '<div style="font-size:11px;color:#cbd5e1;line-height:1.8;">' + tx + "</div></div>";
@@ -1305,8 +1337,8 @@ async function main() {
     + 'function showR16(btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var r16=document.getElementById("r16");if(r16)r16.style.display="block";}'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}';
 
-  var favs = [["🇫🇷","Francia","Mbappé 4 goles, 8vos sin recibir. El equipo más sólido del torneo.","3.5x"],["🇦🇷","Argentina","Messi 7 goles — récord histórico. 3-2 a Cabo Verde en AET. Máquina.","4.0x"],["🇧🇷","Brasil","Remontó a Japón al 90+5'. Vinícius Jr imparable. Enfrenta a Noruega.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Sólida en grupos. Kane + Bellingham. Choque con México.","7.0x"],["🇨🇴","Colombia","1-0 a Ghana. Luis Díaz brillante. Enfrenta a Suiza.","15x"]];
-  var bads = [["🇵🇾","Paraguay","Eliminó a Alemania — el batacazo. Pero vs Francia es otro planeta. Cuidado apostar a Paraguay."],["🇨🇦","Canadá","Primera eliminatoria histórica. Sin experiencia en K.O. Marruecos tiene más oficio."],["🇪🇬","Egipto","Primera vez en 8vos. Todo depende de Salah. Si él no aparece vs Argentina, caen cómodo."]];
+  var favs = [["🇫🇷","Francia","Mbappé 4 goles, sin recibir en 16avos. El equipo más sólido.","3.5x"],["🇦🇷","Argentina","Messi 7 goles — récord histórico. Vs Suiza en 8vos.","4.0x"],["🇧🇷","Brasil","Remontó a Japón al 90+5'. Vinícius Jr imparable. Vs Haaland.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Sólida, Kane + Bellingham. Choque épico vs México anfitrión.","7.0x"],["🇲🇦","Marruecos","3-0 a Canadá en 8vos. Los Leones del Atlas sueñan en grande.","18x"]];
+  var bads = [["🇵🇾","Paraguay","Batacazo vs Alemania fue histórico. Pero vs Francia (Mbappé 4 goles) es otro universo."],["🇪🇬","Egipto","Salah Panenka fue épico vs Australia. Pero Colombia con Luis Díaz es nivel diferente."],["🇳🇴","Noruega","Haaland brillante (5 goles en grupos). Pero Brasil tiene más calidad en todas las líneas."]];
 
   // ── BRACKET SVG 16AVOS — dinámico desde API ──
   // Mapa: nombre API → {flag, nombre en español}
