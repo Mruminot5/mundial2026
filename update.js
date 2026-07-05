@@ -433,6 +433,12 @@ ANAL["Argentina_Switzerland"] = {g:"Argentina llegó sufriendo tras el épico 3-
 ANAL["Switzerland_Argentina"] = ANAL["Argentina_Switzerland"];
 ANAL["Egypt_Colombia"]        = {g:"Egipto es el equipo revelación del torneo: primera vez en 8vos, Salah con panenka épico en penales. Colombia venció 1-0 a Ghana con Arias, pero James Rodríguez salió lesionado. El partido del corazón vs la táctica.",go:"Mohamed Salah (Egipto) — el capitán histórico que inspiró la clasificación. Jhon Arias (Colombia) — autor del gol vs Ghana. ⚠️ James Rodríguez en duda.",fi:"Mohamed Salah (Egipto) — si está en el día, el partido es otro. Su panenka fue icónica.",ap:"Colombia favorita leve · Salah anota · Sin empate. ⚠️ Confirmar estado de James. Cuota Colombia: 1.8x",pr:"Pred: Colombia 2-1"};
 ANAL["Colombia_Egypt"]        = ANAL["Egypt_Colombia"];
+ANAL["Argentina_Egypt"] = {g:"Messi (7 goles histórico en el torneo) lidera a Argentina, que llegó desgastada tras 120 min vs Cabo Verde. Egipto sorprendió con el Panenka de Salah — creyente y organizado. Argentina favorita clara pero no puede subestimarlos.",go:"Messi el gran candidato al gol. Salah (Egipto) con gran torneo.",fi:"Lionel Messi (Argentina) — el mago sigue escribiendo historia.",ap:"Argentina gana · Messi anota · Más de 2 goles. Cuota est: 2.2x",pr:""};
+ANAL["Egypt_Argentina"] = ANAL["Argentina_Egypt"];
+ANAL["Switzerland_Colombia"] = {g:"Suiza pasó cómoda la fase de grupos y ganó a Argelia en 16avos. Colombia goleó a Ghana y luce con grandes opciones. El duelo entre la solidez suiza (Xhaka) y la creatividad colombiana (Luis Díaz) promete ser cerrado.",go:"Luis Díaz (Colombia) el más peligroso. Embolo (Suiza) el referente ofensivo.",fi:"Granit Xhaka (Suiza) — el motor que controla el ritmo del partido.",ap:"Colombia leve favorita · Menos de 3 goles · Luis Díaz anota. Cuota est: 2.3x",pr:""};
+ANAL["Colombia_Switzerland"] = ANAL["Switzerland_Colombia"];
+ANAL["France_Morocco"] = {g:"Revancha del Mundial 2022. Francia sin conceder en 8vos con Mbappé imparable (4 goles). Marruecos 3-0 a Canadá — los Leones del Atlas en forma sólida. Amrabat vs Tchouameni el gran duelo de mediocampos.",go:"Mbappé (Francia) el gran candidato. En-Nesyri (Marruecos) de referencia.",fi:"Kylian Mbappé (Francia) — el jugador del torneo.",ap:"Francia gana · Mbappé anota · Más de 1.5 goles. Cuota est: 1.9x",pr:""};
+ANAL["Morocco_France"] = ANAL["France_Morocco"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -609,6 +615,24 @@ ALIN["Egypt_Colombia"] = {
   tarH:[], tarA:[], tarNote:"Mohamed Salah (Panenka icónico en penales) lidera la sorpresa de Egipto. Colombia con duda de James Rodríguez (lesión). Jhon Arias y Luis Díaz los diferenciadores colombianos."
 };
 ALIN["Colombia_Egypt"] = ALIN["Egypt_Colombia"];
+ALIN["Argentina_Egypt"] = {
+  fH:"4-3-3", h:["E. Martínez","Molina","Romero","Lis. Martínez","Medina","Mac Allister","E. Fernández","De Paul","Almada","Messi","J. Álvarez"],
+  fA:"4-2-3-1", a:["Shobeir","M. Hany","Y. Ibrahim","Rabia","Hafez","Ateya","Fathy","Emam Ashour","Salah","Marmoush","Ziko"],
+  tarH:[], tarA:[], tarNote:"Messi (7 goles — récord histórico) vs Salah (Panenka icónico). El duelo de leyendas. Argentina favorita por calidad colectiva; Egipto creyente tras eliminar a Australia."
+};
+ALIN["Egypt_Argentina"] = ALIN["Argentina_Egypt"];
+ALIN["Switzerland_Colombia"] = {
+  fH:"4-2-3-1", h:["Kobel","Widmer","Akanji","Elvedi","Rodriguez","Freuler","Xhaka","Ndoye","Shaqiri","Embolo","Vargas"],
+  fA:"4-3-3", a:["Vargas","Muñoz","Lucumí","Sánchez","Mojica","Lerma","Puerta","Arias","J. Rodríguez","Suárez","L. Díaz"],
+  tarH:[], tarA:[], tarNote:"Suiza ordenada con Xhaka como motor del mediocampo. Colombia con Luis Díaz desequilibrante y duda de James Rodríguez (lesión). Partido cerrado — los penales son posibles."
+};
+ALIN["Colombia_Switzerland"] = ALIN["Switzerland_Colombia"];
+ALIN["France_Morocco"] = {
+  fH:"4-3-3", h:["Maignan","Kounde","Upamecano","Saliba","Hernandez","Tchouameni","Camavinga","Rabiot","Dembele","Mbappe","Barcola"],
+  fA:"4-3-3", a:["Bounou","Hakimi","El Yamiq","Aguerd","Mazraoui","Ounahi","Amrabat","Bennacer","Ziyech","En-Nesyri","Brahim Diaz"],
+  tarH:[], tarA:[], tarNote:"Revancha del Mundial 2022 (Francia ganó 2-0 en semis). Mbappé (4 goles en el torneo) vs la muralla de Amrabat. Marruecos eliminó a Canadá 3-0 — sólidos y organizados. Francia amplísima favorita."
+};
+ALIN["Morocco_France"] = ALIN["France_Morocco"];
 
 function getAlin(home, away) {
   if (!home || !away) return null;
