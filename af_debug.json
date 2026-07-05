@@ -1,8 +1,8 @@
 {
-  "ts": "2026-07-04T23:42:29.801Z",
+  "ts": "2026-07-05T08:24:42.712Z",
   "finishedCount": 90,
-  "toFetchCount": 1,
-  "cacheSize": 89,
+  "toFetchCount": 0,
+  "cacheSize": 90,
   "firstFinishedIds": [
     537375,
     537376,
@@ -10,83 +10,6 @@
     537427,
     537428
   ],
-  "toFetchCount2": 1,
-  "toFetchSample": [
-    537375
-  ],
-  "espnDates": [
-    {
-      "date": "2026-07-04",
-      "count": 10
-    }
-  ],
-  "espnSampleStats": [
-    {
-      "team": "Paraguay",
-      "stats": [
-        "foulsCommitted=13",
-        "yellowCards=0",
-        "redCards=0",
-        "offsides=0",
-        "wonCorners=2",
-        "saves=4",
-        "possessionPct=24",
-        "totalShots=5",
-        "shotsOnTarget=1",
-        "shotPct=0.0",
-        "penaltyKickGoals=0",
-        "penaltyKickShots=0",
-        "accuratePasses=99",
-        "totalPasses=183",
-        "passPct=0.5",
-        "accurateCrosses=0",
-        "totalCrosses=4",
-        "crossPct=0.0",
-        "totalLongBalls=55",
-        "accurateLongBalls=12",
-        "longballPct=0.2",
-        "blockedShots=1",
-        "effectiveTackles=20",
-        "totalTackles=29",
-        "tacklePct=0.7",
-        "interceptions=14",
-        "effectiveClearance=22",
-        "totalClearance=22"
-      ]
-    },
-    {
-      "team": "France",
-      "stats": [
-        "foulsCommitted=11",
-        "yellowCards=3",
-        "redCards=0",
-        "offsides=0",
-        "wonCorners=12",
-        "saves=1",
-        "possessionPct=76",
-        "totalShots=15",
-        "shotsOnTarget=5",
-        "shotPct=0.3",
-        "penaltyKickGoals=0",
-        "penaltyKickShots=1",
-        "accuratePasses=510",
-        "totalPasses=568",
-        "passPct=0.9",
-        "accurateCrosses=1",
-        "totalCrosses=23",
-        "crossPct=0.0",
-        "totalLongBalls=42",
-        "accurateLongBalls=26",
-        "longballPct=0.6",
-        "blockedShots=4",
-        "effectiveTackles=8",
-        "totalTackles=14",
-        "tacklePct=0.6",
-        "interceptions=10",
-        "effectiveClearance=27",
-        "totalClearance=27"
-      ]
-    }
-  ],
-  "espnSamplePlays": []
+  "toFetchCount2": 0,
+  "toFetchSample": []
 }
