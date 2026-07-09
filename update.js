@@ -1296,7 +1296,16 @@ async function main() {
     "⚠️ <b>Canadá eliminada 0-3</b> — Sin experiencia K.O. Marruecos tuvo más oficio en cada línea.",
     "🏆 <b>8vos de Final en marcha</b> — Los 8 mejores quedan para cuartos el 9 Jul."
   ]);
-  var tipsPhase = finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
+  if(finishedKO.length>24) tipsLines = tipsLines.concat([
+    "🇦🇷 <b>¡Argentina remontada épica!</b> — Iba 0-2 vs Egipto, ganó 3-2. Messi lideró el regreso histórico.",
+    "🇨🇭 <b>Suiza en penales</b> — 0-0 vs Colombia, ganó 4-3. La Nati sólida pasa a 4tos.",
+    "🇳🇴 <b>¡El BATACAZO del torneo!</b> — Noruega eliminó a Brasil. Haaland (7 goles) destroza al tetracampeón.",
+    "🇫🇷 <b>Francia imparable</b> — Eliminó a Paraguay. 4tos vs Marruecos. Mbappé lidera el mejor ataque.",
+    "🇪🇸 <b>España sin conceder</b> — 4tos vs Bélgica. Yamal (17 años) el jugador del torneo hasta ahora.",
+    "⚡ <b>Haaland vs Kane en 4tos</b> — Noruega vs Inglaterra. Los dos mejores delanteros del mundo se enfrentan.",
+    "🏆 <b>8vos terminados · 4tos de Final</b> — 9 Jul: Francia-Marruecos · 10 Jul: España-Bélgica · 11 Jul: Noruega-Inglaterra y Argentina-Suiza."
+  ]);
+  var tipsPhase = finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
 
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + tipsPhase + "</div>"
@@ -1307,34 +1316,39 @@ async function main() {
      j1:"Brillando: Alemania (7-1), Noruega (4-1), Suecia (5-1). Flojos: Portugal (1-1), Espana (0-0).",
      j2:"Suiza 4-1 Bosnia, Canada 6-0 Qatar. Portugal sigue en crisis.",
      j3:"16avos: Francia, Noruega, Inglaterra, Belgica, Suiza, Espana, Portugal en 8vos. Alemania eliminada por Paraguay.",
-     j4:"8vos: Francia vs Paraguay (Mbappe 4 goles). Belgica vs EE.UU. Noruega (Haaland 5 goles) vs Brasil. Espana-Portugal el derby del siglo."},
+     j4:"8vos: Francia vs Paraguay (Mbappe 4 goles). Belgica vs EE.UU. Noruega (Haaland 5 goles) vs Brasil. Espana-Portugal el derby del siglo.",
+     j5:"4tos: ¡Noruega eliminó a Brasil en 8vos — EL batacazo del torneo! Haaland (7 goles) destruyó al tetracampeón. Europa con 5 de 8 equipos: Francia vs Marruecos (9 Jul), España vs Bélgica (10 Jul), Noruega vs Inglaterra (11 Jul). Europa domina el torneo."},
     {c:"rgba(74,222,128,0.06)",b:"rgba(74,222,128,0.15)",t:"#86efac",ti:"SUDAMERICA",
      j1:"Brillando: Argentina (3-0 Messi x3), Colombia (3-1). Flojos: Brasil (1-1).",
      j2:"Brasil reacciono 3-0 a Haiti. Mexico y EE.UU. clasificados.",
      j3:"16avos: Argentina 3-2 Cabo Verde (AET · Messi 7 goles record), Colombia 1-0 Ghana. Paraguay batacazo vs Alemania.",
-     j4:"8vos: Argentina vs Suiza (Messi busca cuartos). Colombia vs Egipto. Paraguay vs Francia. Brasil-Noruega el duelo."},
+     j4:"8vos: Argentina vs Suiza (Messi busca cuartos). Colombia vs Egipto. Paraguay vs Francia. Brasil-Noruega el duelo.",
+     j5:"4tos: ¡Argentina remontada ÉPICA 3-2 vs Egipto — iba perdiendo 0-2! Messi lideró el regreso histórico. Suiza 0-0 Colombia, ganó 4-3 en penales. Argentina vs Suiza el 11 Jul — Sudamérica busca semifinales. Brasil eliminado por Noruega — el golpe más duro."},
     {c:"rgba(251,191,36,0.06)",b:"rgba(251,191,36,0.15)",t:"#fcd34d",ti:"AFRICA",
      j1:"Brillando: Marruecos (1-1 Brasil), C. Marfil (gana 90'), Ghana (1-0 agonica).",
      j2:"Marruecos 1-0 Escocia confirma liderato Grupo C.",
      j3:"16avos: Marruecos elimino a Paises Bajos en penales · Egipto elimino a Australia (Salah Panenka).",
-     j4:"8vos: Marruecos 3-0 Canada — Los Leones dominan. Egipto vs Colombia el proximo. Africa puede meter 2 en cuartos."},
+     j4:"8vos: Marruecos 3-0 Canada — Los Leones dominan. Egipto vs Colombia el proximo. Africa puede meter 2 en cuartos.",
+     j5:"4tos: Marruecos el único equipo africano restante — 4tos vs Francia el 9 Jul. Egipto fue eliminado por Argentina en remontada épica 3-2. Los Leones del Atlas sueñan con semifinales como en 2022. Solo un milagro vs Francia (que no encaja)."},
     {c:"rgba(167,139,250,0.06)",b:"rgba(167,139,250,0.15)",t:"#c4b5fd",ti:"ASIA Y OCEANIA",
      j1:"Brillando: Japon (2-2 Paises Bajos al 89min), Corea del Sur (2-1 remontada).",
      j2:"Japon y Corea bien posicionados. Qatar goleado 0-6 por Canada.",
      j3:"16avos: Australia eliminada por Egipto. Japon y Corea del Sur tambien fuera. Asia sin representantes en 8vos.",
-     j4:"8vos: Sin equipos asiaticos ni oceanicos. Qatar, Corea del Sur, Australia, Japon eliminados."},
+     j4:"8vos: Sin equipos asiaticos ni oceanicos. Qatar, Corea del Sur, Australia, Japon eliminados.",
+     j5:"4tos: Sin representantes asiáticos ni oceánicos. Todos eliminados antes de cuartos. El fútbol asiático tiene trabajo por hacer para el próximo Mundial."},
     {c:"rgba(248,113,113,0.06)",b:"rgba(248,113,113,0.15)",t:"#fca5a5",ti:"CONCACAF",
      j1:"Brillando: EE.UU. (4-1), Mexico (2-0). Canada empezo 1-1.",
      j2:"Mexico y EE.UU. clasificados 6 pts. Canada goleo 6-0. CONCACAF historico.",
      j3:"16avos: Canada, EE.UU. y Mexico todos clasificados. EE.UU. 2-0 Bosnia.",
-     j4:"8vos: Canada eliminada 0-3 vs Marruecos. Mexico vs Inglaterra en casa. EE.UU. vs Belgica — De Bruyne el peligro."}
+     j4:"8vos: Canada eliminada 0-3 vs Marruecos. Mexico vs Inglaterra en casa. EE.UU. vs Belgica — De Bruyne el peligro.",
+     j5:"4tos: Sin representantes. México eliminado por Inglaterra en 8vos, EE.UU. eliminado por Bélgica. Canadá ya cayó vs Marruecos en 8vos. CONCACAF con 3 equipos en octavos fue histórico — pero el sueño se acabó."}
   ];
-  var contPhase = finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
+  var contPhase = finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
   var contHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
     + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + contPhase + "</div>"
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
     + continentes.map(function(ct){
-        var tx = finishedKO.length>16?ct.j4:finishedKO.length>0?ct.j3:jornadaMax>=2?ct.j2:ct.j1;
+        var tx = finishedKO.length>24?ct.j5:finishedKO.length>16?ct.j4:finishedKO.length>0?ct.j3:jornadaMax>=2?ct.j2:ct.j1;
         return '<div style="background:' + ct.c + ';border-radius:8px;padding:10px 12px;border:1px solid ' + ct.b + ';">'
           + '<div style="font-size:11px;font-weight:700;color:' + ct.t + ';margin-bottom:5px;">' + ct.ti + "</div>"
           + '<div style="font-size:11px;color:#cbd5e1;line-height:1.8;">' + tx + "</div></div>";
@@ -1379,8 +1393,8 @@ async function main() {
     + 'function showR16(btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var r16=document.getElementById("r16");if(r16)r16.style.display="block";}'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}';
 
-  var favs = [["🇫🇷","Francia","Mbappé 4 goles, sin recibir en 16avos. El equipo más sólido.","3.5x"],["🇦🇷","Argentina","Messi 7 goles — récord histórico. Vs Suiza en 8vos.","4.0x"],["🇧🇷","Brasil","Remontó a Japón al 90+5'. Vinícius Jr imparable. Vs Haaland.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Sólida, Kane + Bellingham. Choque épico vs México anfitrión.","7.0x"],["🇲🇦","Marruecos","3-0 a Canadá en 8vos. Los Leones del Atlas sueñan en grande.","18x"]];
-  var bads = [["🇵🇾","Paraguay","Batacazo vs Alemania fue histórico. Pero vs Francia (Mbappé 4 goles) es otro universo."],["🇪🇬","Egipto","Salah Panenka fue épico vs Australia. Pero Colombia con Luis Díaz es nivel diferente."],["🇳🇴","Noruega","Haaland brillante (5 goles en grupos). Pero Brasil tiene más calidad en todas las líneas."]];
+  var favs = [["🇫🇷","Francia","Mbappé 4 goles. Sólido sin conceder. 4tos vs Marruecos 9 Jul.","3.2x"],["🇦🇷","Argentina","Remontada épica 3-2 vs Egipto (iba 0-2). Messi récord. 4tos vs Suiza.","4.0x"],["🇪🇸","España","Sin conceder en 8vos. Yamal (17 años) el jugador del torneo. 4tos vs Bélgica.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Kane + Bellingham sólidos. Eliminó a México. 4tos vs Noruega.","8.0x"],["🇳🇴","Noruega","¡BATACAZO! Eliminó a Brasil. Haaland 7 goles (máximo goleador). 4tos vs Inglaterra.","9.0x"],["🇲🇦","Marruecos","3-0 a Canadá en 8vos. Los Leones del Atlas. 4tos vs Francia.","15x"],["🇧🇪","Bélgica","Eliminó a EE.UU. De Bruyne brillante. 4tos vs España.","18x"],["🇨🇭","Suiza","0-0 Colombia, ganó pen 4-3. Sólida. 4tos vs Argentina.","25x"]];
+  var bads = [["🇲🇦","Marruecos vs Francia","Marruecos es peligroso pero Francia no ha encajado gol en todo el torneo. Mbappé puede liquidar en cualquier momento."],["🇨🇭","Suiza vs Argentina","La Nati es muy sólida y pasa de penales vs Colombia. Pero Argentina con Messi tiene otra calidad. Partido trampa."],["🇧🇪","Bélgica vs España","Bélgica eliminó a EE.UU. pero España es otro nivel. Yamal los puede destruir solo. Apostar por goles, no por sorpresa belga."]];
 
   // ── BRACKET SVG 16AVOS — dinámico desde API ──
   // Mapa: nombre API → {flag, nombre en español}
