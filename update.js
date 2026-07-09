@@ -1493,7 +1493,7 @@ async function main() {
   var BL=BLpairs.map(buildSlot);
   var BR=BRpairs.map(buildSlot);
   var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
-  var BR8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
+  var BR8=[[0,1],[2,3],[4,6],[5,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
   function build4Slot(sA,sB){
     if(!sA||!sA.wk1||!sB||!sB.wk1) return {a:null,b:null};
     var p8A={h:sA.wk1,a:sA.wk2||""}; var p8B={h:sB.wk1,a:sB.wk2||""};
