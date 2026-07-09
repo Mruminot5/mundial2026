@@ -433,6 +433,11 @@ ANAL["Argentina_Switzerland"] = {g:"Argentina llegó sufriendo tras el épico 3-
 ANAL["Switzerland_Argentina"] = ANAL["Argentina_Switzerland"];
 ANAL["Egypt_Colombia"]        = {g:"Egipto es el equipo revelación del torneo: primera vez en 8vos, Salah con panenka épico en penales. Colombia venció 1-0 a Ghana con Arias, pero James Rodríguez salió lesionado. El partido del corazón vs la táctica.",go:"Mohamed Salah (Egipto) — el capitán histórico que inspiró la clasificación. Jhon Arias (Colombia) — autor del gol vs Ghana. ⚠️ James Rodríguez en duda.",fi:"Mohamed Salah (Egipto) — si está en el día, el partido es otro. Su panenka fue icónica.",ap:"Colombia favorita leve · Salah anota · Sin empate. ⚠️ Confirmar estado de James. Cuota Colombia: 1.8x",pr:"Pred: Colombia 2-1"};
 ANAL["Colombia_Egypt"]        = ANAL["Egypt_Colombia"];
+ANAL["Spain_Belgium"]        = {g:"España viene de eliminar a Portugal en el derby ibérico más importante de la historia con Yamal y Oyarzabal decisivos. Bélgica superó por penales a EE.UU. en un partido de corazón. La Roja es favorita clara con Rodri dominando el centro del campo.",go:"Lamine Yamal (España) — 17 años haciendo historia, imparable. Romelu Lukaku (Bélgica) — goleador histórico, peligroso en área.",fi:"Lamine Yamal (España) — el talento generacional del torneo. Desborda sin pausa y genera constantemente.",ap:"España amplia favorita · Yamal anota o asiste · Menos de 3.5 goles. Cuota España: 1.6x",pr:"Pred: España 2-0"};
+ANAL["Belgium_Spain"]        = ANAL["Spain_Belgium"];
+ANAL["Norway_England"]       = {g:"El resultado más sorprendente del torneo: Noruega eliminó a Brasil en los 8vos con Haaland y Odegaard magistrales. Inglaterra venció a México 2-1 con Kane de doblete. El duelo Haaland (7 goles) vs Kane. Odegaard vs Bellingham el gran duelo de mediocampos.",go:"Erling Haaland (Noruega) — 7 goles, máximo goleador del torneo, imparable en área. Harry Kane (Inglaterra) — también con varios goles, el ot ro referente.",fi:"Erling Haaland (Noruega) — si recibe un pase en el área, anota. El goleador más letal del planeta en estado de gracia.",ap:"Partido muy parejo · Haaland anota · Ambos equipos marcan. Cuota empate: 3.0x",pr:"Pred: Noruega 2-1"};
+ANAL["England_Norway"]       = ANAL["Norway_England"];
+
 ANAL["Argentina_Egypt"] = {g:"Messi (7 goles histórico en el torneo) lidera a Argentina, que llegó desgastada tras 120 min vs Cabo Verde. Egipto sorprendió con el Panenka de Salah — creyente y organizado. Argentina favorita clara pero no puede subestimarlos.",go:"Messi el gran candidato al gol. Salah (Egipto) con gran torneo.",fi:"Lionel Messi (Argentina) — el mago sigue escribiendo historia.",ap:"Argentina gana · Messi anota · Más de 2 goles. Cuota est: 2.2x",pr:""};
 ANAL["Egypt_Argentina"] = ANAL["Argentina_Egypt"];
 ANAL["Switzerland_Colombia"] = {g:"Suiza pasó cómoda la fase de grupos y ganó a Argelia en 16avos. Colombia goleó a Ghana y luce con grandes opciones. El duelo entre la solidez suiza (Xhaka) y la creatividad colombiana (Luis Díaz) promete ser cerrado.",go:"Luis Díaz (Colombia) el más peligroso. Embolo (Suiza) el referente ofensivo.",fi:"Granit Xhaka (Suiza) — el motor que controla el ritmo del partido.",ap:"Colombia leve favorita · Menos de 3 goles · Luis Díaz anota. Cuota est: 2.3x",pr:""};
@@ -615,6 +620,19 @@ ALIN["Egypt_Colombia"] = {
   tarH:[], tarA:[], tarNote:"Mohamed Salah (Panenka icónico en penales) lidera la sorpresa de Egipto. Colombia con duda de James Rodríguez (lesión). Jhon Arias y Luis Díaz los diferenciadores colombianos."
 };
 ALIN["Colombia_Egypt"] = ALIN["Egypt_Colombia"];
+ALIN["Spain_Belgium"] = {
+  fH:"4-2-3-1", h:["Simón","Porro","Laporte","Cubarsi","Cucurella","Rodri","Pedri","Yamal","Olmo","Baena","Oyarzabal"],
+  fA:"4-2-3-1", a:["Mignolet","Castagne","Faes","Debast","Theate","Onana","Mangala","Tielemans","De Bruyne","Doku","Lukaku"],
+  tarH:[], tarA:[], tarNote:"España eliminó a Portugal en el derby ibérico — favoritos del torneo. Bélgica pasó a EE.UU. en penales. Yamal (17 años) imparable. De Bruyne en su último Mundial, va a fondo. Rodri el mejor mediocentro activo."
+};
+ALIN["Belgium_Spain"] = ALIN["Spain_Belgium"];
+ALIN["Norway_England"] = {
+  fH:"4-3-3", h:["Nyland","Ryerson","Ostigard","Skjelvik","Meling","Aursnes","Amdouni","Odegaard","Nusa","Haaland","Sorloth"],
+  fA:"4-2-3-1", a:["Flaherty","Alexander-Arnold","Guehi","Stones","Shaw","Bellingham","Rice","Gallagher","Saka","Kane","Foden"],
+  tarH:[], tarA:[], tarNote:"Noruega eliminó a Brasil en los 8vos — el batacazo del torneo. Haaland con 7 goles, máximo goleador. Inglaterra venció a México 2-1 con Kane y Bellingham decisivos. El duelo Haaland-Kane es la atracción del Mundial."
+};
+ALIN["England_Norway"] = ALIN["Norway_England"];
+
 ALIN["Argentina_Egypt"] = {
   fH:"4-3-3", h:["E. Martínez","Molina","Romero","Lis. Martínez","Medina","Mac Allister","E. Fernández","De Paul","Almada","Messi","J. Álvarez"],
   fA:"4-2-3-1", a:["Shobeir","M. Hany","Y. Ibrahim","Rabia","Hafez","Ateya","Fathy","Emam Ashour","Salah","Marmoush","Ziko"],
