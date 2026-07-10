@@ -1,15 +1,92 @@
 {
-  "ts": "2026-07-10T19:26:37.065Z",
-  "finishedCount": 97,
-  "toFetchCount": 0,
+  "ts": "2026-07-10T21:08:50.730Z",
+  "finishedCount": 98,
+  "toFetchCount": 1,
   "cacheSize": 97,
   "firstFinishedIds": [
+    537384,
     537383,
     537382,
     537381,
-    537380,
-    537379
+    537380
   ],
-  "toFetchCount2": 0,
-  "toFetchSample": []
+  "toFetchCount2": 1,
+  "toFetchSample": [
+    537384
+  ],
+  "espnDates": [
+    {
+      "date": "2026-07-10",
+      "count": 4
+    }
+  ],
+  "espnSampleStats": [
+    {
+      "team": "Spain",
+      "stats": [
+        "foulsCommitted=13",
+        "yellowCards=2",
+        "redCards=0",
+        "offsides=3",
+        "wonCorners=5",
+        "saves=1",
+        "possessionPct=67.8",
+        "totalShots=17",
+        "shotsOnTarget=8",
+        "shotPct=0.5",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=0",
+        "accuratePasses=598",
+        "totalPasses=665",
+        "passPct=0.9",
+        "accurateCrosses=2",
+        "totalCrosses=19",
+        "crossPct=0.1",
+        "totalLongBalls=37",
+        "accurateLongBalls=21",
+        "longballPct=0.6",
+        "blockedShots=5",
+        "effectiveTackles=5",
+        "totalTackles=11",
+        "tacklePct=0.5",
+        "interceptions=4",
+        "effectiveClearance=15",
+        "totalClearance=15"
+      ]
+    },
+    {
+      "team": "Belgium",
+      "stats": [
+        "foulsCommitted=18",
+        "yellowCards=2",
+        "redCards=0",
+        "offsides=1",
+        "wonCorners=1",
+        "saves=6",
+        "possessionPct=32.2",
+        "totalShots=5",
+        "shotsOnTarget=2",
+        "shotPct=0.4",
+        "penaltyKickGoals=0",
+        "penaltyKickShots=0",
+        "accuratePasses=244",
+        "totalPasses=314",
+        "passPct=0.8",
+        "accurateCrosses=2",
+        "totalCrosses=10",
+        "crossPct=0.2",
+        "totalLongBalls=45",
+        "accurateLongBalls=20",
+        "longballPct=0.4",
+        "blockedShots=2",
+        "effectiveTackles=6",
+        "totalTackles=10",
+        "tacklePct=0.6",
+        "interceptions=10",
+        "effectiveClearance=33",
+        "totalClearance=33"
+      ]
+    }
+  ],
+  "espnSamplePlays": []
 }
