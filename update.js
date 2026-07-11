@@ -193,7 +193,7 @@ ANAL["Netherlands_Sweden"]           = {g:"Países Bajos goleó 5-1 a Suecia. Xa
 
 // J2 pendientes / próximos con análisis
 ANAL["Tunisia_Japan"]                = {g:"Japón parte como claro favorito. Túnez fue goleado 1-5 por Suecia.",go:"Daichi Kamada (Japón) — marcó el 2-2 al 89min vs Países Bajos. Ritsu Doan peligroso.",fi:"Takumi Minamino (Japón) — motor junto a Kamada.",ap:"Japón gana · Más de 1.5 goles · Kamada anota. Cuota est: 2.2x",pr:"Pred: Japón 2-0"};
-ANAL["Spain_Saudi Arabia"]           = {g:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay.",go:"Pedri y Morata (España). Al-Dawsari (Arabia Saudita) en contraataque.",fi:"Pedri (España) — el creativo que España necesita despertar.",ap:"España gana · Pedri con asistencia. Cuota est: 1.9x",pr:"Pred: España 2-0"};
+ANAL["Spain_Saudi Arabia"]           = {g:"España obligada a reaccionar tras el 0-0 vs Cabo Verde. Arabia Saudita igualó con Uruguay.",go:"Pedri y Morata (España). Al-Dawsari (Arabia Saudita) en contraataque.",fi:"Pedri (España) — el creativo que España necesita despertar.",ap:"España gana · Pedri con asistencia. Cuota est: 1.9x",pr:"✅ España 2-1"};
 ANAL["Belgium_Iran"]                  = {g:"Bélgica igualó 1-1 con Egipto en J1. Irán cedió 2-2 con Nueva Zelanda. Partido parejo entre dos equipos irregulares.",go:"Romelu Lukaku (Bélgica) — si está en forma es letal. Mehdi Taremi (Irán) referente ofensivo.",fi:"Kevin De Bruyne (Bélgica) — si aparece cambia el partido.",ap:"Bélgica gana por la mínima · Menos de 3 goles. Cuota est: 2.3x",pr:"Pred: Bélgica 1-0"};
 ANAL["Belgium_IR Iran"]               = ANAL["Belgium_Iran"];
 ANAL["Belgium_Islamic Republic of Iran"] = ANAL["Belgium_Iran"];
@@ -442,7 +442,7 @@ ANAL["Argentina_Egypt"] = {g:"Messi (7 goles histórico en el torneo) lidera a A
 ANAL["Egypt_Argentina"] = ANAL["Argentina_Egypt"];
 ANAL["Switzerland_Colombia"] = {g:"Suiza pasó cómoda la fase de grupos y ganó a Argelia en 16avos. Colombia goleó a Ghana y luce con grandes opciones. El duelo entre la solidez suiza (Xhaka) y la creatividad colombiana (Luis Díaz) promete ser cerrado.",go:"Luis Díaz (Colombia) el más peligroso. Embolo (Suiza) el referente ofensivo.",fi:"Granit Xhaka (Suiza) — el motor que controla el ritmo del partido.",ap:"Colombia leve favorita · Menos de 3 goles · Luis Díaz anota. Cuota est: 2.3x",pr:"✅ Suiza 0-0 Colombia (pen 4-3)"};
 ANAL["Colombia_Switzerland"] = ANAL["Switzerland_Colombia"];
-ANAL["France_Morocco"] = {g:"Revancha del Mundial 2022. Francia sin conceder en 8vos con Mbappé imparable (4 goles). Marruecos 3-0 a Canadá — los Leones del Atlas en forma sólida. Amrabat vs Tchouameni el gran duelo de mediocampos.",go:"Mbappé (Francia) el gran candidato. En-Nesyri (Marruecos) de referencia.",fi:"Kylian Mbappé (Francia) — el jugador del torneo.",ap:"Francia gana · Mbappé anota · Más de 1.5 goles. Cuota est: 1.9x",pr:""};
+ANAL["France_Morocco"] = {g:"Revancha del Mundial 2022. Francia sin conceder en 8vos con Mbappé imparable (4 goles). Marruecos 3-0 a Canadá — los Leones del Atlas en forma sólida. Amrabat vs Tchouameni el gran duelo de mediocampos.",go:"Mbappé (Francia) el gran candidato. En-Nesyri (Marruecos) de referencia.",fi:"Kylian Mbappé (Francia) — el jugador del torneo.",ap:"Francia gana · Mbappé anota · Más de 1.5 goles. Cuota est: 1.9x",pr:"✅ Francia 2-0"};
 ANAL["Morocco_France"] = ANAL["France_Morocco"];
 
 function getAnal(home, away) {
