@@ -1644,7 +1644,7 @@ async function main() {
   var l4cy=[(l8cy[0]+l8cy[1])/2,(l8cy[2]+l8cy[3])/2];
   var ySFL=(l4cy[0]+l4cy[1])/2;
   s+=line(xL4+W4+CN/2,l4cy[0],xL4+W4+CN/2,l4cy[1]);
-  s+=emptySlot(xSFL,ySFL-CH-CG/2,WSF);
+  var sfL1=BL4[0]&&BL4[0].wk1?koWinner(findKO({h:BL4[0].wk1,a:BL4[0].wk2}),{h:BL4[0].wk1,a:BL4[0].wk2}):null;var sfL2=BL4[1]&&BL4[1].wk1?koWinner(findKO({h:BL4[1].wk1,a:BL4[1].wk2}),{h:BL4[1].wk1,a:BL4[1].wk2}):null;if(sfL1||sfL2){s+=rect(xSFL,ySFL-CH-CG/2,WSF,CH*2+CG,"#0b1120","#4ade80");s+=txt(xSFL+5,ySFL-CG/2-4,sfL1?td(sfL1):"?","#4ade80",10);s+=txt(xSFL+5,ySFL+CH+CG/2-4,sfL2?td(sfL2):"?","#94a3b8",9);}else{s+=emptySlot(xSFL,ySFL-CH-CG/2,WSF);}
   s+=line(xSFL+WSF,ySFL,xSFL+WSF+CN,ySFL);
 
   // Final box
@@ -1693,7 +1693,7 @@ async function main() {
   var r4cy=[(r8cy[0]+r8cy[1])/2,(r8cy[2]+r8cy[3])/2];
   var ySFR=(r4cy[0]+r4cy[1])/2;
   s+=line(xR4-CN/2,r4cy[0],xR4-CN/2,r4cy[1]);
-  s+=emptySlot(xSFR,ySFR-CH-CG/2,WSF);
+  var sfR1=BR4[0]&&BR4[0].wk1?koWinner(findKO({h:BR4[0].wk1,a:BR4[0].wk2}),{h:BR4[0].wk1,a:BR4[0].wk2}):null;var sfR2=BR4[1]&&BR4[1].wk1?koWinner(findKO({h:BR4[1].wk1,a:BR4[1].wk2}),{h:BR4[1].wk1,a:BR4[1].wk2}):null;if(sfR1||sfR2){s+=rect(xSFR,ySFR-CH-CG/2,WSF,CH*2+CG,"#0b1120","#4ade80");s+=txt(xSFR+5,ySFR-CG/2-4,sfR1?td(sfR1):"?","#4ade80",10);s+=txt(xSFR+5,ySFR+CH+CG/2-4,sfR2?td(sfR2):"?","#94a3b8",9);}else{s+=emptySlot(xSFR,ySFR-CH-CG/2,WSF);}
   s+=line(xSFR,ySFR,xSFR-CN,ySFR);
 
   // Connect SF-R to Final
