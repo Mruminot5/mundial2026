@@ -1506,7 +1506,7 @@ async function main() {
 
   var BL=BLpairs.map(buildSlot);
   var BR=BRpairs.map(buildSlot);
-  var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
+  var _t;_t=BLpairs[4];BLpairs[4]=BRpairs[0];BRpairs[0]=_t;_t=BLpairs[5];BLpairs[5]=BRpairs[1];BRpairs[1]=_t;_t=BLpairs[6];BLpairs[6]=BRpairs[2];BRpairs[2]=_t;_t=BLpairs[7];BLpairs[7]=BRpairs[3];BRpairs[3]=_t;var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
   var BR8=[[0,1],[2,3],[4,6],[5,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
   function build4Slot(sA,sB){
     if(!sA||!sA.wk1||!sB||!sB.wk1) return {a:null,b:null};
@@ -1515,7 +1515,7 @@ async function main() {
     if(!w8A&&!w8B) return {a:null,b:null};
     return {a:w8A?td(w8A):null, b:w8B?td(w8B):null, wk1:w8A||null, wk2:w8B||null};
   }
-  var _t;_t=BL8[2];BL8[2]=BR8[0];BR8[0]=_t;_t=BL8[3];BL8[3]=BR8[1];BR8[1]=_t;var BL4=[[0,1],[2,3]].map(function(p){return build4Slot(BL8[p[0]],BL8[p[1]]);});
+  var BL4=[[0,1],[2,3]].map(function(p){return build4Slot(BL8[p[0]],BL8[p[1]]);});
   var BR4=[[0,1],[2,3]].map(function(p){return build4Slot(BR8[p[0]],BR8[p[1]]);});
 
   // Constantes de layout
