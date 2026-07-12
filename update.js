@@ -444,6 +444,10 @@ ANAL["Switzerland_Colombia"] = {g:"Suiza pasó cómoda la fase de grupos y ganó
 ANAL["Colombia_Switzerland"] = ANAL["Switzerland_Colombia"];
 ANAL["France_Morocco"] = {g:"Revancha del Mundial 2022. Francia sin conceder en 8vos con Mbappé imparable (4 goles). Marruecos 3-0 a Canadá — los Leones del Atlas en forma sólida. Amrabat vs Tchouameni el gran duelo de mediocampos.",go:"Mbappé (Francia) el gran candidato. En-Nesyri (Marruecos) de referencia.",fi:"Kylian Mbappé (Francia) — el jugador del torneo.",ap:"Francia gana · Mbappé anota · Más de 1.5 goles. Cuota est: 1.9x",pr:"✅ Francia 2-0"};
 ANAL["Morocco_France"] = ANAL["France_Morocco"];
+ANAL["France_Spain"]={g:"La Final Anticipada · Mbappé 2 goles vs Marruecos imparable · Yamal 17a revelación · Ambos invictos · España domina posesión, Francia letal en transición",go:"Kylian Mbappé (Francia) · Lamine Yamal (España) · Antoine Griezmann (Francia) · Pedri González (España)",ap:"España muy leve favorita · Ambos marcan probable · Puede ir a penales"};
+ANAL["Spain_France"]=ANAL["France_Spain"];
+ANAL["England_Argentina"]={g:"Continentes en choque · Bellingham y Kane lideraron el 2-1 vs Noruega · Messi busca su 2do Mundial a los 38 años · Argentina venció a Suiza en 4tos · La defensa inglesa pondrá a prueba a Messi",go:"Lionel Messi (Argentina) · Harry Kane (Inglaterra) · Jude Bellingham (Inglaterra) · Julián Álvarez (Argentina)",ap:"Argentina leve favorita con Messi · Kane puede marcar primero · Ambos marcan cuota 1.7x"};
+ANAL["Argentina_England"]=ANAL["England_Argentina"];
 
 function getAnal(home, away) {
   if (!home || !away) return null;
@@ -1296,7 +1300,7 @@ async function main() {
     "⚠️ <b>Canadá eliminada 0-3</b> — Sin experiencia K.O. Marruecos tuvo más oficio en cada línea.",
     "🏆 <b>8vos de Final en marcha</b> — Los 8 mejores quedan para cuartos el 9 Jul."
   ]);
-  if(finishedKO.length>24) tipsLines = tipsLines.concat([
+  if(finishedKO.length>28) tipsLines=tipsLines.concat(["<b>SEMIFINALES 14 y 15 Jul</b>: Las 4 mejores del mundo","<b>Francia vs España 14 Jul</b> Final Anticipada · Mbappé vs Yamal · España leve favorita","<b>Argentina vs Inglaterra 15 Jul</b> Messi busca su 2do Mundial · Kane muy peligroso · Partido extremadamente parejo"]); if(finishedKO.length>24) tipsLines = tipsLines.concat([
     "🇦🇷 <b>¡Argentina remontada épica!</b> — Iba 0-2 vs Egipto, ganó 3-2. Messi lideró el regreso histórico.",
     "🇨🇭 <b>Suiza en penales</b> — 0-0 vs Colombia, ganó 4-3. La Nati sólida pasa a 4tos.",
     "🇳🇴 <b>¡El BATACAZO del torneo!</b> — Noruega eliminó a Brasil. Haaland (7 goles) destroza al tetracampeón.",
@@ -1305,7 +1309,7 @@ async function main() {
     "⚡ <b>Haaland vs Kane en 4tos</b> — Noruega vs Inglaterra. Los dos mejores delanteros del mundo se enfrentan.",
     "🏆 <b>8vos terminados · 4tos de Final</b> — 9 Jul: Francia-Marruecos · 10 Jul: España-Bélgica · 11 Jul: Noruega-Inglaterra y Argentina-Suiza."
   ]);
-  var tipsPhase = finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
+  var tipsPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.lengthfinishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
 
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + tipsPhase + "</div>"
@@ -1343,7 +1347,7 @@ async function main() {
      j4:"8vos: Canada eliminada 0-3 vs Marruecos. Mexico vs Inglaterra en casa. EE.UU. vs Belgica — De Bruyne el peligro.",
      j5:"4tos: Sin representantes. México eliminado por Inglaterra en 8vos, EE.UU. eliminado por Bélgica. Canadá ya cayó vs Marruecos en 8vos. CONCACAF con 3 equipos en octavos fue histórico — pero el sueño se acabó."}
   ];
-  var contPhase = finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
+  var contPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.lengthfinishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
   var contHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
     + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + contPhase + "</div>"
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
@@ -1393,8 +1397,7 @@ async function main() {
     + 'function showR16(btn){document.querySelectorAll(".jbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=j]").forEach(function(d){if(/^j\\d+$/.test(d.id))d.style.display="none";});var r16=document.getElementById("r16");if(r16)r16.style.display="block";}'
     + 'function showGrp(id,btn){document.querySelectorAll(".gbtn").forEach(function(b){b.classList.remove("active");});btn.classList.add("active");document.querySelectorAll("[id^=t]").forEach(function(d){if(/^t[A-L]$/.test(d.id))d.style.display="none";});var el=document.getElementById(id);if(el)el.style.display="block";}';
 
-  var favs = [["🇫🇷","Francia","Mbappé 4 goles. Sólido sin conceder. 4tos vs Marruecos 9 Jul.","3.2x"],["🇦🇷","Argentina","Remontada épica 3-2 vs Egipto (iba 0-2). Messi récord. 4tos vs Suiza.","4.0x"],["🇪🇸","España","Sin conceder en 8vos. Yamal (17 años) el jugador del torneo. 4tos vs Bélgica.","5.0x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Kane + Bellingham sólidos. Eliminó a México. 4tos vs Noruega.","8.0x"],["🇳🇴","Noruega","¡BATACAZO! Eliminó a Brasil. Haaland 7 goles (máximo goleador). 4tos vs Inglaterra.","9.0x"],["🇲🇦","Marruecos","3-0 a Canadá en 8vos. Los Leones del Atlas. 4tos vs Francia.","15x"],["🇧🇪","Bélgica","Eliminó a EE.UU. De Bruyne brillante. 4tos vs España.","18x"],["🇨🇭","Suiza","0-0 Colombia, ganó pen 4-3. Sólida. 4tos vs Argentina.","25x"]];
-  var bads = [["🇲🇦","Marruecos vs Francia","Marruecos es peligroso pero Francia no ha encajado gol en todo el torneo. Mbappé puede liquidar en cualquier momento."],["🇨🇭","Suiza vs Argentina","La Nati es muy sólida y pasa de penales vs Colombia. Pero Argentina con Messi tiene otra calidad. Partido trampa."],["🇧🇪","Bélgica vs España","Bélgica eliminó a EE.UU. pero España es otro nivel. Yamal los puede destruir solo. Apostar por goles, no por sorpresa belga."]];
+  var favs=[["🇫🇷","Francia","Mbappé 2G vs Marruecos · SEMI vs España 14 Jul · Invicto en KO","2.8x"],["🇦🇷","Argentina","Messi histórico · Venció a Suiza · SEMI vs Inglaterra 15 Jul","3.5x"],["🇪🇸","España","Yamal imparable · Venció a Bélgica 2-1 · SEMI vs Francia 14 Jul","3.8x"],["🏴󠁧󠁢󠁥󠁮󠁧󠁿","Inglaterra","Kane+Bellingham · Venció a Noruega 2-1 · SEMI vs Argentina 15 Jul","6.5x"]];var bads=[["🇫🇷🇪🇸","Francia vs España","Muy parejo · apostar doble oportunidad o ambos marcan, no a goleada"],["🇦🇷🏴󠁧󠁢󠁥󠁮󠁧󠁿","Argentina vs Inglaterra","No subestimes a Kane · mejor cuota en empate o ambos marcan que victoria directa"]];
 
   // ── BRACKET SVG 16AVOS — dinámico desde API ──
   // Mapa: nombre API → {flag, nombre en español}
