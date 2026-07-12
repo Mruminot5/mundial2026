@@ -1309,7 +1309,7 @@ async function main() {
     "⚡ <b>Haaland vs Kane en 4tos</b> — Noruega vs Inglaterra. Los dos mejores delanteros del mundo se enfrentan.",
     "🏆 <b>8vos terminados · 4tos de Final</b> — 9 Jul: Francia-Marruecos · 10 Jul: España-Bélgica · 11 Jul: Noruega-Inglaterra y Argentina-Suiza."
   ]);
-  var tipsPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.lengthfinishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
+  var tipsPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax+" completada";
 
   var tipsHTML = '<div style="background:linear-gradient(135deg,#0d2a1a,#0a1f2f);border:1px solid #1a4a2a;border-radius:12px;padding:13px 15px;margin-bottom:12px;">'
     + '<div style="font-size:12px;color:#4ade80;font-weight:700;margin-bottom:7px;">💡 Tips del analista · J' + tipsPhase + "</div>"
@@ -1347,7 +1347,7 @@ async function main() {
      j4:"8vos: Canada eliminada 0-3 vs Marruecos. Mexico vs Inglaterra en casa. EE.UU. vs Belgica — De Bruyne el peligro.",
      j5:"4tos: Sin representantes. México eliminado por Inglaterra en 8vos, EE.UU. eliminado por Bélgica. Canadá ya cayó vs Marruecos en 8vos. CONCACAF con 3 equipos en octavos fue histórico — pero el sueño se acabó."}
   ];
-  var contPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.lengthfinishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
+  var contPhase = finishedKO.length>28 ? "Semifinales" : finishedKO.length>24 ? "4tos de Final" : finishedKO.length>16 ? "8vos de Final" : finishedKO.length>0 ? "16avos de Final" : "J"+jornadaMax;
   var contHTML = '<div style="background:linear-gradient(135deg,#0a1f2f,#0d1a3a);border:1px solid #1a3a5a;border-radius:12px;padding:13px 15px;margin-bottom:20px;">'
     + '<div style="font-size:12px;color:#60a5fa;font-weight:700;margin-bottom:10px;">Analisis por continente · J' + contPhase + "</div>"
     + '<div style="display:flex;flex-direction:column;gap:10px;">'
