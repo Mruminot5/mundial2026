@@ -1504,9 +1504,9 @@ async function main() {
     };
   }
 
-  var BL=BLpairs.map(buildSlot);
+  var _t;_t=BLpairs[4];BLpairs[4]=BRpairs[0];BRpairs[0]=_t;_t=BLpairs[5];BLpairs[5]=BRpairs[1];BRpairs[1]=_t;_t=BLpairs[6];BLpairs[6]=BRpairs[2];BRpairs[2]=_t;_t=BLpairs[7];BLpairs[7]=BRpairs[3];BRpairs[3]=_t;var BL=BLpairs.map(buildSlot);
   var BR=BRpairs.map(buildSlot);
-  var _t;_t=BLpairs[4];BLpairs[4]=BRpairs[0];BRpairs[0]=_t;_t=BLpairs[5];BLpairs[5]=BRpairs[1];BRpairs[1]=_t;_t=BLpairs[6];BLpairs[6]=BRpairs[2];BRpairs[2]=_t;_t=BLpairs[7];BLpairs[7]=BRpairs[3];BRpairs[3]=_t;var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
+  var BL8=[[0,1],[2,3],[4,5],[6,7]].map(function(p){return build8Slot(BLpairs,p[0],p[1]);});
   var BR8=[[0,1],[2,3],[4,6],[5,7]].map(function(p){return build8Slot(BRpairs,p[0],p[1]);});
   function build4Slot(sA,sB){
     if(!sA||!sA.wk1||!sB||!sB.wk1) return {a:null,b:null};
