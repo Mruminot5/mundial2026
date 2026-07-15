@@ -1658,7 +1658,28 @@ async function main() {
   s+=txt(xFIN+WFIN/2,yFIN+44,"🏆","#fbbf24",18,"middle");
   s+=txt(xFIN+WFIN/2,yFIN+62,"Campeón","#fbbf24",9,"middle");
 
-  }// Connect SF-L to Final
+  }var lSFL=(wSFL&&sfL1&&sfL2)?(wSFL==sfL1?sfL2:sfL1):null;
+var lSFR=(wSFR&&sfR1&&sfR2)?(wSFR==sfR1?sfR2:sfR1):null;
+var w3rd=lSFL&&lSFR?koWinner(findKO({h:lSFL,a:lSFR}),{h:lSFL,a:lSFR}):null;
+var l3rd=w3rd?(w3rd==lSFL?lSFR:lSFL):null;
+var wFIN=(wSFL&&wSFR)?koWinner(findKO({h:wSFL,a:wSFR}),{h:wSFL,a:wSFR}):null;
+var lFIN=wFIN?(wFIN==wSFL?wSFR:wSFL):null;
+var y3RD=yFIN+CH+CG/2+30;
+if(sfL1||sfL2||sfR1||sfR2){
+s+=txt(xFIN+WFIN/2,y3RD-10,"3er Lugar · 19 Jul","#64748b",7,"middle");
+s+=rect(xFIN,y3RD,WFIN,CH*2+CG,w3rd?"#0b1120":"#100d0a",w3rd?"#cd7c2a":"#3a3020");
+s+=txt(xFIN+5,y3RD+CH-4,w3rd?("🥉 "+td(w3rd)):(lSFL?td(lSFL):"?"),"#cd7c2a",10);
+s+=txt(xFIN+5,y3RD+CH+CG+CH-4,w3rd?td(l3rd||""):(lSFR?td(lSFR):"?"),"#475569",9);
+}
+if(wFIN){
+var yPOD=yFIN-CH-CG/2-90;
+s+=rect(xFIN,yPOD,WFIN,82,"#120d00","#fbbf24");
+s+=txt(xFIN+WFIN/2,yPOD+14,"🏆 CAMPEÓN MUNDIAL","#fbbf24",8,"middle");
+s+=txt(xFIN+WFIN/2,yPOD+30,td(wFIN),"#fde68a",11,"middle");
+s+=txt(xFIN+WFIN/2,yPOD+46,"🥈 "+td(lFIN||""),"#94a3b8",8,"middle");
+if(w3rd)s+=txt(xFIN+WFIN/2,yPOD+62,"🥉 "+td(w3rd),"#cd7c2a",8,"middle");
+}
+// Connect SF-L to Final
   s+=line(xSFL+WSF+CN,ySFL,xFIN,ySFL);
   s+=line(xFIN,ySFL,xFIN,yFIN+35);
 
