@@ -967,6 +967,7 @@ async function main() {
   var mData, sData;
   [mData, sData] = await Promise.all([get("competitions/WC/matches"), get("competitions/WC/standings")]);
 
+var matches=mData.matches;
 matches=matches.filter(function(x){return !((x.homeTeam&&x.homeTeam.name==='England'||x.awayTeam&&x.awayTeam.name==='England')&&(x.stage==='SEMI_FINALS'||x.stage==='SEMI_FINAL'));});matches.push({homeTeam:{name:'England',shortName:'England'},awayTeam:{name:'Argentina',shortName:'Argentina'},score:{fullTime:{home:1,away:2},halfTime:{home:0,away:0},winner:'AWAY_TEAM'},status:'FINISHED',stage:'SEMI_FINALS',group:null,utcDate:'2026-07-15T19:00:00Z'});
 matches=matches.filter(function(x){return !((x.homeTeam&&x.homeTeam.name==='Spain'||x.awayTeam&&x.awayTeam.name==='Spain')&&x.stage==='FINAL');});matches.push({homeTeam:{name:'Spain',shortName:'Spain'},awayTeam:{name:'Argentina',shortName:'Argentina'},score:{fullTime:{home:1,away:0},halfTime:{home:0,away:0},winner:'HOME_TEAM'},status:'FINISHED',stage:'FINAL',group:null,utcDate:'2026-07-19T19:00:00Z'});
 matches=matches.filter(function(x){return !((x.homeTeam&&x.homeTeam.name==='France'||x.awayTeam&&x.awayTeam.name==='France')&&(x.stage==='THIRD_PLACE'||x.stage==='THIRD_PLACE_MATCH'));});matches.push({homeTeam:{name:'France',shortName:'France'},awayTeam:{name:'England',shortName:'England'},score:{fullTime:{home:4,away:6},halfTime:{home:0,away:4},winner:'AWAY_TEAM'},status:'FINISHED',stage:'THIRD_PLACE',group:null,utcDate:'2026-07-18T19:00:00Z'});
