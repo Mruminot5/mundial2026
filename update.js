@@ -1202,7 +1202,6 @@ matches=matches.filter(function(x){return !((x.homeTeam&&x.homeTeam.name==='Fran
 
   // RESULTADOS 16AVOS — usar makeCard si la API ya los tiene, si no mostrar tabla estática
   var finishedKO = finished.filter(function(m){ return !m.group; });
-console.log('DEBUG finishedKO stages:', finishedKO.map(function(m){return (m.homeTeam&&m.homeTeam.name)+'vs'+(m.awayTeam&&m.awayTeam.name)+':'+m.stage+':g='+m.group;}).join('|'));
   // Ordenar ascendente por fecha para mostrar cronológicamente
   var finishedKOAsc = finishedKO.slice().sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var resultados16HTML;
@@ -1658,6 +1657,7 @@ console.log('DEBUG finishedKO stages:', finishedKO.map(function(m){return (m.hom
   // Final box
   var yFIN=TH/2-40;
   var wSFL=sfL1&&sfL2?koWinner(findKO({h:sfL1,a:sfL2}),{h:sfL1,a:sfL2}):null;var wSFR=sfR1&&sfR2?koWinner(findKO({h:sfR1,a:sfR2}),{h:sfR1,a:sfR2}):null;if(wSFL||wSFR){s+=rect(xFIN,yFIN-CH-CG/2,WFIN,CH*2+CG,"#0b1120","#fbbf24");s+=txt(xFIN+5,yFIN-CG/2-4,wSFL?td(wSFL):"?","#fbbf24",10);s+=txt(xFIN+5,yFIN+CH+CG/2-4,wSFR?td(wSFR):"?","#94a3b8",9);}else if(sfL1&&sfR1){s+=rect(xFIN,yFIN,WFIN,70,"#1a1400","#fbbf24");s+=txt(xFIN+WFIN/2,yFIN+14,"FINAL","#fbbf24",9,"middle");s+=txt(xFIN+WFIN/2,yFIN+26,"19 Jul · MetLife","#94a3b8",8,"middle");s+=txt(xFIN+WFIN/2,yFIN+40,td(sfL1)+" vs "+td(sfR1),"#e2e8f0",8,"middle");s+=txt(xFIN+WFIN/2,yFIN+60,"🏆","#fbbf24",14,"middle");}else{s+=rect(xFIN,yFIN,WFIN,70,"#1a2200","#fbbf24",6);
+console.log('DEBUG wSFL='+wSFL+' wSFR='+wSFR+' sfR1='+sfR1+' sfR2='+sfR2+' findResult='+JSON.stringify(finishedKO.find(function(m){var hn=m.homeTeam&&m.homeTeam.name||'';var an=m.awayTeam&&m.awayTeam.name||'';return (hn==='England'&&an==='Argentina')||(hn==='Argentina'&&an==='England');})));
   s+=txt(xFIN+WFIN/2,yFIN+14,"🏆 FINAL","#fbbf24",9,"middle");
   s+=txt(xFIN+WFIN/2,yFIN+26,"19 Jul · MetLife","#64748b",8,"middle");
   s+=txt(xFIN+WFIN/2,yFIN+44,"🏆","#fbbf24",18,"middle");
