@@ -1202,6 +1202,7 @@ matches=matches.filter(function(x){return !((x.homeTeam&&x.homeTeam.name==='Fran
 
   // RESULTADOS 16AVOS — usar makeCard si la API ya los tiene, si no mostrar tabla estática
   var finishedKO = finished.filter(function(m){ return !m.group; });
+console.log('DEBUG finishedKO stages:', finishedKO.map(function(m){return (m.homeTeam&&m.homeTeam.name)+'vs'+(m.awayTeam&&m.awayTeam.name)+':'+m.stage+':g='+m.group;}).join('|'));
   // Ordenar ascendente por fecha para mostrar cronológicamente
   var finishedKOAsc = finishedKO.slice().sort(function(a,b){ return new Date(a.utcDate)-new Date(b.utcDate); });
   var resultados16HTML;
